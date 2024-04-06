@@ -82,7 +82,7 @@
                 </div>
                 @endforeach
             </div>
-            <div class="ten-sp">
+            <!-- <div class="ten-sp">
                 <div class="ten-sp1">
                     <h2 style="padding-left: 115px;">Bánh Hà Nội</h2>
 
@@ -232,7 +232,7 @@
                     <h3>35.000đ</h3>
                 </div>
             </div>
-            <!-- SanPham3 -->
+        
             <div class="ten-sp">
                 <div class="ten-sp1">
                     <h2 style="padding-left: 125px;">Kẹo Hà Nội</h2>
@@ -353,7 +353,7 @@
                     <h3>40.000đ</h3>
                 </div>
 
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- End content -->

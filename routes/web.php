@@ -107,5 +107,10 @@ Route::controller(App\Http\Controllers\User\SanPhamController::class)->group(fun
 });
 Route::controller(App\Http\Controllers\User\CartController::class)->group(function(){
     Route::post('save-cart',  'store')->name('cart_product');
+    Route::get('show_cart',  'show_cart')->name('show_cart');
+    Route::get('delete-to-cart/{rowId}',  'destroy')->name('delete-to-cart');
+    Route::post('update-cart-quantity',  'update')->name('update-cart-quantity');
 });
+
+
 

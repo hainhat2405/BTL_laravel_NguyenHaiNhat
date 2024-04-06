@@ -218,7 +218,7 @@ body{
 
 #info-gioHang{
     height: auto;
-    width: 45%;
+    width: 60%;
     margin-left: 10%;
     margin-top: 20px;
     float: left;
@@ -272,7 +272,7 @@ body{
     color: white;
 }
 .tbl1{
-    width: 30%;
+    width: 20%;
     
 }
 
@@ -297,7 +297,7 @@ body{
 }
 
 .tbl3{
-    width: 30%;
+    width: 20%;
     
 }
 
@@ -319,13 +319,15 @@ body{
 .tbl4{
     width: 10%;
     
-    padding-left: 20px;
+    /* padding-left: 20px; */
     
 }
 .tbl5{
-    width: 10%;
+    width: 20%;
     
-    padding-left: 30px;
+}
+.tbl6{
+    width: 5%;
 }
 
 .tr2{
@@ -340,18 +342,19 @@ body{
 
 /* thông tin đơn hàng */
 .ttdh{
-    width: 25%;
+    width: 20%;
     height: 250px;
-    margin-right: 15%;
+    margin-right: 5%;
     float: right;
     padding-top: 10px;
+    /* margin-left: 60px; */
 }
 
 .Information.line{
     width: 100%;
     height: 80%;
 }
-
+tbl3
 .Information.line span{
     font-size: 20px;
     color: rgb(230, 33, 23);
@@ -363,6 +366,22 @@ body{
     line-height: 2.5em;
     font-weight: 500;
 
+}
+
+.info_prodcut{
+    width: 100%;
+    height: 23%;
+    display: block;
+}
+.info_prodcut h2{
+    padding-top: 10px;
+    float: left;
+}
+.info_prodcut h3{
+    padding-top: 10px;
+    float: right;
+    padding-top: 13px;
+    /* font-size: 18px; */
 }
 
 .thanhToan{

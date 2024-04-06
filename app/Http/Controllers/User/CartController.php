@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use DB;
 use Session;
 use App\Http\Requests;
-use Illuminate\Support\Facade\Redirect;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
+use Cart;
+
 
 class CartController extends Controller
 {
@@ -40,10 +43,26 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        
         $idSP = $request->idSP_hidden;
         $sl = $request->soLuong;
-        $data = DB::table('sanpham')->where('idSanPham',$idSP)->get();
+        $product_info = DB::table('sanpham')->where('idSanPham',$idSP)->first();
+        // Cart::add('293ad', 'Product 1', 1, 9.99, 550);
+
+
+        $data['id'] = $product_info->idSanPham;
+        $data['qty'] = $sl;
+        $data['name'] = $product_info->tenSanPham;
+        $data['price'] = $product_info->giaBan;
+        $data['weight'] = '123';
+        $data['options']['image'] = $product_info->hinhAnh;
+        Cart::add($data);
+        // Cart::destroy();
+        return Redirect::to('/show_cart');
+        
+    }
+    public function show_cart(){
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
         return view('User.gioHang',compact('lsp'));
     }
 
@@ -76,9 +95,14 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rowId = $request->rowId_cart;
+        $qty = $request->cart_quantity;
+    
+        Cart::update($rowId, $qty);
+    
+        return redirect('/show_cart'); // Sử dụng hàm redirect() thay vì Redirect::to()
     }
 
     /**
@@ -87,8 +111,9 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($rowId)
     {
-        //
+        Cart::update($rowId, 0); // Will update the quantity
+        return Redirect::to('/show_cart');
     }
 }

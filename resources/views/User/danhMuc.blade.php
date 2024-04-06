@@ -48,7 +48,7 @@
                 <div class="content_sp">
                 @foreach($id_LSP as $product)
                     <div class="sanPham">
-                        <a href="{{ route('sanPham') }}"><img class="img_SP" src="/img/{{$product->hinhAnh}}" alt="Bánh Cốm Hà Nội" ></a>
+                        <a href="{{ URL::to('/chi-tiet-san-pham/'.$product->idSanPham) }}"><img class="img_SP" src="/img/{{$product->hinhAnh}}" alt="Bánh Cốm Hà Nội" ></a>
                         <h4>{{$product->tenSanPham}}</h4>
                         <i>Đánh giá:
                             <span>

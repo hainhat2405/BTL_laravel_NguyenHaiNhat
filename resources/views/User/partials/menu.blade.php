@@ -25,6 +25,6 @@
             <i style="padding: 15px 25px;color: white;" class="fa fa-search"></i>
         </div>
         <div id="giohang">
-            <a href="GioHang.html"><i class="fa fa-shopping-cart" style="font-size:14px;"></i>Giỏ hàng</a>
+            <a href="{{route('gioHang')}}"><i class="fa fa-shopping-cart" style="font-size:14px;"></i>Giỏ hàng</a>
         </div>
     </div>
