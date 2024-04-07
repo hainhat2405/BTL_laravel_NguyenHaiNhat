@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\LSPModel;
+use App\Models\Admin\LoginModel;
+use DB;
+use App\Http\Requests;
+use Session;
+use Illuminate\Support\Facades\Redirect;
+session_start();
 
 class AdminController extends Controller
 {
@@ -116,5 +122,24 @@ class AdminController extends Controller
         $lsp = LSPModel::find($idLoaiSP);
         $lsp->delete();
         return redirect()->route('index')->with('success', 'Xóa thành công');
+    }
+    public function show_dashboard(Request $request ){
+        $admin_email = $request->admin_email;
+        $admin_password = $request->admin_password;
+
+        $result = DB::table('tbl_admin')->where('email',$admin_email)->where('password',$admin_password)->first();
+        if($result==true){
+            Session::put('name',$result->name);
+            Session::put('id',$result->id);
+            return Redirect::to('/index');
+        }
+        else{
+            Session::put('message','Email hoặc password sai');
+            return Redirect::to('/login');
+
+        }
+    }
+    public function log_out(){
+        return view("login");
     }
 }

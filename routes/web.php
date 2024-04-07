@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin', function () {
-    return view('Admin.darkboard');
-})->name('admin');
+// Route::get('/admin', function () {
+//     return view('Admin.dashboard');
+// })->name('admin');
+
+Route::get('/login', function(){
+    return view('Login');
+});
 
 
 
@@ -29,6 +33,9 @@ Route::controller(App\Http\Controllers\Admin\AdminController::class)->group(func
     Route::get('/destroy/{idLoaiSP}', 'destroy')->name('destroy');
     Route::get('/show/{idLoaiSP}', 'show')->name('detail');
     Route::put('/update/{idLoaiSP}', 'update')->name('update');
+    Route::post('/admin-dashboard', 'show_dashboard')->name('admin-dashboard');
+    Route::get('/logout', 'log_out')->name('logout');
+
 });
 
 
