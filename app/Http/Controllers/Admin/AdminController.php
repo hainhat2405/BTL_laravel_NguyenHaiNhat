@@ -123,6 +123,7 @@ class AdminController extends Controller
         $lsp->delete();
         return redirect()->route('index')->with('success', 'Xóa thành công');
     }
+
     public function show_dashboard(Request $request ){
         $admin_email = $request->admin_email;
         $admin_password = $request->admin_password;
@@ -139,7 +140,8 @@ class AdminController extends Controller
 
         }
     }
-    public function log_out(){
-        return view("login");
-    }
+
+    // public function log_out(){
+    //     return view("User.Login_User");
+    // }
 }

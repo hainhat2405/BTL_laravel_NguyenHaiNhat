@@ -127,7 +127,7 @@
             </div>
             <div class="thanhToan">
                 <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
-                <a href="ThanhToan.html">Thanh toán</a>
+                <a href="{{URL::to('/checkout')}}">Thanh toán</a>
             </div>
 
         </div>

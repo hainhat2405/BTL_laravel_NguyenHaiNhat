@@ -10,9 +10,31 @@
             <li><a href="{{ route('tinTuc') }}">Tin tức đặc sản</a></li>
             <li><a href="#">Liên hệ</a></li>
         </ul>
-        <div style="padding: 10px;" class="icon-dathang">
+        <div style="padding: 35px;" class="icon-dathang">
+            <!-- <i style="font-size: 40px;float: left;color: rgb(96, 177, 38);margin-right: 10px;margin-top: 20px;"class="fa-solid fa-headset"></i> -->
+            <?php
+                $customer_id = Session::get('customer_id');
+                if($customer_id !=NULL){
+                    ?>
+                    <a href="{{URL::to('/login-Customers')}}" style="text-decoration: none;font-size: 20px;display:inline;color: black;margin-top: 50px;margin-right:30px">Đăng nhập</a>
+                    <?php
+                
+                }else{
+                    ?>
+                    <a href="{{URL::to('/login-Customers')}}" style="text-decoration: none;font-size: 20px;display:inline;color: black;margin-top: 50px;margin-right:30px">Đăng xuất</a>
+                    <?php
+                }
+            ?>
+            
+            
+            <!-- <span>Đăng nhập</span> -->
+        </div>
+        <!-- <div style="padding: 10px;" class="icon-dathang">
             <i style="font-size: 40px;float: left;color: rgb(96, 177, 38);margin-right: 10px;margin-top: 20px;"class="fa-solid fa-headset"></i>
             <strong style="display:block;color: rgb(96, 177, 38);margin-top: 20px;">Đặt hàng</strong>
-            <span>0835286779</span>
-        </div>
+            <span>Đăng nhập</span>
+        </div> -->
+        <!-- <div id="user_login">
+            <a href="{{route('gioHang')}}"><i class="fa fa-shopping-cart" style="font-size:14px;"></i>Giỏ hàng</a>
+        </div> -->
     </div>

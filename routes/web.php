@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 // })->name('admin');
 
 Route::get('/login', function(){
-    return view('Login');
+    return view('Admin.Login_Admin');
 });
 
 
@@ -34,7 +34,7 @@ Route::controller(App\Http\Controllers\Admin\AdminController::class)->group(func
     Route::get('/show/{idLoaiSP}', 'show')->name('detail');
     Route::put('/update/{idLoaiSP}', 'update')->name('update');
     Route::post('/admin-dashboard', 'show_dashboard')->name('admin-dashboard');
-    Route::get('/logout', 'log_out')->name('logout');
+    // Route::get('/logout', 'log_out')->name('logout');
 
 });
 
@@ -103,21 +103,36 @@ Route::controller(App\Http\Controllers\User\HomeController::class)->group(functi
 
 // danh mục sản phẩm
 Route::controller(App\Http\Controllers\User\LSPhamController::class)->group(function(){
-    Route::get('danh-muc/{idLoaiSP}',  'show_category_home')->name('index_detailSP');
+    Route::get('/danh-muc/{idLoaiSP}',  'show_category_home')->name('index_detailSP');
 });
 
 
 
 //
 Route::controller(App\Http\Controllers\User\SanPhamController::class)->group(function(){
-    Route::get('chi-tiet-san-pham/{idSanPham}',  'show')->name('detail_procduct');
+    Route::get('/chi-tiet-san-pham/{idSanPham}',  'show')->name('detail_procduct');
 });
+
 Route::controller(App\Http\Controllers\User\CartController::class)->group(function(){
-    Route::post('save-cart',  'store')->name('cart_product');
-    Route::get('show_cart',  'show_cart')->name('show_cart');
-    Route::get('delete-to-cart/{rowId}',  'destroy')->name('delete-to-cart');
-    Route::post('update-cart-quantity',  'update')->name('update-cart-quantity');
+    Route::post('/save-cart',  'store')->name('cart_product');
+    Route::get('/show_cart',  'show_cart')->name('show_cart');
+    Route::get('/delete-to-cart/{rowId}',  'destroy')->name('delete-to-cart');
+    Route::post('/update-cart-quantity',  'update')->name('update-cart-quantity');
 });
+
+// Route::post('/login-Customers', function(){
+//     return view('User.Login_Customers');
+// });
+Route::controller(App\Http\Controllers\User\CheckoutController::class)->group(function(){
+    Route::get('login-Customers',  'login_Customers')->name('login-Customers');
+    Route::post('/add-customer',  'add_customer')->name('add-customer');
+    Route::get('/register-customer',  'register_customer')->name('register-customer');
+    Route::post('/checkout',  'checkout')->name('checkout');
+    Route::post('/save-checkout-customer',  'save_checkout_customer')->name('save-checkout-customer');
+    Route::post('/show-home',  'show_home')->name('show-home');
+    Route::post('/payment',  'payment')->name('payment');
+});
+
 
 
 
