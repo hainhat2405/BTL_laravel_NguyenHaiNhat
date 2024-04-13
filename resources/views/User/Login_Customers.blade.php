@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="css/Login.css" />
+    <link rel="stylesheet" href="css/TrangChu.css" />
     <!-- font roboto -->
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
@@ -14,6 +15,14 @@
   </head>
   <body>
     <!-- from login -->
+    <!-- Begin header -->
+    @include('User.partials.header')
+    <!-- End header -->
+
+     <!-- Begin menu -->
+     @include('User.partials.menu')
+    <!-- End menu -->
+
     <div class="login">
       <div class="login__container">
         
@@ -25,7 +34,7 @@
             Session::put('message',null);
           }
         ?>
-        <form action="{{URL::to('/checkout')}}" method="POST">
+        <form action="{{URL::to('/show-home')}}" method="POST">
         
           {{csrf_field()}}
           <h5>Email</h5>
@@ -42,6 +51,16 @@
         
       </div>
     </div>
+
+    <!-- Begin footer -->
+    @include('User.partials.footer')
+    <!-- <script src="js/SanPham.js"></script>
+    <script>
+
+        showgiohang1();
+        showgiohang();
+    </script> -->
+    <!-- End footer -->
   </body>
   <!-- <script src="resources/js/login.js"></script> -->
 </html>

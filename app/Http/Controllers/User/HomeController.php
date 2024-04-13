@@ -10,6 +10,7 @@ use DB;
 use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facade\Redirect;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -57,6 +58,12 @@ class HomeController extends Controller
         $sp = SanPhamModel::all();
         $lsp = LoaiSanPhamModel::all();
         return view('User.ttkh',compact('sp', 'lsp'));
+    }
+    public function search_product(Request $request){
+        $keywords = Str::ascii($request->keywords_submit);
+        $search_product = DB::table('sanpham')->where('tenSanPham', 'like','%'.$keywords.'%')->get();
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        return view('User.partials.search-product',compact('search_product', 'lsp'));
     }
 
 }

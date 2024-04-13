@@ -11,6 +11,10 @@
     <title> Thanh Toán</title>
 </head>
 <body>
+    <?php
+        echo Session::get('Customer_id');
+        echo Session::get('Shipping_id');
+    ?>
     <!-- Begin header -->
     @include('User.partials.header')
     <!-- End header -->
@@ -37,6 +41,7 @@
         <p style="padding-left:150px">Vui lòng đăng nhập hoặc đăng ký để thanh toán giỏ hàng và xem lại lịch sử mua hàng</p>
         <div id="ttkh">
             <form action="{{URL::to('/save-checkout-customer')}}" method="post">
+            {{csrf_field()}}
                 <div class="gioiThieu-DMSP">
                     <h3 class="h3">
                         <span>Danh mục sản phẩm</span>
@@ -126,25 +131,7 @@
                         </tr>
 
                         <tbody id="mycart2">
-                            <!-- <tr class="tr2">
-                                <td class="tbl1" >
-                                    <img src="img/banhcom.jpg" alt="">
-                                </td>
-                                <td class="tbl2">
-                                    <div class="tbl2-info">
-                                    <a href="SanPham.html" title="Bánh Cốm Hà Nội" style="font-size: 18px;text-decoration: none;color: rgb(224, 12, 61);">Bánh Cốm Hà Nội</a><br><br>
-                                    <strong style="font-size: 18px;">x2</strong><br><br>
-                                    <span style="color: rgb(224, 12, 61);font-size: 18px;">Loại:</span>
-                                    </div>
-                                </td>
-                                <td class="tbl3"> <span style="color: rgb(224, 12, 61);font-size: 18px;">8.000 đ</span>
-                                </td>
-                            </tr>
-                            <tr class="tr3">
-                                <td class="tbl4"><span style="font-size: 18px;">Tổng tiền</span></td>
-                                <td class="tbl5"></td>
-                                <td class="tbl6">16.000 đ</td>
-                            </tr> -->
+                            
                         </tbody>
                     </table>
                 </form>
@@ -157,3 +144,4 @@
 
 </body>
 </html>
+

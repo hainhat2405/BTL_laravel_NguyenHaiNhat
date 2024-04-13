@@ -47,7 +47,7 @@
             </div>
             
             
-               <table class="tbl-main">
+                <table class="tbl-main">
                     <tr class="tr1">
                         <th class="tbl1">Ảnh</th>
                         <th class="tbl2">Sản Phẩm</th>
@@ -127,7 +127,23 @@
             </div>
             <div class="thanhToan">
                 <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
-                <a href="{{URL::to('/checkout')}}">Thanh toán</a>
+                <?php
+                    $customer_id = Session::get('Customer_id');
+                    $shipping_id = Session::get('Shipping_id');
+                    if($customer_id !=NULL && $shipping_id ==NULL){
+                        ?>
+                            <a href="{{URL::to('/checkout')}}">Thanh toán</a>
+                        <?php
+                    }elseif($customer_id !=NULL && $shipping_id !=NULL){
+                        ?>
+                            <a href="{{URL::to('/payment')}}">Thanh toán</a>
+                        <?php
+                    }else{
+                        ?>
+                            <a href="{{URL::to('/login-Customers')}}">Thanh toán</a>
+                        <?php
+                    }
+                ?>
             </div>
 
         </div>

@@ -13,15 +13,16 @@
         <div style="padding: 35px;" class="icon-dathang">
             <!-- <i style="font-size: 40px;float: left;color: rgb(96, 177, 38);margin-right: 10px;margin-top: 20px;"class="fa-solid fa-headset"></i> -->
             <?php
-                $customer_id = Session::get('customer_id');
+                $customer_id = Session::get('Customer_id');
                 if($customer_id !=NULL){
+                    
                     ?>
-                    <a href="{{URL::to('/login-Customers')}}" style="text-decoration: none;font-size: 20px;display:inline;color: black;margin-top: 50px;margin-right:30px">Đăng nhập</a>
+                    <a href="{{URL::to('/logout-Customers')}}" style="text-decoration: none;font-size: 20px;display:inline;color: black;margin-top: 50px;margin-right:30px">Đăng xuất</a>
                     <?php
                 
                 }else{
                     ?>
-                    <a href="{{URL::to('/login-Customers')}}" style="text-decoration: none;font-size: 20px;display:inline;color: black;margin-top: 50px;margin-right:30px">Đăng xuất</a>
+                    <a href="{{URL::to('/logout-Customers')}}" style="text-decoration: none;font-size: 20px;display:inline;color: black;margin-top: 50px;margin-right:30px">Đăng nhập</a>
                     <?php
                 }
             ?>

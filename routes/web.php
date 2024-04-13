@@ -98,7 +98,9 @@ Route::controller(App\Http\Controllers\User\HomeController::class)->group(functi
     Route::get('/SanPhamSauGion',  'sanPhamSauGion')->name('sanPhamSauGion');
     Route::get('/GioHang',  'gioHang')->name('gioHang');
     Route::get('/ThanhToan',  'thanhToan')->name('thanhToan');
-    Route::get('/TTKH',  'ttkh')->name('ttkh');
+    // Route::get('/TTKH',  'ttkh')->name('ttkh');
+    Route::post('/search-product',  'search_product')->name('search-product');
+
 });
 
 // danh mục sản phẩm
@@ -125,9 +127,11 @@ Route::controller(App\Http\Controllers\User\CartController::class)->group(functi
 // });
 Route::controller(App\Http\Controllers\User\CheckoutController::class)->group(function(){
     Route::get('login-Customers',  'login_Customers')->name('login-Customers');
+    Route::get('logout-Customers',  'logout_Customers')->name('logout-Customers');
     Route::post('/add-customer',  'add_customer')->name('add-customer');
     Route::get('/register-customer',  'register_customer')->name('register-customer');
-    Route::post('/checkout',  'checkout')->name('checkout');
+    Route::get('/checkout',  'checkout')->name('checkout');
+    Route::get('/payment',  'payment')->name('payment');
     Route::post('/save-checkout-customer',  'save_checkout_customer')->name('save-checkout-customer');
     Route::post('/show-home',  'show_home')->name('show-home');
     Route::post('/payment',  'payment')->name('payment');

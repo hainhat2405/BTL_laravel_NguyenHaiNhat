@@ -18,12 +18,16 @@
         </div>
         <div id="search">
             <div id="search-1">
-                <input type="search" name="src" id="src" style="width:100%;height: 100%;padding: 0.375rem 0.75rem;" placeholder="Tìm Kiếm Sản Phẩm" >
+                <form action="{{URL::to('/search-product')}}" method="post">
+                    {{csrf_field()}}
+                    <input type="search" name="keywords_submit" id="src" style="width:80%;height: 100%;padding: 0.375rem 0.75rem;" placeholder="Tìm Kiếm Sản Phẩm" >
+                    <input type="submit" style="width:20%;height: 100%;padding: 0.375rem 0.75rem;float:right" value="Tìm kiếm">
+                </form>
             </div>
         </div>
-        <div id="icon-search">
-            <i style="padding: 15px 25px;color: white;" class="fa fa-search"></i>
-        </div>
+        <!-- <div id="icon-search">
+            
+        </div> -->
         <div id="giohang">
             <a href="{{route('gioHang')}}"><i class="fa fa-shopping-cart" style="font-size:14px;"></i>Giỏ hàng</a>
         </div>
