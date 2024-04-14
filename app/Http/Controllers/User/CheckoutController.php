@@ -59,15 +59,58 @@ class CheckoutController extends Controller
         return view("User.thanhToan",compact('lsp'));
     }
     public function save_checkout_customer(Request $request){
+        
+        // $data = array();
+        // $data['Shipping_name'] = $request->Shipping_name;
+        // $data['Shipping_email'] = $request->Shipping_email;
+        // $data['Shipping_phone'] = $request->Shipping_phone;
+        // $data['Shipping_notes'] = $request->Shipping_notes;
+        // $data['Shipping_address'] = $request->Shipping_address;
+        // $Shipping_id = DB::table('tbl_shipping')->insertGetId($data);
+        // Session::put('Shipping_id',$Shipping_id);
         $data = array();
-        $data['Shipping_name'] = $request->Shipping_name;
-        $data['Shipping_email'] = $request->Shipping_email;
-        $data['Shipping_phone'] = $request->Shipping_phone;
-        $data['Shipping_notes'] = $request->Shipping_notes;
-        $data['Shipping_address'] = $request->Shipping_address;
-        $Shipping_id = DB::table('tbl_shipping')->insertGetId($data);
-        Session::put('Shipping_id',$Shipping_id);
-        return Redirect::to('/payment');
+        $data['tenKhachHang'] = $request->tenKhachHang;
+        $data['soDienThoai'] = $request->soDienThoai;
+        $data['diaChi'] = $request->diaChi;
+        $data['email'] = $request->email;
+        $data['ngaySinh'] = $request->ngaySinh;
+        $Shipping_id = DB::table('khachhang')->insertGetId($data);
+        Session::put('idKhachHang',$Shipping_id);
+
+        //get payment_method
+        $data_payment = array();
+        $data_payment['payment_method'] = $request->payment_option;
+        $data_payment['payment_status'] = "Dang cho xu ly";
+        $payment_id = DB::table('tbl_payment')->insertGetId($data_payment);
+
+        //insert order
+        $data_order = array();
+        $data_order['Customer_id'] = Session::get('Customer_id');
+        $data_order['Shipping_id'] = Session::get('Shipping_id');
+        $data_order['payment_id'] = $payment_id;
+        $data_order['order_total'] = Cart::total();
+        $data_order['order_status'] = "Dang cho xu ly";
+        $order_id = DB::table('tbl_order')->insertGetId($data_order);
+
+        $content = Cart::content();
+        //insert order_detail
+        foreach($content as $v_content){
+            $data_order_detail = array();
+            $data_order_detail['order_id'] = $order_id;
+            $data_order_detail['idSanPham'] = $v_content->id;
+            $data_order_detail['tenSanPham'] = $v_content->name;
+            $data_order_detail['giaBan'] = $v_content->price;
+            $data_order_detail['product_sales_quantity'] = $v_content->qty;
+            $order_detail_id = DB::table('tbl_order_detail')->insert($data_order_detail);
+        }
+        if($data_payment['payment_method']==1){
+            return Redirect::to('/payment');
+        }
+        else{
+            return Redirect::to('/payment');
+        }
+        
+        //return Redirect::to('/payment');
     }
     public function payment(){
         $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();

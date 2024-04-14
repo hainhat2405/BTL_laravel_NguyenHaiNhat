@@ -11,10 +11,7 @@
     <title> Thanh Toán</title>
 </head>
 <body>
-    <?php
-        echo Session::get('Customer_id');
-        echo Session::get('Shipping_id');
-    ?>
+
     <!-- Begin header -->
     @include('User.partials.header')
     <!-- End header -->
@@ -53,7 +50,7 @@
                         <span>
                             <i class="fa fa-address-card"></i>
                         </span>
-                        <input type="text" name="Shipping_name" id="txtnamekh" placeholder="Họ và tên" onblur="chkname()">
+                        <input type="text" name="tenKhachHang" id="txtnamekh" placeholder="Họ và tên" onblur="chkname()">
                         <span id="chkName" style="color: red;display: inline;"></span>
 
                     </div>
@@ -62,7 +59,7 @@
                         <span>
                             <i class="fa fa-phone"></i>
                         </span>
-                        <input type="text" name="Shipping_phone" id="txtsdtkh" placeholder="Số điện thoại" onblur="chksdt()">
+                        <input type="text" name="soDienThoai" id="txtsdtkh" placeholder="Số điện thoại" onblur="chksdt()">
                         <span id="chkSdt" style="color: red;display: inline;"></span>
                     </div>
                 </div>
@@ -72,7 +69,7 @@
                         <span>
                             <i class="fa fa-envelope-open"></i>
                         </span>
-                        <input type="email" name="Shipping_email" id="txtemailkh" placeholder="Nhập chính xác Email để kiểm tra đơn hàng" onblur="chkemail()">
+                        <input type="email" name="email" id="txtemailkh" placeholder="Nhập chính xác Email để kiểm tra đơn hàng" onblur="chkemail()">
                         <span id="chkEmail" style="color: red;display: inline;"></span>
                     </div>
                 </div>
@@ -82,7 +79,7 @@
                         <span>
                             <i class="fa fa-map-marker"></i>
                         </span>
-                        <input type="text" name="Shipping_address" id="txtsonha" placeholder="Vui lòng điền số nhà, đường tránh trường hợp đơn hàng bị hủy ngoài ý muốn" onblur="chksonha()">
+                        <input type="text" name="diaChi" id="txtsonha" placeholder="Vui lòng điền số nhà, đường tránh trường hợp đơn hàng bị hủy ngoài ý muốn" onblur="chksonha()">
                         <span id="chkSonha" style="color: red;display: inline;"></span>
                     </div>
                 </div>
@@ -93,22 +90,23 @@
                         <span>
                             <i class="fa fa-comments"></i>
                         </span>
-                        <textarea name="Shipping_notes" id="txta" rows="4" placeholder="Ví dụ: lưu ý khi giao hàng." style="background: #FBFBFC;"></textarea>
+                        <input type="date" name="ngaySinh" id="txtsonha" placeholder="ngay sinh" onblur="chksonha()">
                     </div>
                 </div>
                 <div class="ttkh6">
-                    <div class="chkTt">
-                        <div class="check">
-                            <input type="radio" id="chk-sknh" name="chk1" checked>
+                        
+                        <div class="chkTt">
+                            <div class="check">
+                                <input type="radio" id="chk-sknh" name="chk1" checked>
+                            </div>
+                            <input type="text" name="payment_option" id="txtTt" value="1">
                         </div>
-                        <input type="text" name="txtTt" id="txtTt" value="Thanh toán sau khi nhận hàng">
-                    </div>
-                    <div class="chkTt" style="margin-top: 10px;">
-                        <div class="check">
-                            <input type="radio" id="chk-sknh" name="chk1">
+                        <div class="chkTt" style="margin-top: 10px;">
+                            <div class="check">
+                                <input type="radio" id="chk-sknh" name="chk1">
+                            </div>
+                            <input type="text" name="payment_option" id="txtsonha" value="2">
                         </div>
-                        <input type="text" name="txtsonha" id="txtsonha" value="Chuyển khoản ngân hàng">
-                    </div>
                 </div>
 
                 <input type="submit" class="dongy"  onclick="dongydathang()" style="color:white;font-size: 20px;" value="Hoàn tất đơn hàng">
@@ -127,12 +125,32 @@
                         <tr class="tr1">
                             <th class="tbl1">Ảnh</th>
                             <th class="tbl2">Sản Phẩm</th>
+                            <th class="tbl3">Số lượng</th>
                             <th class="tbl3">Giá</th>
+                            <th class="tbl3">Tổng tiền</th>
                         </tr>
-
+                        <?php
+                            $content = Cart::content();
+                            // echo '<pre>';
+                            // print_r($content);
+                            // echo '</pre>';
+                        ?>
+                        
+                        @foreach($content as $v_content)
                         <tbody id="mycart2">
+                            <td class="tbl1"><img style="width:100%" src="/img/{{$v_content->options->image}}" alt=""></td>
+                            <td style="color:black;text-align: center;" class="tbl2">{{$v_content->name}}</td>
+                            <td style="color:black;text-align: center;" class="tbl3">{{$v_content->qty}}</td>
+                            <td style="color:black;text-align: center;" class="tbl4">{{number_format($v_content->price).' ' .'VNĐ'}}</td>
+                            <td style="color:black;text-align: center;" class="tbl5">
+                                <?php
+                                    $subtotal = $v_content->price * $v_content->qty;
+                                    echo number_format($subtotal) . " " . "VNĐ";
+                                ?>
+                            </td>
                             
                         </tbody>
+                        @endforeach
                     </table>
                 </form>
             </div>

@@ -30,72 +30,64 @@
             </span>
         </div>
     </div>
-
-     <!-- Begin content -->
-    <div id="container1">
-        <h1>Giỏ hàng</h1>
-        <?php
+    <?php
             $content = Cart::content();
             // echo '<pre>';
             // print_r($content);
             // echo '</pre>';
         ?>
-        <div id="info-gioHang">
-            <div class="ttmuahang">
-                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
-                <a href="SanPham.html" style="color: white;">Tiếp tục mua hàng</a>
-            </div>
-            
-            
-                <table class="tbl-main">
-                    <tr class="tr1">
-                        <th class="tbl1">Ảnh</th>
-                        <th class="tbl2">Sản Phẩm</th>
-                        <th class="tbl3">Số Lượng</th>
-                        <th class="tbl4">Giá</th>
-                        <th class="tbl5">Tổng tiền</th>
-                        <th class="tbl6">Xóa</th>
-                    </tr>
-                    @foreach($content as $v_content)
-                    <tbody id="mycart" >
-                        <th class="tbl1"><img src="/img/{{$v_content->options->image}}" alt=""></th>
-                        <th class="tbl2">{{$v_content->name}}</th>
-                        <th class="tbl3">
-                            <form action="{{URL::to('/update-cart-quantity')}}" method="POST">
-                                {{csrf_field()}}
-                                <input type="text" style="width:50px;text-align: center;" name="cart_quantity" value="{{$v_content->qty}}">
-                                <input type="hidden" value="{{$v_content->rowId}}" name="rowId_cart">
-                                <input type="submit" value="Cập nhật" name="update_qty">
-                            </form>
-                        </th>
-                        <th class="tbl4">{{number_format($v_content->price).' ' .'VNĐ'}}</th>
-                        <th class="tbl5">
-                            <?php
-                                $subtotal = $v_content->price * $v_content->qty;
-                                echo number_format($subtotal) . " " . "VNĐ";
-                            ?>
-                        </th>
-                        <th class="tbl6">
-                            <a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}">Xóa</a>
-                        </th>
-                    </tbody>
-                    @endforeach
-                    <!-- <script>showgiohang();</script>
-                    <tbody id="mycart111" >
 
-                    </tbody>
-                    <script>showgiohang1();</script> -->
+     <!-- Begin content -->
+     <?php
+if(count($content) > 0){
+?>
+<div id="container1">
+    <h1>Giỏ hàng</h1>
 
-               </table>
-
-            
-            <!-- <div class="capnhat">
-                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
-                <a href="{{ route('thanhToan') }}"style="color: white;" >Thanh Toán</a>
-            </div> -->
-
+    <div id="info-gioHang">
+        <div class="ttmuahang">
+            <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
+            <a href="SanPham.html" style="color: white;">Tiếp tục mua hàng</a>
         </div>
-        <div class="ttdh">
+
+        <table class="tbl-main">
+            <tr class="tr1">
+                <th class="tbl1">Ảnh</th>
+                <th class="tbl2">Sản Phẩm</th>
+                <th class="tbl3">Số Lượng</th>
+                <th class="tbl4">Giá</th>
+                <th class="tbl5">Tổng tiền</th>
+                <th class="tbl6">Xóa</th>
+            </tr>
+            <?php foreach($content as $v_content){ ?>
+            <tbody id="mycart">
+                <th class="tbl1"><img src="/img/<?php echo $v_content->options->image; ?>" alt=""></th>
+                <th class="tbl2"><?php echo $v_content->name; ?></th>
+                <th class="tbl3">
+                    <form action="{{URL::to('/update-cart-quantity')}}" method="POST">
+                        {{csrf_field()}}
+                        <input type="text" style="width:50px;text-align: center;" name="cart_quantity" value="<?php echo $v_content->qty; ?>">
+                        <input type="hidden" value="<?php echo $v_content->rowId; ?>" name="rowId_cart">
+                        <input type="submit" value="Cập nhật" name="update_qty">
+                    </form>
+                </th>
+                <th class="tbl4"><?php echo number_format($v_content->price).' ' .'VNĐ'; ?></th>
+                <th class="tbl5">
+                    <?php
+                        $subtotal = $v_content->price * $v_content->qty;
+                        echo number_format($subtotal) . " " . "VNĐ";
+                    ?>
+                </th>
+                <th class="tbl6">
+                    <a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}">Xóa</a>
+                </th>
+            </tbody>
+            <?php } ?>
+        </table>
+
+        
+    </div>
+    <div class="ttdh">
             <div class="Information line">
                 <div class="info_product">
                     <h3 class="h3">
@@ -106,23 +98,14 @@
                 <div class="info_prodcut">
                     <h2 style="">Tổng tiền:</h2>
                     <h3 style="">{{Cart::subtotal() . ' ' . 'VNĐ'}}</h3>
-                    <!-- <p style=""></p>
-                    <p style=""></p><p>Giảm giá:</p>
-                    <p style=""></p><p>Tổng số tiền thanh toán:</p><h3>{{Cart::total() . ' ' . 'VNĐ'}}</h3> -->
                 </div>
                 <div class="info_prodcut">
                     <h2 style="">Giảm giá:</h2>
                     <h3 style=""></h3>
-                    <!-- <p style=""></p>
-                    <p style=""></p><p>Giảm giá:</p>
-                    <p style=""></p><p>Tổng số tiền thanh toán:</p><h3>{{Cart::total() . ' ' . 'VNĐ'}}</h3> -->
                 </div>
                 <div class="info_prodcut">
                     <h2 style="">Thành tiền:</h2>
                     <h3 style="">{{Cart::subtotal() . ' ' . 'VNĐ'}}</h3>
-                    <!-- <p style=""></p>
-                    <p style=""></p><p>Giảm giá:</p>
-                    <p style=""></p><p>Tổng số tiền thanh toán:</p><h3>{{Cart::total() . ' ' . 'VNĐ'}}</h3> -->
                 </div>
             </div>
             <div class="thanhToan">
@@ -130,25 +113,32 @@
                 <?php
                     $customer_id = Session::get('Customer_id');
                     $shipping_id = Session::get('Shipping_id');
-                    if($customer_id !=NULL && $shipping_id ==NULL){
+                    if($customer_id !=NULL && $shipping_id !=NULL){
                         ?>
                             <a href="{{URL::to('/checkout')}}">Thanh toán</a>
                         <?php
-                    }elseif($customer_id !=NULL && $shipping_id !=NULL){
-                        ?>
-                            <a href="{{URL::to('/payment')}}">Thanh toán</a>
-                        <?php
-                    }else{
+                    }
+                    else{
                         ?>
                             <a href="{{URL::to('/login-Customers')}}">Thanh toán</a>
                         <?php
                     }
                 ?>
             </div>
-
         </div>
-    </div>
+</div>
+<?php
+}
+else{
+?>  
+<h1 style="text-align: center;">Không có sản phẩm <a href="{{URL::to('/home')}}" style="text-align: center;">Mua ngay</a></h1>
 
+<?php
+}
+?>
+
+<!-- elseif($customer_id !=NULL && $shipping_id !=NULL){
+                        ?><a href="{{URL::to('/payment')}}">Thanh toán</a>} -->
     <!-- Begin footer -->
     @include('User.partials.footer')
     <!-- <script src="js/SanPham.js"></script>

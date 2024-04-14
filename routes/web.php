@@ -86,6 +86,16 @@ Route::controller(App\Http\Controllers\Admin\HoaDonBanController::class)->group(
     Route::put('/updateNCC/{idNhaCungCap}', 'update')->name('updateNCC');
     Route::get('/destroyNCC/{idNhaCungCap}', 'destroy')->name('destroyNCC');
 });
+Route::controller(App\Http\Controllers\Admin\Manage_orderController::class)->group(function(){
+    Route::get('/manage_order','index')->name('index_manage');
+    Route::get('/view-order/{order_id}','show')->name('view-order');
+    // Route::get('/addNCC','create')->name('addNCC');
+    // Route::post('/storeNCC','store')->name('storeNCC');
+    // Route::get('/showNCC/{idNhaCungCap}','show')->name('detailNCC');
+    // Route::get('/editNCC/{idNhaCungCap}','edit')->name('editNCC');
+    // Route::put('/updateNCC/{idNhaCungCap}', 'update')->name('updateNCC');
+    // Route::get('/destroyNCC/{idNhaCungCap}', 'destroy')->name('destroyNCC');
+});
 
 //USER
 Route::controller(App\Http\Controllers\User\HomeController::class)->group(function(){

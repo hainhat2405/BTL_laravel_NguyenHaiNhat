@@ -35,7 +35,7 @@
     <div id="container">
         <h1>Bạn đã đặt hàng thàng công</h1>
         <div id="infokh">
-
+            
         </div>
 
         <div class="donhang">
@@ -45,33 +45,37 @@
             </h3>
             <form action="" method="POST" class="form-group">
                 <table class="tbl-main">
-                     <tr class="tr1">
-                         <th class="tbl1">Ảnh</th>
-                         <th class="tbl2">Sản Phẩm</th>
-                         <th class="tbl3">Giá</th>
-                     </tr>
-
-                     <tbody id="mycart2">
-                        <!-- <tr class="tr2">
-                            <td class="tbl1" >
-                                <img src="img/banhcom.jpg" alt="">
-                            </td>
-                            <td class="tbl2">
-                                <div class="tbl2-info">
-                                <a href="SanPham.html" title="Bánh Cốm Hà Nội" style="font-size: 18px;text-decoration: none;color: rgb(224, 12, 61);">Bánh Cốm Hà Nội</a><br><br>
-                                <strong style="font-size: 18px;">x2</strong><br><br>
-                                <span style="color: rgb(224, 12, 61);font-size: 18px;">Loại:</span>
-                                </div>
-                            </td>
-                            <td class="tbl3"> <span style="color: rgb(224, 12, 61);font-size: 18px;">8.000 đ</span>
-                            </td>
+                <tr class="tr1">
+                            <th class="tbl1">Ảnh</th>
+                            <th class="tbl2">Sản Phẩm</th>
+                            <th class="tbl3">Số lượng</th>
+                            <th class="tbl3">Giá</th>
+                            <th class="tbl3">Tổng tiền</th>
                         </tr>
-                        <tr class="tr3">
-                            <td class="tbl4"><span style="font-size: 18px;">Tổng tiền</span></td>
-                            <td class="tbl5"></td>
-                            <td class="tbl6">16.000 đ</td>
-                        </tr> -->
-                     </tbody>
+
+                        <?php
+                            $content = Cart::content();
+                            // echo '<pre>';
+                            // print_r($content);
+                            // echo '</pre>';
+                        ?>
+                        
+                        @foreach($content as $v_content)
+                        <tbody id="mycart2">
+                            <td class="tbl1"><img style="width:100%" src="/img/{{$v_content->options->image}}" alt=""></td>
+                            <td style="color:black;text-align: center;" class="tbl2">{{$v_content->name}}</td>
+                            <td style="color:black;text-align: center;" class="tbl3">{{$v_content->qty}}</td>
+                            <td style="color:black;text-align: center;" class="tbl4">{{number_format($v_content->price).' ' .'VNĐ'}}</td>
+                            <td style="color:black;text-align: center;" class="tbl5">
+                                <?php
+                                    $subtotal = $v_content->price * $v_content->qty;
+                                    echo number_format($subtotal) . " " . "VNĐ";
+                                ?>
+                            </td>
+                            
+                        </tbody>
+                        @endforeach
+                    </table>
                 </table>
              </form>
         </div>
