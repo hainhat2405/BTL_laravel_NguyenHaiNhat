@@ -28,7 +28,13 @@
                 </tr>
                 <tr>
                     <td>ID Loại Sản Phẩm</td>
-                    <td><input type="text" name="idLoaiSP" id="idLoaiSP"></td>                  
+                    <td>
+                    <select name="idLoaiSP" id="idLoaiSP">
+                        @foreach($lsp as $lsp)
+                        <option value="{{$lsp->idLoaiSP}}" name="idLoaiSP" id="idLoaiSP">{{$lsp->idLoaiSP}}</option>
+                        @endforeach
+                    </select> 
+                    </td>                 
                 </tr>
                 <tr>
                     <td>Status</td>

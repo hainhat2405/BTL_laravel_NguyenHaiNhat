@@ -15,19 +15,35 @@ use Illuminate\Support\Str;
 class HomeController extends Controller
 {
     public function index(){
-        $sp = DB::table('sanpham')->where('Status', '1')->orderby('idSanPham')->get();
-        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
-        return view('User.home',compact('sp', 'lsp'));
+        $sp = DB::table('sanpham')->where('Status', '1')->orderBy('idSanPham')->get();
+
+        // Lấy tất cả loại sản phẩm
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderBy('idLoaiSP')->get();
+
+        // Lấy tất cả sản phẩm và tên loại sản phẩm
+        $all_products_by_category = DB::table('sanpham')
+                                    ->join('loaisanpham', 'sanpham.idLoaiSP', '=', 'loaisanpham.idLoaiSP')
+                                    ->select('sanpham.*', 'loaisanpham.tenLoaiSP')
+                                    ->where('sanpham.Status', '1')
+                                    ->orderBy('sanpham.idSanPham')
+                                    ->get();
+    
+        return view('User.home', compact('all_products_by_category','lsp','sp'));
     }
+    
     public function gioiThieu(){
         $sp = SanPhamModel::all();
         $lsp = LoaiSanPhamModel::all();
         return view('User.gioiThieu',compact('sp', 'lsp'));
     }
     public function tinTuc(){
+        $blog = DB::table('blog')
+        ->where('Status','1')
+        ->orderby('id')
+        ->get();
         $sp = SanPhamModel::all();
         $lsp = LoaiSanPhamModel::all();
-        return view('User.tinTuc',compact('sp', 'lsp'));
+        return view('User.tinTuc',compact('sp', 'lsp','blog'));
     }
     public function danhMuc(){
         $sp = SanPhamModel::all();

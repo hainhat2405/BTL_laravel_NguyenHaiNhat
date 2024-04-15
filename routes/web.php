@@ -96,6 +96,15 @@ Route::controller(App\Http\Controllers\Admin\Manage_orderController::class)->gro
     // Route::put('/updateNCC/{idNhaCungCap}', 'update')->name('updateNCC');
     // Route::get('/destroyNCC/{idNhaCungCap}', 'destroy')->name('destroyNCC');
 });
+Route::controller(App\Http\Controllers\Admin\BlogController::class)->group(function(){
+    Route::get('/blog','index')->name('blog');
+    Route::get('/add-blog','create')->name('add-blog');
+    Route::post('/store-blog','store')->name('store-blog');
+    Route::get('/show-blog/{id}','show')->name('show-blog');
+    Route::get('/edit-blog/{id}','edit')->name('edit-blog');
+    Route::put('/update-blog/{id}', 'update')->name('update-blog');
+    Route::get('/destroy-blog/{id}', 'destroy')->name('destroy-blog');
+});
 
 //USER
 Route::controller(App\Http\Controllers\User\HomeController::class)->group(function(){

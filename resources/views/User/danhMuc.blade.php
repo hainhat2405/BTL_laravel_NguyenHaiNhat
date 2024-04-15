@@ -37,36 +37,52 @@
     </div> -->
 
     <div id="content-bkhn">
-        <div class="content-bkhn1">
-            
-                <div class="ten-sp-bkhn">
-                    <div class="ten-sp1-bkhn">
-                        <h2 style="padding-left: 115px;"></h2>
-                    </div>
-                </div>
+        <?php
+        if(count($id_LSP) > 0){
+            ?>
+                <div class="content-bkhn1">
                 
-                <div class="content_sp">
-                @foreach($id_LSP as $product)
-                    <div class="sanPham">
-                        <a href="{{ URL::to('/chi-tiet-san-pham/'.$product->idSanPham) }}"><img class="img_SP" src="/img/{{$product->hinhAnh}}" alt="Bánh Cốm Hà Nội" ></a>
-                        <h4>{{$product->tenSanPham}}</h4>
-                        <i>Đánh giá:
-                            <span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </span>
-                        </i>
-                        <h3>{{number_format($product->giaBan)." ". "VNĐ"}}</h3>
-                    </div>
-                @endforeach
+                    <div class="ten-sp-bkhn">
+                        @php
+                            $n = 0; // Đây là ví dụ, bạn có thể thay đổi giá trị của $n tùy theo bản ghi bạn muốn lấy thông tin
+                        @endphp
+                        <div class="ten-sp1-bkhn">
+                            <h2 style="padding-left: 115px;">{{ $id_LSP[$n]->tenLoaiSP }}</h2>
+                        </div>
 
+
+                    </div>
+
+                    
+                    <div class="content_sp">
+                    @foreach($id_LSP as $product)
+                        <div class="sanPham">
+                            <a href="{{ URL::to('/chi-tiet-san-pham/'.$product->idSanPham) }}"><img class="img_SP" src="/img/{{$product->hinhAnh}}" alt="Bánh Cốm Hà Nội" ></a>
+                            <h4>{{$product->tenSanPham}}</h4>
+                            <i>Đánh giá:
+                                <span>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </span>
+                            </i>
+                            <h3>{{number_format($product->giaBan)." ". "VNĐ"}}</h3>
+                        </div>
+                    @endforeach
+
+                    </div>
+                    
+            
                 </div>
-                
-           
-        </div>
+            <?php
+        }else{
+            ?>
+            <h1 style="text-align: center;">Không có sản phẩm</h1>
+            <?php
+        }
+        ?>
     </div>
    
 

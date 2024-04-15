@@ -214,16 +214,19 @@
 }
 
 .ten-sp1-bkhn{
-    width: 25%;
+    width: 100%;
     height: 100%;
-    margin-left: 35%;
+    /* margin-left: 35%; */
     
 }
-
+.ten-sp1-bkhn h2{
+  text-align: center;
+    
+}
 .ten-sp1-bkhn:after{
     content: "";
     position: absolute;                   /*thiết lập vị trí của một phần tử dựa trên khối cha của nó.*/
-    border-bottom: 2px solid #60b126;  /*thiết lập đường viền phía dưới của một phần tử*/
+    /* border-bottom: 2px solid #60b126;  thiết lập đường viền phía dưới của một phần tử */
     left: 0;
     right: 0;
     width: 12%;

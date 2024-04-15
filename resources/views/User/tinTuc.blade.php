@@ -35,16 +35,18 @@
     <div class="content">
         <h1 style="padding: 10px 0 0 150px;color: rgb(96, 177, 38);">TIN TỨC ĐẶC SẢN</h1>
         <div class="noidung">
+            @foreach($blog as $blog)
             <div class="content1">
                 <div class="imgContent">
-                    <img src="img/tong-hop-5-mon-ngon-tu-com-gay-thuong-nho-nhat-6-768x432.jpg" alt="">
+                    <img src="img/{{$blog->image}}" alt="">
                 </div>
                 <h3>
-                    Tổng hợp 5 món ngon từ cốm gây “thương nhớ” nhất    </h3>
+                    {{$blog->content}} </h3>
                 <i class="far fa-folder"></i>
                 <a href="#">Tin tức đặc sản</a>
             </div>
-            <div class="content1">
+            @endforeach
+            <!-- <div class="content1">
                 <div class="imgContent">
                     <img src="img/5-tac-dung-cua-chanh-dao-ngam-mat-ong-it-nguoi-biet-2-768x433.jpg" alt="">
                 </div>
@@ -100,7 +102,7 @@
                         Lá vối có tác dụng gì? 7 công dụng của lá vối đối với sức...    </h3>
                     <i class="far fa-folder"></i>
                     <a href="#">Tin tức đặc sản</a>
-            </div>
+            </div> -->
 
 
         </div>

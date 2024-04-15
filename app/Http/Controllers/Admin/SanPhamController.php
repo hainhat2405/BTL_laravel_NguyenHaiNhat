@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\SanPhamModel;
+use App\Models\Admin\LSPModel;
 use Illuminate\Http\Request;
 
 class SanPhamController extends Controller
@@ -15,11 +16,9 @@ class SanPhamController extends Controller
      */
     public function index()
     {
-        $sp = SanPhamModel::all(); // 10 sản phẩm mỗi trang
+        $sp = SanPhamModel::all(); 
 
         return view('Admin.sanpham.sp', compact('sp'));
-        // $sp = SanPhamModel::paginate(10);
-        // return view('Admin.sanpham.sp',compact('sp'))->with('i',(request()->input('page',1)-1)*5);
     }
 
     /**
@@ -29,7 +28,8 @@ class SanPhamController extends Controller
      */
     public function create()
     {
-        return view('Admin.sanpham.addSP');
+        $lsp = LSPModel::all();
+        return view('Admin.sanpham.addSP',compact('lsp'));
     }
 
     /**
