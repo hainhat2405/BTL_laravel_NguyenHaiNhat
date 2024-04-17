@@ -60,7 +60,7 @@ if(count($content) > 0){
                 <th class="tbl6">Xóa</th>
             </tr>
             <?php foreach($content as $v_content){ ?>
-            <tbody id="mycart">
+            <tbody id="mycart" style="    border-bottom: 2px solid rgb(96, 177, 38);">
                 <th class="tbl1"><img src="/img/<?php echo $v_content->options->image; ?>" alt=""></th>
                 <th class="tbl2"><?php echo $v_content->name; ?></th>
                 <th class="tbl3">
@@ -84,12 +84,9 @@ if(count($content) > 0){
             </tbody>
             <?php } ?>
         </table>
-
-        
-    </div>
-    <div class="ttdh">
+        <div class="ttdh">
             <div class="Information line">
-                <div class="info_product">
+                <div class="">
                     <h3 class="h3">
                         <i class="fa-solid fa-camera-retro" style="color: white;background: rgb(96, 177, 38);padding: 10px;"></i>
                         <span>Sản Phẩm Liên Quan</span>
@@ -109,7 +106,7 @@ if(count($content) > 0){
                 </div>
             </div>
             <div class="thanhToan">
-                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
+                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 11px;"></i>
                 <?php
                     $customer_id = Session::get('Customer_id');
                     $shipping_id = Session::get('Shipping_id');
@@ -126,6 +123,10 @@ if(count($content) > 0){
                 ?>
             </div>
         </div>
+
+        
+    </div>
+    
 </div>
 <?php
 }

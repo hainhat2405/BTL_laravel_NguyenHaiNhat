@@ -26,7 +26,7 @@
     <div class="login">
       <div class="login__container">
         
-        <h1>Đăng Nhập Người dùng</h1>
+        <h1>Đăng Nhập</h1>
         <?php
           $message = Session::get('message');
           if($message){
