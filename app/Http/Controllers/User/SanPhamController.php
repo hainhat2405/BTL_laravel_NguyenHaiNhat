@@ -65,7 +65,11 @@ class SanPhamController extends Controller
             ->join('loaisanpham', 'loaisanpham.idLoaiSP', '=', 'sanpham.idLoaiSP')
             ->where('loaisanpham.idLoaiSP', $idLSP)->limit(3)
             ->get();
-        return view('User.sanPham',compact('lsp','detailSP','relate_product'));
+        $blog = DB::table('blog')
+        ->where('Status','1')
+        ->orderby('id')
+        ->get();
+        return view('User.sanPham',compact('lsp','detailSP','relate_product','blog'));
     }
 
     /**

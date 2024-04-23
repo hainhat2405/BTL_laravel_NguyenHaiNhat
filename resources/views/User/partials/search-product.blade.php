@@ -63,23 +63,23 @@
             </div>
             <div class="content_sp">
                 @foreach($search_product as $key =>$sp)
-                <div class="sanPham">
+                <!-- <div class="sanPham" >
                     <a href="{{ URL::to('/chi-tiet-san-pham/'.$sp->idSanPham) }}" style="text-decoration: none;color: black;">
                         <img class="img_SP" src="img/{{$sp->hinhAnh}}" alt="Sấu giòn Tiến Thịnh" >
                         <h4>{{$sp->tenSanPham}}</h4>
-                        <i>Đánh giá:
-                            <span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                            </span>
-                        </i>
                         <h3>{{number_format($sp->giaBan).' '.'VNĐ'}}</h3> 
                     </a>
                     
-                </div>
+                </div> -->
+                <div class="product_info">
+                            <a href="{{ URL::to('/chi-tiet-san-pham/'.$sp->idSanPham) }}" style="text-decoration: none;color: black;">
+                                <div class="product_img">
+                                    <img src="img/{{$sp->hinhAnh}}" alt="Sấu giòn Tiến Thịnh" >
+                                </div>
+                                <h4 style="text-align:center;padding-top:15px;">{{$sp->tenSanPham}}</h4>
+                                <h4 style="text-align:center;padding-top:15px;color:rgb(219, 66, 112)">{{number_format($sp->giaBan).' '.'VNĐ'}}</h4>
+                            </a>
+                        </div>
                 @endforeach
             </div>
             

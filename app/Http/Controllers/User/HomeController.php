@@ -21,12 +21,19 @@ class HomeController extends Controller
         $lsp = DB::table('loaisanpham')->where('Status', '1')->orderBy('idLoaiSP')->get();
 
         // Lấy tất cả sản phẩm và tên loại sản phẩm
-        $all_products_by_category = DB::table('sanpham')
-                                    ->join('loaisanpham', 'sanpham.idLoaiSP', '=', 'loaisanpham.idLoaiSP')
-                                    ->select('sanpham.*', 'loaisanpham.tenLoaiSP')
-                                    ->where('sanpham.Status', '1')
-                                    ->orderBy('sanpham.idSanPham')
-                                    ->get();
+        $all_products_by_category = DB::table('loaisanpham')
+        ->select('loaisanpham.idLoaiSP', 'loaisanpham.tenLoaiSP', 'sanpham.*')
+        ->join('sanpham', 'loaisanpham.idLoaiSP', '=', 'sanpham.idLoaiSP')
+        ->leftJoin('sanpham as sp2', function ($join) {
+            $join->on('sanpham.idLoaiSP', '=', 'sp2.idLoaiSP')
+                ->whereRaw('sanpham.idSanPham > sp2.idSanPham');
+        })
+        ->where('sanpham.Status', '1')
+        ->groupBy('loaisanpham.idLoaiSP', 'sanpham.idSanPham')
+        ->havingRaw('COUNT(sp2.idSanPham) < 10')
+        ->orderBy('loaisanpham.idLoaiSP')
+        ->orderBy('sanpham.idSanPham')
+        ->get();
     
         return view('User.home', compact('all_products_by_category','lsp','sp'));
     }

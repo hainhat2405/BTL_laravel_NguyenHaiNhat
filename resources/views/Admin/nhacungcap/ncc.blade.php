@@ -1,54 +1,52 @@
-@extends('Admin.layouts.index')
+@extends('admin.layouts.admin')
 @section('title')
-<title>Danh sách danh mục Nhà cung cấp</title>
+<title>Nhà cung cấp</title>
 @endsection
 
 @section('content')
-<div class="container-fluid pt-4 px-4">
-    <h1>Nhà cung cấp</h1>
+<div id="quanlysp" class="tab-content-item"> 
+             <h3>
+                <i class="fa-solid fa-arrow-right"></i>
+                Quản lý nhà cung cấp
+            </h3>
+            <button style="padding:10px;color: red" onclick="showcart()"><a href="{{route('addNCC')}}" style="text-decoration: none;">Thêm</a></button>
             @if(session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}
 				</div>
 			@endif
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Recent Salse</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Tên nhà cung cấp</th>
-                                    <th scope="col">Địa chị</th>
-                                    <th scope="col">Số điện thoại</th>   
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Chi tiết</th>
-                                    <th scope="col">Sửa</th>
-                                    <th scope="col">Xóa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @php $i = 1; @endphp
-								@foreach($ncc as $ncc)
-								<tr>
-									<td>{{ $i++ }}</td>
-									<td>{{ $ncc->tenNhaCungCap }}</td>
-									<td>{{ $ncc->diaChi }}</td>
-									<td>{{ $ncc->soDienThoai }}</td>
-									<td>{{ $ncc->email }}</td>
-									<td><input type="checkbox" {{ $ncc->Status ? 'checked' : '' }}></td>
-									<td><a href="{{route('detailNCC',$ncc->idNhaCungCap)}}" class="btn btn-primary" >Chi tiết</a></td>
-									<td><a href="{{route('editNCC',$ncc->idNhaCungCap   )}}" class="btn btn-warning">Edit</a></td>
-									<td><a href="{{route('destroyNCC',$ncc->idNhaCungCap   )}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
-								</tr>
-								@endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <table class="tbl-main">
+                <thead>
+                <tr class="tr1">
+                    <th>STT</th>
+                    <th>Tên nhà cung cấp</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th>Trạng thái</th>
+                    <th>Xem</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+                </thead>
+                <tbody>
+                @php $i = 1; @endphp
+				@foreach($ncc as $ncc_info)
+				<tr>
+					<td style="height:50px">{{ $i++ }}</td>
+					<td>{{ $ncc_info->tenNhaCungCap }}</td>
+                    <td>{{ $ncc_info->diaChi }}</td>
+                    <td>{{ $ncc_info->soDienThoai }}</td>
+                    <td>{{ $ncc_info->email }}</td>
+					<td><input type="checkbox" {{ $ncc_info->Status ? 'checked' : '' }}></td>
+                    <td><a href="{{route('detailNCC',$ncc_info->idNhaCungCap)}}" class="btn btn-primary" >Chi tiết</a></td>
+					<td><a href="{{route('editNCC',$ncc_info->idNhaCungCap)}}" class="btn btn-warning">Edit</a></td>
+					<td><a href="{{route('destroyNCC',$ncc_info->idNhaCungCap)}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
+				</tr>
+				@endforeach
+                </tbody>
+            </table>
+            {{ $ncc->links('pagination::bootstrap-4') }}
+           
+        </div>
 @endsection

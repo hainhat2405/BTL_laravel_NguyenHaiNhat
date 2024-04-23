@@ -15,8 +15,8 @@ class KhachHangController extends Controller
      */
     public function index()
     {
-        $kh = KhachHangModel::all();
-        return view('Admin.khachhang.kh',compact('kh'));
+        $kh = KhachHangModel::paginate(10);
+        return view('admin.khachhang.kh',compact('kh'));
     }
 
     /**
@@ -26,7 +26,7 @@ class KhachHangController extends Controller
      */
     public function create()
     {
-        return view('Admin.khachhang.addKH');
+        return view('admin.khachhang.add_kh');
     }
 
     /**
@@ -69,7 +69,7 @@ class KhachHangController extends Controller
         $soDienThoai = $kh->soDienThoai;
         $email = $kh->email;
         $Status = $kh->Status;
-        return view('Admin.khachhang.detailKH',compact('idKhachHang', 'tenKhachHang', 'diaChi', 'ngaySinh', 'soDienThoai', 'email', 'Status'));
+        return view('admin.khachhang.detail_KH',compact('idKhachHang', 'tenKhachHang', 'diaChi', 'ngaySinh', 'soDienThoai', 'email', 'Status'));
 
     }
 
@@ -82,7 +82,7 @@ class KhachHangController extends Controller
     public function edit($idKhachHang)
     {
         $kh = KhachHangModel::where('idKhachHang',$idKhachHang)->first();
-        return view('Admin.khachhang.editKH', compact('kh'));
+        return view('admin.khachhang.edit_kh', compact('kh'));
     }
 
     /**

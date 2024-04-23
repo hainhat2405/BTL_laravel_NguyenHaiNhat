@@ -10,7 +10,8 @@ use DB;
 use App\Http\Requests;
 use Session;
 use Illuminate\Support\Facades\Redirect;
-session_start();
+// session_start();
+// use link;
 
 class AdminController extends Controller
 {
@@ -21,8 +22,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $lsp = LSPModel::all();
-        return view('Admin.lsp.lsp',compact('lsp'));
+        $lsp = LSPModel::paginate(2);
+        return view('admin.loaisanpham.lsp',['lsp' => $lsp]);
     }
 
     /**
@@ -32,7 +33,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('Admin.lsp.add');
+        $lsp = LSPModel::all();
+        return view('admin.loaisanpham.add_lsp',compact('lsp'));
     }
 
     /**
@@ -70,7 +72,7 @@ class AdminController extends Controller
         $tenLoaiSP = $lsp->tenLoaiSP;
         $Status = $lsp->Status;
         $mota = $lsp->mota;
-        return view('Admin.lsp.detail', compact('idLoaiSP','tenLoaiSP', 'mota', 'Status'));
+        return view('admin.loaisanpham.detail_lsp', compact('idLoaiSP','tenLoaiSP', 'mota', 'Status'));
     }
 
     /**
@@ -85,7 +87,7 @@ class AdminController extends Controller
         if(!$lsp){
             return abort(404);
         }
-        return view('Admin.lsp.edit',compact('lsp'));
+        return view('admin.loaisanpham.edit_lsp',compact('lsp'));
     }
 
     /**

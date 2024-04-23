@@ -52,9 +52,9 @@ class Manage_orderController extends Controller
 {
     $order_byID = DB::table('tbl_order')
         ->join('tbl_customers', 'tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
-        ->join('tbl_Shipping', 'tbl_order.Shipping_id', '=', 'tbl_Shipping.Shipping_id')
+        ->join('khachHang', 'tbl_order.idKhachHang', '=', 'khachHang.idKhachHang')
         ->join('tbl_order_detail', 'tbl_order.order_id', '=', 'tbl_order_detail.order_id')
-        ->select('tbl_order.*', 'tbl_customers.*', 'tbl_Shipping.*', 'tbl_order_detail.*')
+        ->select('tbl_order.*', 'tbl_customers.*', 'khachHang.*', 'tbl_order_detail.*')
         ->where('tbl_order.order_id', $order_id)
         ->first();
 

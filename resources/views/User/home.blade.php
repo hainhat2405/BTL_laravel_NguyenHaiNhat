@@ -50,18 +50,25 @@
         <div class="content-1">
             @foreach($lsp as $category)
             <div class="product">
+                
                 <div class="category_name">
                     <h1>{{$category->tenLoaiSP}}</h1>
+                    
+                </div>
+                <div class="view_cat">
+                    <a href="{{ URL::to('/danh-muc/'.$category->idLoaiSP) }}">Xem tất cả <i class="fa-solid fa-arrow-right" style="margin-top:1px"></i></a>
                 </div>
                 @foreach($all_products_by_category as $product)
                     @if($product->idLoaiSP == $category->idLoaiSP)
+                    
                         <div class="product_info">
+                            
                             <a href="{{ URL::to('/chi-tiet-san-pham/'.$product->idSanPham) }}" style="text-decoration: none;color: black;">
                                 <div class="product_img">
                                     <img src="img/{{$product->hinhAnh}}" alt="Sấu giòn Tiến Thịnh" >
                                 </div>
-                                <h2 style="text-align:center;padding-top:15px;">{{$product->tenSanPham}}</h2>
-                                <h4 style="text-align:center;padding-top:15px;color:rgb(219, 66, 112)">{{number_format($product->giaBan).' '.'VNĐ'}}</h4>
+                                <h4 style="text-align:center;padding-top:25px;">{{$product->tenSanPham}}</h4>
+                                <h4 style="text-align:center;padding-top:30px;color:rgb(219, 66, 112)">{{number_format($product->giaBan).' '.'VNĐ'}}</h4>
                             </a>
                         </div>
                     @endif

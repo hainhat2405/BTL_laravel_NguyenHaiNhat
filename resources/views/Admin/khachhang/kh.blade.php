@@ -1,56 +1,54 @@
-@extends('Admin.layouts.index')
+@extends('admin.layouts.admin')
 @section('title')
-<title>Danh sách danh mục Khách hàng</title>
+<title>Trang chủ</title>
 @endsection
 
 @section('content')
-<div class="container-fluid pt-4 px-4">
-    <h1>Khách hàng</h1>
+<div id="quanlysp" class="tab-content-item"> 
+             <h3>
+                <i class="fa-solid fa-arrow-right"></i>
+                Quản lý khách hàng
+            </h3>
+            <button style="padding:10px;color: red" onclick="showcart()"><a href="{{route('addKH')}}" style="text-decoration: none;">Thêm</a></button>
             @if(session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}
 				</div>
 			@endif
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Recent Salse</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Địa chị</th>
-                                    <th scope="col">Số điện thoại</th>
-                                    <th scope="col">Ngày sinh</th>    
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Chi tiết</th>
-                                    <th scope="col">Sửa</th>
-                                    <th scope="col">Xóa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $i = 1; @endphp
-								@foreach($kh as $kh)
-								<tr>
-									<td>{{ $i++ }}</td>
-									<td>{{ $kh->tenKhachHang }}</td>
-                                    <td>{{ $kh->diaChi }}</td>
-                                    <td>{{ $kh->soDienThoai }}</td>
-                                    <td>{{ $kh->ngaySinh }}</td>
-                                    <td>{{ $kh->email }}</td>
-									<td><input type="checkbox" {{ $kh->Status ? 'checked' : '' }}></td>
-									<td><a href="{{route('detailKH',$kh->idKhachHang)}}" class="btn btn-primary" >Chi tiết</a></td>
-									<td><a href="{{route('editKH',$kh->idKhachHang)}}" class="btn btn-warning">Edit</a></td>
-									<td><a href="{{route('destroyKH',$kh->idKhachHang)}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
-								</tr>
-								@endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <table class="tbl-main">
+                <thead>
+                <tr class="tr1">
+                    <th>STT</th>
+                    <th>Tên khách hàng</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày sinh</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th>Trạng thái</th>
+                    <th>Xem</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+                </thead>
+                <tbody>
+                @php $i = 1; @endphp
+				@foreach($kh as $kh_info)
+				<tr>
+					<td style="height:50px">{{ $i++ }}</td>
+					<td>{{ $kh_info->tenKhachHang }}</td>
+                    <td>{{ $kh_info->diaChi }}</td>
+                    <td>{{ $kh_info->ngaySinh }}</td>
+                    <td>{{ $kh_info->soDienThoai }}</td>
+                    <td>{{ $kh_info->email }}</td>
+					<td><input type="checkbox" {{ $kh_info->Status ? 'checked' : '' }}></td>
+                    <td><a href="{{route('detailKH',$kh_info->idKhachHang)}}" class="btn btn-primary" >Chi tiết</a></td>
+					<td><a href="{{route('editKH',$kh_info->idKhachHang)}}" class="btn btn-warning">Edit</a></td>
+					<td><a href="{{route('destroyKH',$kh_info->idKhachHang)}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
+				</tr>
+				@endforeach
+                </tbody>
+            </table>
+            {{ $kh->links('pagination::bootstrap-4') }}
+           
+        </div>
 @endsection

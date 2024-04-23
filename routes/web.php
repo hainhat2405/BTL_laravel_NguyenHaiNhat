@@ -15,18 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/admin', function () {
-//     return view('Admin.dashboard');
-// })->name('admin');
+Route::get('/admin1111', function () {
+    return view('Admin1234.dashboard');
+})->name('admin');
 
 Route::get('/login', function(){
     return view('Admin.Login_Admin');
 });
 
 
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->name('admin');
+
 
 Route::controller(App\Http\Controllers\Admin\AdminController::class)->group(function(){
-    Route::get('/index',  'index')->name('index');
+    Route::get('/indexLSP',  'index')->name('indexLSP');
     Route::get('/add', 'create')->name('add');
     Route::post('/store','store')->name('store');
     Route::get('/edit/{idLoaiSP}','edit')->name('edit');
@@ -79,12 +83,12 @@ Route::controller(App\Http\Controllers\Admin\NhaCungCapController::class)->group
 });
 Route::controller(App\Http\Controllers\Admin\HoaDonBanController::class)->group(function(){
     Route::get('/indexHDB','index')->name('indexHDB');
-    Route::get('/addNCC','create')->name('addNCC');
-    Route::post('/storeNCC','store')->name('storeNCC');
-    Route::get('/showNCC/{idNhaCungCap}','show')->name('detailNCC');
-    Route::get('/editNCC/{idNhaCungCap}','edit')->name('editNCC');
-    Route::put('/updateNCC/{idNhaCungCap}', 'update')->name('updateNCC');
-    Route::get('/destroyNCC/{idNhaCungCap}', 'destroy')->name('destroyNCC');
+    // Route::get('/addNCC','create')->name('addNCC');
+    // Route::post('/storeNCC','store')->name('storeNCC');
+    // Route::get('/showNCC/{idNhaCungCap}','show')->name('detailNCC');
+    // Route::get('/editNCC/{idNhaCungCap}','edit')->name('editNCC');
+    // Route::put('/updateNCC/{idNhaCungCap}', 'update')->name('updateNCC');
+    // Route::get('/destroyNCC/{idNhaCungCap}', 'destroy')->name('destroyNCC');
 });
 Route::controller(App\Http\Controllers\Admin\Manage_orderController::class)->group(function(){
     Route::get('/manage_order','index')->name('index_manage');

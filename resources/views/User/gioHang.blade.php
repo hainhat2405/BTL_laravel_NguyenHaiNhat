@@ -47,10 +47,15 @@ if(count($content) > 0){
     <div id="info-gioHang">
         <div class="ttmuahang">
             <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
-            <a href="SanPham.html" style="color: white;">Tiếp tục mua hàng</a>
+            <a href="{{URL::to('/home')}}" style="color: white;">Tiếp tục mua hàng</a>
         </div>
 
         <table class="tbl-main">
+        @if(session('error'))
+            <div class="alert alert-danger" style="margin-top:20px">
+                <h3>{{ session('error') }}</h3>
+            </div>
+        @endif
             <tr class="tr1">
                 <th class="tbl1">Ảnh</th>
                 <th class="tbl2">Sản Phẩm</th>
@@ -79,14 +84,14 @@ if(count($content) > 0){
                     ?>
                 </th>
                 <th class="tbl6">
-                    <a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}">Xóa</a>
+                    <a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}" style="color:black"><i class="fa-solid fa-trash"></i></a>
                 </th>
             </tbody>
             <?php } ?>
         </table>
         <div class="ttdh">
             <div class="Information line">
-                <div class="">
+                <div class="info_splq">
                     <h3 class="h3">
                         <i class="fa-solid fa-camera-retro" style="color: white;background: rgb(96, 177, 38);padding: 10px;"></i>
                         <span>Sản Phẩm Liên Quan</span>
@@ -96,6 +101,7 @@ if(count($content) > 0){
                     <h2 style="">Tổng tiền:</h2>
                     <h3 style="">{{Cart::subtotal() . ' ' . 'VNĐ'}}</h3>
                 </div>
+                
                 <div class="info_prodcut">
                     <h2 style="">Giảm giá:</h2>
                     <h3 style=""></h3>
@@ -106,11 +112,16 @@ if(count($content) > 0){
                 </div>
             </div>
             <div class="thanhToan">
-                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 11px;"></i>
+                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 12px;"></i>
                 <?php
                     $customer_id = Session::get('Customer_id');
                     $shipping_id = Session::get('Shipping_id');
                     if($customer_id !=NULL && $shipping_id !=NULL){
+                        ?>
+                            <a href="{{URL::to('/checkout')}}">Thanh toán</a>
+                        <?php
+                    }
+                    elseif($customer_id !=NULL && $shipping_id ==NULL){
                         ?>
                             <a href="{{URL::to('/checkout')}}">Thanh toán</a>
                         <?php

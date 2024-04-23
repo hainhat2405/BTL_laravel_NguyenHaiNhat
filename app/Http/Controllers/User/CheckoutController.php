@@ -23,7 +23,7 @@ class CheckoutController extends Controller
         $result = DB::table('tbl_customers')->where('Customer_email',$Customer_email)->where('Customer_password',$Customer_password)->first();
         if($result){
             Session::put('Customer_id',$result->Customer_id);
-            return Redirect::to('/checkout');
+            return Redirect::to('/home');
         }
         else{
             Session::put('message','Email hoặc password sai');
@@ -74,8 +74,8 @@ class CheckoutController extends Controller
         $data['diaChi'] = $request->diaChi;
         $data['email'] = $request->email;
         $data['ngaySinh'] = $request->ngaySinh;
-        $Shipping_id = DB::table('khachhang')->insertGetId($data);
-        Session::put('idKhachHang',$Shipping_id);
+        $khachhang_id = DB::table('khachhang')->insertGetId($data);
+        Session::put('idKhachHang',$khachhang_id);
 
         //get payment_method
         $data_payment = array();
@@ -86,7 +86,7 @@ class CheckoutController extends Controller
         //insert order
         $data_order = array();
         $data_order['Customer_id'] = Session::get('Customer_id');
-        $data_order['Shipping_id'] = Session::get('Shipping_id');
+        $data_order['idKhachHang'] = Session::get('idKhachHang');
         $data_order['payment_id'] = $payment_id;
         $data_order['order_total'] = Cart::total();
         $data_order['order_status'] = "Dang cho xu ly";

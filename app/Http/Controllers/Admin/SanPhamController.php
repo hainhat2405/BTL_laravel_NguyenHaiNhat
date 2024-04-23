@@ -16,9 +16,8 @@ class SanPhamController extends Controller
      */
     public function index()
     {
-        $sp = SanPhamModel::all(); 
-
-        return view('Admin.sanpham.sp', compact('sp'));
+        $sp = SanPhamModel::paginate(5);
+        return view('admin.sanpham.sp',['sp' => $sp]);
     }
 
     /**
@@ -29,7 +28,8 @@ class SanPhamController extends Controller
     public function create()
     {
         $lsp = LSPModel::all();
-        return view('Admin.sanpham.addSP',compact('lsp'));
+        $sp = SanPhamModel::all();
+        return view('admin.sanpham.add_sp',compact('sp','lsp'));
     }
 
     /**
@@ -75,7 +75,7 @@ class SanPhamController extends Controller
         $hinhAnh = $sp->hinhAnh;
         $idLoaiSP = $sp->idLoaiSP;
         $Status = $sp->Status;
-        return view('Admin.sanpham.detailSP', compact('idSanPham','tenSanPham', 'moTa', 'giaBan', 'soLuong', 'hinhAnh', 'idLoaiSP','Status'));
+        return view('admin.sanpham.detail_SP', compact('idSanPham','tenSanPham', 'moTa', 'giaBan', 'soLuong', 'hinhAnh', 'idLoaiSP','Status'));
     }
 
     /**
@@ -86,11 +86,12 @@ class SanPhamController extends Controller
      */
     public function edit(Request $request, string $idSanPham)
     {
+        $lsp = LSPModel::all();
         $sp = SanPhamModel::where('idSanPham',$idSanPham)->first();
         if(!$sp){
             return abort(404);
         }
-        return view('Admin.sanpham.editSP',compact('sp'));
+        return view('admin.sanpham.edit_sp',compact('sp','lsp'));
     }
 
     /**
@@ -117,7 +118,7 @@ class SanPhamController extends Controller
         $sp->moTa = $request->moTa;
         $sp->Status = $request->Status ? 1 : 0;
         $sp->save();
-        return redirect()->route('indexSP',['idSanPham' =>$idSanPham])->with('success','Loại sản phẩm đã được cập nhật thành công');
+        return redirect()->route('indexSP',['idSanPham' =>$idSanPham])->with('success','Sản phẩm đã được cập nhật thành công');
     }
 
     /**

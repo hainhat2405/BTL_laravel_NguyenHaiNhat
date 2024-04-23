@@ -1,11 +1,11 @@
 @extends('Admin.layouts.index')
 @section('title')
-<title>Danh sách danh mục</title>
+<title>Danh sách danh mục nhân viên</title>
 @endsection
 
 @section('content')
 <div class="container-fluid pt-4 px-4">
-    <h1>Loại Sản Phẩm</h1>
+    <h1>Nhân Viên</h1>
             @if(session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}
@@ -22,6 +22,12 @@
                                 <tr class="text-white">
                                     <th scope="col">STT</th>
                                     <th scope="col">Tên</th>
+                                    <th scope="col">Hình Ảnh</th>
+                                    <th scope="col">Chức vụ</th>
+                                    <th scope="col">Địa chị</th>
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Ngày sinh</th>    
+                                    <th scope="col">Email</th>
                                     <th scope="col">Trạng thái</th>
                                     <th scope="col">Chi tiết</th>
                                     <th scope="col">Sửa</th>
@@ -30,14 +36,20 @@
                             </thead>
                             <tbody>
                                 @php $i = 1; @endphp
-								@foreach($lsp as $lsp)
+								@foreach($nv as $nv)
 								<tr>
 									<td>{{ $i++ }}</td>
-									<td>{{ $lsp->tenLoaiSP }}</td>
-									<td><input type="checkbox" {{ $lsp->Status ? 'checked' : '' }}></td>
-									<td><a href="{{route('detail',$lsp->idLoaiSP)}}" class="btn btn-primary" >Chi tiết</a></td>
-									<td><a href="{{route('edit',$lsp->idLoaiSP)}}" class="btn btn-warning">Edit</a></td>
-									<td><a href="{{route('destroy',$lsp->idLoaiSP)}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
+									<td>{{ $nv->tenNhanVien }}</td>
+                                    <td><img src="img/{{ $nv->hinhAnh }}" alt="" style="width:150px;"></td>
+                                    <td>{{ $nv->chucVu }}</td>
+                                    <td>{{ $nv->diaChi }}</td>
+                                    <td>{{ $nv->soDienThoai }}</td>
+                                    <td>{{ $nv->ngaySinh }}</td>
+                                    <td>{{ $nv->email }}</td>
+									<td><input type="checkbox" {{ $nv->Status ? 'checked' : '' }}></td>
+									<td><a href="{{route('detailNV',$nv->idNhanVien)}}" class="btn btn-primary" >Chi tiết</a></td>
+									<td><a href="{{route('editNV',$nv->idNhanVien)}}" class="btn btn-warning">Edit</a></td>
+									<td><a href="{{route('destroyNV',$nv->idNhanVien)}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
 								</tr>
 								@endforeach
                             </tbody>

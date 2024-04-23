@@ -69,13 +69,10 @@
                         <div class="soLuong">
                             <span>Số Lượng</span>
                         </div>
-                        <input  type="number" name="soLuong" min="1" max="100" value="1"  style="width: 72%;height: 100%;padding: 0.375rem 0.75rem;">
+                        <input  type="number" name="soLuong" min="1" max="{{$detailSP->soLuong}}" value="1"  style="width: 72%;height: 100%;padding: 0.375rem 0.75rem;">
                         <input  type="hidden" name="idSP_hidden" value="{{$detailSP->idSanPham}}"  style="width: 72%;height: 100%;padding: 0.375rem 0.75rem;">
                     </div>
-                    <button class="btn1"><a href="">
-                            <i class="fa-solid fa-phone fa-rotate-270"></i>
-                            <span>Đặt hàng ngay</span>
-                        </a></button>
+
                     <button type="submit" class="btn2"  onclick="themvaogiohang(this),showcart()">Thêm vào giỏ</span></button>
                 </form>
 
@@ -131,104 +128,48 @@
 
 
         <div id="content-sp2">
-            <div class="content-dmsp">   <!--Danh mục sản phẩm-->
+            <!--Danh mục sản phẩm-->
+            <div class="content-dmsp">  
                 <div class="gioiThieu-DMSP">
                     <h3 class="h3">
                         <span>Bài viết mới</span>
                     </h3>
                 </div>
-                <div id="gioithieu-BVM"> <!--bài viết mới-->
+                <div id="gioithieu-BVM">
                     <div class="baiVietMoiP1">
-                        <div class="BVM1">
-                            <div class="BVM-img">
-                                <a href="">
-                                    <img src="img/cong-dung-cua-qua-buoi-9-768x433.jpg" alt="">
-                                </a>
+                        @foreach($blog as $blog)
+                            <div class="BVM1">
+                                <div class="BVM-img">
+                                    <a href="">
+                                        <img src="/img/{{$blog->image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="BVM-nd">
+                                    <h3>
+                                        {{$blog->title}}
+                                    </h3>
+                                </div>
                             </div>
-                            <div class="BVM-nd">
-                                <h3>
-                                    5 tác dụng của chanh...
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="BVM2">
-                            <div class="BVM-img">
-                                <a href="">
-                                    <img src="img/tong-hop-5-mon-ngon-tu-com-gay-thuong-nho-nhat-6-768x432.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="BVM-nd">
-                                <h3>Tổng hợp 5 món ngon...</h3>
-                            </div>
-                        </div>
-                        <div class="BVM3">
-                            <div class="BVM-img">
-                                <a href="">
-                                    <img src="img/5-tac-dung-cua-chanh-dao-ngam-mat-ong-it-nguoi-biet-2-768x433.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="BVM-nd">
-                                <h3>5 tác dụng của chanh...</h3>
-                            </div>
-                        </div>
-                        <div class="BVM4">
-                            <div class="BVM-img">
-                                <a href="">
-                                    <img src="img/dia-chi-mua-o-mai-5-768x511.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="BVM-nd">
-                                <h3>TOP địa chỉ mua ô mai...</h3>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <!-- <div class="baiVietMoiP2">
 
-                    </div> -->
                 </div>
             </div>
 
             <div class="content-ctsp">  <!--Chi tiết sản phẩm-->
-               <div class="ctsp">
+                <div class="ctsp">
                     <h3 class="h3">
                         <span>Chi tiết sản phẩm</span>
                     </h3>
                 </div>
+                <?php
+                    $description = $detailSP->moTa;
+                ?>
                 <div class="info-ctsp">
                     <div class="noidung">
-                        {{$detailSP->moTa}}
-                        <h2 style="padding: 10px;">1. Giới thiệu về bánh cốm Hà Nội</h2>
-                        <p>Bánh cốm đã “tồn tại theo năm tháng” với hàng trăm năm lịch sử, do ông tổ dòng họ Nguyễn Duy ở phố hàng Than. Sau hàng trăm năm, đây vẫn là món đặc sản “dân dã” tại Hà Thành nức tiếng gần xa.</p>
-                        <p>Cửa hàng chuyên cung cấp bánh cốm thương hiệu Bảo Minh. Đây là một thương hiệu rất nổi tiếng được nhiều người trong nước và nước ngoài ưa chuộng.</p>
-                        <p>Phù hợp làm quà tặng cho người thân bạn bè hoặc những dịp cưới hỏi.</p>
-                        <p><strong>Bánh luôn có sẵn tại cửa hàng, luôn có date mới.</strong></p>
-                        <p><strong>Hạn sử dụng: </strong>12 ngày.</p>
-                        <p><strong>Quy cách đóng gói:</strong>65 Gram có hộp.</p>
-                        <p><strong>Trọng lượng:</strong>7x7cm</p>
-                        <h2 style="padding: 10px;">2. Bánh cốm Hà Nội - thức quà “dân dã” tại Hà Thành</h2>
-                        <div class="info-img">
-                            <img src="img/banh-com-hop65g.jpg" alt="">
-                        </div>
-                        <p style="text-align: center;">Hộp 65 Gram</p>
-                        <div class="info-img">
-                            <img src="img/banh-com-1-1.jpg" alt="">
-                        </div>
-                        <p style="text-align: center;">Hạn sử dụng bánh 12 ngày rất phù hợp làm quà biếu, hay làm tráp trong dịp cưới hỏi Với nguyên liệu chính là gạo nếp cái hoa vàng và đậu xanh. Gạo nếp để tạo ra cốm phải là loại gạo được thu hoạch vào giai đoạn hạt đã chắc xanh, không quá non cũng không quá già. Sau đó sẽ được đem đi sấy khô, ủ và xào đường để làm vỏ bánh. Nhân bánh sẽ làm từ đậu xanh và dừa nạo để tạo nên độ bùi, thơm ngon.</p>
-
-                        <div class="info-img">
-                            <img src="img/banh_com.jpg" alt="">
-                        </div>
-                        <p style="text-align: center;">
-                            Lớp vỏ được làm hoàn toàn bằng cốm đầu mùa cho ra những chiếc bánh vừa dẻo, vừa bùi vô cùng hấp dẫn. Bánh cốm Hà Nội sẽ có lớp vỏ màu xanh lá mạ, dẻo. Khi ăn bạn sẽ cảm nhận được vị ngọt dịu của lớp vỏ cốm bên ngoài. Kết hợp hoàn hảo với vị ngọt bùi của nhân bánh đậu xanh và dừa nạo. Tất cả hòa quyện hoàn hảo tạo nên hương vị đặc trưng, khó cưỡng. Ai mà đã từng thưởng thức qua thì chắc chắn sẽ không thể nào quên.
-                        </p>
-                        <h2 style="padding: 10px;">3. Giá bánh cốm Hà Nội bao nhiêu?</h2>
-                        <p>Trải qua hàng trăm năm lịch sử, bánh cốm Hà Nội vẫn là thức quà lưu giữ được nét đặc trưng của “tinh hoa đất trời”. Thường sử dụng trong các dịp lễ, Tết, làm quà biếu tặng hoặc đám cưới hỏi. Vậy giá bánh cốm Hà Nội bao nhiêu tiền? Dưới đây là mức giá bánh để bạn tham khảo:</p>
-                        <h2 style="padding: 10px;font-size: 22px;">Bánh Cốm cưới hộp lớn ( dùng cho dịp cưới hỏi)</h2>
-                        <h2 style="padding: 10px;font-size: 22px;">Với quý khách đặt bánh cốm lớn cho dịp cưới hỏi vui lòng đặt trước 3 ngày để luôn có date mới nhất</h2>
-                        <p><strong>28.000/hộp/cái, trọng lượng bánh 200 gram</strong></p>
-                        <p><strong>38.000/hộp/cái, trọng lượng bánh 300 gram</strong></p>
-                        <p><strong>48.000/hộp/cái, trọng lượng bánh 400 gram</strong></p>
-                        <p><strong>58.000/hộp/cái, trọng lượng bánh 500 gram</strong></p>
+                        {!! $description !!}
+                       
+                        
                     </div>
 
                 </div>
@@ -238,12 +179,12 @@
                     <h3 class="h3">
                         <span>Sản Phẩm Liên Quan</span>
                     </h3>
-                </div>
+            </div>
                 <div class="sP-splq">
                     @foreach($relate_product as $rlt_product)
                     <div class="sP1">
                         <div class="sP-img">
-                            <img src="img/banhdauxanhrongvang.jpg" alt="">
+                            <img src="/img/{{$rlt_product->hinhAnh}}" alt="">
                             <span style="padding-top: 10px;">{{$rlt_product->tenSanPham}}</span>
 
                         </div>
@@ -283,3 +224,6 @@
 
 
 </html>
+
+
+

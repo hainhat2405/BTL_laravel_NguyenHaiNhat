@@ -100,10 +100,22 @@ class CartController extends Controller
         $rowId = $request->rowId_cart;
         $qty = $request->cart_quantity;
     
-        Cart::update($rowId, $qty);
+        // Lấy thông tin sản phẩm từ giỏ hàng
+        $cartItem = Cart::get($rowId);
     
-        return redirect('/show_cart'); // Sử dụng hàm redirect() thay vì Redirect::to()
+        // Lấy số lượng của sản phẩm từ cơ sở dữ liệu
+        $product = DB::table('sanpham')->where('idSanPham', $cartItem->id)->value('soLuong');
+    
+        // Kiểm tra nếu số lượng mới lớn hơn số lượng trong dữ liệu
+        if ($qty > $product) {
+            return redirect('/show_cart')->with('error', 'Số lượng mới lớn hơn số lượng của sản phẩm.');
+        } else {
+            // Nếu không có lỗi, thực hiện cập nhật số lượng
+            Cart::update($rowId, $qty);
+            return redirect('/show_cart');
+        }
     }
+    
 
     /**
      * Remove the specified resource from storage.

@@ -20,8 +20,8 @@
             <div id="search-1">
                 <form action="{{URL::to('/search-product')}}" method="post">
                     {{csrf_field()}}
-                    <input type="search" name="keywords_submit" id="src" style="width:80%;height: 100%;padding: 0.375rem 0.75rem;" placeholder="Tìm Kiếm Sản Phẩm" >
-                    <input type="submit" style="width:20%;height: 100%;padding: 0.375rem 0.75rem;float:right" value="Tìm kiếm">
+                    <input type="search" name="keywords_submit" id="src" style="width:80%;height: 46px;padding: 0.375rem 0.75rem;" placeholder="Tìm Kiếm Sản Phẩm" >
+                    <input type="submit" style="width:20%;height: 46px;padding: 0.375rem 0.75rem;float:right" value="Tìm kiếm">
                 </form>
             </div>
         </div>

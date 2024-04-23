@@ -15,8 +15,8 @@ class NhaCungCapController extends Controller
      */
     public function index()
     {
-        $ncc = NhaCungCapModel::all();
-        return view('Admin.nhacungcap.ncc',compact('ncc'));
+        $ncc = NhaCungCapModel::paginate(3);
+        return view('admin.nhacungcap.ncc',compact('ncc'));
     }
 
     /**
@@ -26,7 +26,7 @@ class NhaCungCapController extends Controller
      */
     public function create()
     {
-        return view('Admin.nhacungcap.addNCC');
+        return view('admin.nhacungcap.add_ncc');
     }
 
     /**
@@ -67,7 +67,7 @@ class NhaCungCapController extends Controller
         $soDienThoai = $ncc->soDienThoai;
         $email = $ncc->email;
         $Status = $ncc->Status;
-        return view('Admin.nhacungcap.detailNCC',compact('idNhaCungCap','tenNhaCungCap', 'soDienThoai', 'diaChi', 'email', 'Status'));
+        return view('admin.nhacungcap.detail_ncc',compact('idNhaCungCap','tenNhaCungCap', 'soDienThoai', 'diaChi', 'email', 'Status'));
     }
 
     /**
@@ -82,7 +82,7 @@ class NhaCungCapController extends Controller
         if(!$ncc){
             return abort(404);
         }
-        return view('Admin.nhacungcap.editNCC', compact('ncc'));
+        return view('admin.nhacungcap.edit_ncc', compact('ncc'));
     }
 
     /**

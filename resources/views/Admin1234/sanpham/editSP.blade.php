@@ -27,7 +27,13 @@
                 </tr>
                 <tr>
                     <td>ID Loại Sản Phẩm</td>
-                    <td><input type='text' name='idLoaiSP' id='idLoaiSP' value='{{$sp->idLoaiSP}}'></td>                  
+                    <td>  
+                    <select name="idLoaiSP" id="idLoaiSP">
+                        @foreach($lsp as $lsp)
+                        <option value="{{$lsp->idLoaiSP}}" name="idLoaiSP" id="idLoaiSP">{{$lsp->idLoaiSP}}</option>
+                        @endforeach
+                    </select>  
+                    </td>              
                 </tr>
                 <tr>
                     <td>Status</td>
@@ -43,7 +49,6 @@
                 </tr>
                 <tr>
                     <td>Hình ảnh</td>
-                    <td><img src="/img/{{ $sp->hinhAnh }}" alt="" style="width:90px;"></td>
                     <td><input type='file' name='hinhAnh' id='hinhAnh' value='{{$sp->hinhAnh}}'></td>                  
                 </tr>
                 <tr>

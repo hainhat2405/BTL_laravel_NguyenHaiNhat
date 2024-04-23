@@ -43,21 +43,21 @@
 
 
         <!-- Sidebar Start -->
-        @include('Admin.partials.sidebar')
+        @include('Admin1234.partials.sidebar')
         <!-- Sidebar End -->
 
 
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            @include('Admin.partials.navbar')
+            @include('Admin1234.partials.navbar')
             <!-- Navbar End -->
 
             @yield('content')
 
 
             <!-- Footer Start -->
-            @include('Admin.partials.footer')
+            @include('Admin1234.partials.footer')
             <!-- Footer End -->
         </div>
         <!-- Content End -->

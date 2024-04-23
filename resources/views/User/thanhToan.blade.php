@@ -35,7 +35,7 @@
 
     <div id="container">
         <h1>Thanh Toán</h1>
-        <p style="padding-left:150px">Vui lòng đăng nhập hoặc đăng ký để thanh toán giỏ hàng và xem lại lịch sử mua hàng</p>
+        <!-- <p style="padding-left:150px">Vui lòng đăng nhập hoặc đăng ký để thanh toán giỏ hàng và xem lại lịch sử mua hàng</p> -->
         <div id="ttkh">
             <form action="{{URL::to('/save-checkout-customer')}}" method="post">
             {{csrf_field()}}
@@ -90,7 +90,7 @@
                         <span>
                             <i class="fa fa-comments"></i>
                         </span>
-                        <input type="date" name="ngaySinh" id="txtsonha" placeholder="ngay sinh" onblur="chksonha()">
+                        <input type="date" style="height:46px" name="ngaySinh" id="txtsonha" placeholder="ngay sinh" onblur="chksonha()">
                     </div>
                 </div>
                 <div class="ttkh6">

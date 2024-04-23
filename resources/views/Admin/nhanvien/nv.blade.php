@@ -1,60 +1,58 @@
-@extends('Admin.layouts.index')
+@extends('admin.layouts.admin')
 @section('title')
-<title>Danh sách danh mục nhân viên</title>
+<title>Trang chủ</title>
 @endsection
 
 @section('content')
-<div class="container-fluid pt-4 px-4">
-    <h1>Nhân Viên</h1>
+<div id="quanlysp" class="tab-content-item"> 
+             <h3>
+                <i class="fa-solid fa-arrow-right"></i>
+                Quản lý 
+            </h3>
+            <button style="padding:10px;color: red" onclick="showcart()"><a href="{{route('addNV')}}" style="text-decoration: none;">Thêm</a></button>
             @if(session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}
 				</div>
 			@endif
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Recent Salse</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                    <th scope="col">STT</th>
-                                    <th scope="col">Tên</th>
-                                    <th scope="col">Hình Ảnh</th>
-                                    <th scope="col">Chức vụ</th>
-                                    <th scope="col">Địa chị</th>
-                                    <th scope="col">Số điện thoại</th>
-                                    <th scope="col">Ngày sinh</th>    
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Trạng thái</th>
-                                    <th scope="col">Chi tiết</th>
-                                    <th scope="col">Sửa</th>
-                                    <th scope="col">Xóa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $i = 1; @endphp
-								@foreach($nv as $nv)
-								<tr>
-									<td>{{ $i++ }}</td>
-									<td>{{ $nv->tenNhanVien }}</td>
-                                    <td><img src="img/{{ $nv->hinhAnh }}" alt="" style="width:150px;"></td>
-                                    <td>{{ $nv->chucVu }}</td>
-                                    <td>{{ $nv->diaChi }}</td>
-                                    <td>{{ $nv->soDienThoai }}</td>
-                                    <td>{{ $nv->ngaySinh }}</td>
-                                    <td>{{ $nv->email }}</td>
-									<td><input type="checkbox" {{ $nv->Status ? 'checked' : '' }}></td>
-									<td><a href="{{route('detailNV',$nv->idNhanVien)}}" class="btn btn-primary" >Chi tiết</a></td>
-									<td><a href="{{route('editNV',$nv->idNhanVien)}}" class="btn btn-warning">Edit</a></td>
-									<td><a href="{{route('destroyNV',$nv->idNhanVien)}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
-								</tr>
-								@endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <table class="tbl-main">
+                <thead>
+                <tr class="tr1">
+                    <th>STT</th>
+                    <th>Tên nhân viên</th>
+                    <th>Chức vụ</th>
+                    <th>Hình ảnh</th>
+                    <th>Địa chỉ</th>
+                    <th>Ngày sinh</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th>Trạng thái</th>
+                    <th>Xem</th>
+                    <th>Sửa</th>
+                    <th>Xóa</th>
+                </tr>
+                </thead>
+                <tbody>
+                @php $i = 1; @endphp
+				@foreach($nv as $nv_info)
+				<tr>
+					<td style="height:50px">{{ $i++ }}</td>
+					<td>{{ $nv_info->tenNhanVien }}</td>
+					<td>{{ $nv_info->chucVu }}</td>
+                    <td><img src="img/{{ $nv_info->hinhAnh }}" alt="" style="width:90px;"></td>
+                    <td>{{ $nv_info->diaChi }}</td>
+                    <td>{{ $nv_info->ngaySinh }}</td>
+                    <td>{{ $nv_info->soDienThoai }}</td>
+                    <td>{{ $nv_info->email }}</td>
+					<td><input type="checkbox" {{ $nv_info->Status ? 'checked' : '' }}></td>
+                    <td><a href="{{route('detailNV',$nv_info->idNhanVien)}}" class="btn btn-primary" >Chi tiết</a></td>
+					<td><a href="{{route('editNV',$nv_info->idNhanVien)}}" class="btn btn-warning">Edit</a></td>
+					<td><a href="{{route('destroyNV',$nv_info->idNhanVien)}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>
+				</tr>
+				@endforeach
+                </tbody>
+            </table>
+            {{ $nv->links('pagination::bootstrap-4') }}
+           
+        </div>
 @endsection

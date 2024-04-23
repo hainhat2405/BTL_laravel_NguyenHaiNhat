@@ -34,10 +34,6 @@
 
     <div id="container">
         <h1>Bạn đã đặt hàng thàng công</h1>
-        <div id="infokh">
-            
-        </div>
-
         <div class="donhang">
             <h3 class="h3">
                 <i class="fa-solid fa-camera-retro" style="color: white;background: rgb(96, 177, 38);padding: 10px;"></i>

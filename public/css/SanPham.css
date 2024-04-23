@@ -197,7 +197,7 @@
 /* -------------------------------------------- */
 #content-sanPham{
     width: 100%;
-    height: 4000px;
+    height: auto;
     background-color: rgb(248, 249, 250);
 }
 
@@ -432,7 +432,7 @@
     margin-top: 10px;
 }
 .btn2{
-    width: 47%;
+    width: 98%;
     height: 10%;
     background-color: #E62117;
     float: right;
@@ -446,6 +446,8 @@
     font-weight: normal;
 
 }
+
+
 .btn1 a{
     text-transform: uppercase;
     font-size: 14px;
@@ -684,7 +686,7 @@
 
 .content-dmsp{
     width: 25%;
-    height: 865px;
+    height: auto;
     float: left;
 }
 
@@ -867,7 +869,7 @@ t-sp2
 /* --------Chi tiết sản phẩm----------- */
 .content-ctsp{
     width: 73%;
-    height: 2950px;
+    height: auto;
     float: right;
 
 }
@@ -894,6 +896,7 @@ t-sp2
     width: 100%;
     height: 30px;
     margin-top: 10px;
+    float: left;
 }
 
 .info-img img{
@@ -912,6 +915,7 @@ t-sp2
     height: 100%;
     float: left;
     background: white;
+    margin-top: 20px;
 
 }
 .sP2{
@@ -974,19 +978,6 @@ t-sp2
     color: red;
     font-size: 16px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ---------------footer-------------------- */
 #footer{

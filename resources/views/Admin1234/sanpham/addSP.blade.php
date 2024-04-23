@@ -31,7 +31,7 @@
                     <td>
                     <select name="idLoaiSP" id="idLoaiSP">
                         @foreach($lsp as $lsp)
-                        <option value="{{$lsp->idLoaiSP}}" name="idLoaiSP" id="idLoaiSP">{{$lsp->idLoaiSP}}</option>
+                        <option value="{{$lsp->idLoaiSP}}" name="idLoaiSP" id="idLoaiSP">{{$lsp->tenLoaiSP}}</option>
                         @endforeach
                     </select> 
                     </td>                 

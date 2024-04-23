@@ -15,8 +15,8 @@ class NhanVienController extends Controller
      */
     public function index()
     {
-        $nv= NhanVienModel::all();
-        return view('Admin.nhanvien.nv',compact('nv'));
+        $nv= NhanVienModel::paginate(10);
+        return view('admin.nhanvien.nv',compact('nv'));
     }
 
     /**
@@ -26,7 +26,7 @@ class NhanVienController extends Controller
      */
     public function create()
     {
-        return view('Admin.nhanvien.addNV');
+        return view('admin.nhanvien.add_NV');
     }
 
     /**
@@ -64,7 +64,7 @@ class NhanVienController extends Controller
             return abort(404);
         }
         $idNhanVien = $nv->idNhanVien;
-        $tenNhanVien = $nv->idNhanVien;
+        $tenNhanVien = $nv->tenNhanVien;
         $chucVu = $nv->chucVu;
         $hinhAnh = $nv->hinhAnh;
         $diaChi = $nv->diaChi;
@@ -72,7 +72,7 @@ class NhanVienController extends Controller
         $email = $nv->email;
         $Status = $nv->Status;
         $soDienThoai = $nv->soDienThoai;
-        return view('Admin.nhanvien.detailNV',compact('idNhanVien','tenNhanVien','soDienThoai','Status','email','ngaySinh','diaChi','hinhAnh','chucVu'));
+        return view('admin.nhanvien.detail_nv',compact('idNhanVien','tenNhanVien','soDienThoai','Status','email','ngaySinh','diaChi','hinhAnh','chucVu'));
     }
 
     /**
@@ -87,7 +87,7 @@ class NhanVienController extends Controller
         if(!$nv){
             return abort(404);
         }   
-        return view('Admin.nhanvien.editNV', compact('nv'));
+        return view('admin.nhanvien.edit_nv', compact('nv'));
     }
 
     /**
