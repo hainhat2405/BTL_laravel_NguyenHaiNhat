@@ -379,7 +379,7 @@
 /* ----------------container-----------------*/
 #container{
     width: 100%;
-    height: 500px;
+    height: auto;
 }
 
 #container h1{
@@ -697,10 +697,9 @@ h3.h3 {
 /* ----------------donhang------------------ */
 .donhang{
     width: 100%;
-    height: 40%;
+    height: auto;
     /* margin-left: 60px; */
     color: white;
-    background: red;
 }
 .donhang h3{
     padding-left: 20%;

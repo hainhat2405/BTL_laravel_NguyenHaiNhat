@@ -31,7 +31,7 @@
     <link href="{{ asset('css/admin123.css')}}" rel="stylesheet">
 </head>
 <body>
-    <div id="title">
+    <div id="title1">
         <div class="feature">
             <h3>Admin</h3>
             

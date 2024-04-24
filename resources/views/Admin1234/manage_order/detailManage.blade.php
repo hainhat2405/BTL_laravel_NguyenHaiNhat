@@ -1,4 +1,4 @@
-@extends('Admin.layouts.index')
+@extends('Admin1234.layouts.index')
 @section('title')
 <title>Chi tiết thông tin đơn hàng</title>
 @endsection

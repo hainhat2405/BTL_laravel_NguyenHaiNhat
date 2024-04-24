@@ -91,7 +91,7 @@ Route::controller(App\Http\Controllers\Admin\HoaDonBanController::class)->group(
     // Route::get('/destroyNCC/{idNhaCungCap}', 'destroy')->name('destroyNCC');
 });
 Route::controller(App\Http\Controllers\Admin\Manage_orderController::class)->group(function(){
-    Route::get('/manage_order','index')->name('index_manage');
+    Route::get('/manage_order','index')->name('manage_order');
     Route::get('/view-order/{order_id}','show')->name('view-order');
     // Route::get('/addNCC','create')->name('addNCC');
     // Route::post('/storeNCC','store')->name('storeNCC');

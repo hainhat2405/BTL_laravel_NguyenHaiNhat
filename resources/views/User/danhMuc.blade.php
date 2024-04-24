@@ -47,7 +47,7 @@
                             $n = 0; // Đây là ví dụ, bạn có thể thay đổi giá trị của $n tùy theo bản ghi bạn muốn lấy thông tin
                         @endphp
                         <div class="ten-sp1-bkhn">
-                            <h2 style="padding-left: 115px;">{{ $id_LSP[$n]->tenLoaiSP }}</h2>
+                            <h2>{{ $id_LSP[$n]->tenLoaiSP }}</h2>
                         </div>
 
 

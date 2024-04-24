@@ -1,4 +1,4 @@
-@extends('Admin.layouts.index')
+@extends('Admin1234.layouts.index')
 @section('title')
 <title>Quản lý đơn hàng</title>
 @endsection
@@ -37,7 +37,6 @@
 									<td>{{ $all_order->Customer_name}}</td>
                                     <td>{{ $all_order->order_total }}</td>
                                     <td>{{ $all_order->order_status }}</td>
-                        
 									<td><a href="{{URL::To('/view-order/'.$all_order->order_id)}}" class="btn btn-primary" >Chi tiết</a></td>
 									<td><a href="" class="btn btn-warning">Edit</a></td>
 									<td><a href="" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xoá</a></td>

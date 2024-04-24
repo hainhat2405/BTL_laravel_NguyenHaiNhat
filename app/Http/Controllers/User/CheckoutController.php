@@ -59,7 +59,8 @@ class CheckoutController extends Controller
         return view("User.thanhToan",compact('lsp'));
     }
     public function save_checkout_customer(Request $request){
-        
+        // $content = Cart::content();
+        // echo $content;
         // $data = array();
         // $data['Shipping_name'] = $request->Shipping_name;
         // $data['Shipping_email'] = $request->Shipping_email;
@@ -88,7 +89,7 @@ class CheckoutController extends Controller
         $data_order['Customer_id'] = Session::get('Customer_id');
         $data_order['idKhachHang'] = Session::get('idKhachHang');
         $data_order['payment_id'] = $payment_id;
-        $data_order['order_total'] = Cart::total();
+        $data_order['order_total'] = Cart::subtotal();
         $data_order['order_status'] = "Dang cho xu ly";
         $order_id = DB::table('tbl_order')->insertGetId($data_order);
 

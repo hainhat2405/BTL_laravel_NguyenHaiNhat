@@ -15,8 +15,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = BlogModel::all();
-        return view('Admin.blog.blog',compact('blog'));
+        $blog = BlogModel::paginate(4);
+        return view('admin.blog.blog',compact('blog'));
     }
 
     /**
@@ -26,7 +26,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('Admin.blog.addBlog');
+        return view('admin.blog.add_blog');
     }
 
     /**
@@ -69,7 +69,7 @@ class BlogController extends Controller
         $image = $blog->image;
         $Status = $blog->Status;
 
-        return view('Admin.blog.detailBlog', compact('id','title', 'content', 'image', 'publish_date', 'Status'));
+        return view('Admin.blog.detail_blog', compact('id','title', 'content', 'image', 'publish_date', 'Status'));
     }
 
     /**
@@ -84,7 +84,7 @@ class BlogController extends Controller
         if(!$blog){
             return abort(404);
         }
-        return view('Admin.blog.editBlog',compact('blog'));
+        return view('Admin.blog.edit_blog',compact('blog'));
     }
 
     /**

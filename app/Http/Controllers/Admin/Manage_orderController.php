@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\manageOrderModel;
 use DB;
 class Manage_orderController extends Controller
 {
@@ -14,11 +15,12 @@ class Manage_orderController extends Controller
      */
     public function index()
     {
+        $order = manageOrderModel::paginate(10);
         $all_order = DB::table('tbl_order')
         ->join('tbl_customers','tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
         ->select('tbl_order.*', 'tbl_customers.Customer_name')
         ->orderby('tbl_order.order_id')->get();
-        return view('Admin.manage_order.manageOrder',compact('all_order'));
+        return view('admin.manage_order.manageOrder',compact('all_order','order'));
     }
 
     /**
@@ -49,17 +51,22 @@ class Manage_orderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($order_id)
-{
-    $order_byID = DB::table('tbl_order')
+    {
+        $order_byID = DB::table('tbl_order')
         ->join('tbl_customers', 'tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
         ->join('khachHang', 'tbl_order.idKhachHang', '=', 'khachHang.idKhachHang')
         ->join('tbl_order_detail', 'tbl_order.order_id', '=', 'tbl_order_detail.order_id')
         ->select('tbl_order.*', 'tbl_customers.*', 'khachHang.*', 'tbl_order_detail.*')
         ->where('tbl_order.order_id', $order_id)
         ->first();
+        $order = DB::table('tbl_order_detail')
+        ->join('tbl_order', 'tbl_order.order_id' , '=' , 'tbl_order_detail.order_id' )
+        ->where('tbl_order_detail.order_id', $order_id)
+        ->get();
 
-    return view('Admin.manage_order.detailManage', compact('order_byID'));
-}
+
+        return view('admin.manage_order.detail_order', compact('order_byID','order'));
+    }
 
 
     /**

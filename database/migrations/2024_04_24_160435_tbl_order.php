@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tbl_order', function (Blueprint $table) {
             $table->bigIncrements('order_id');
             $table->Integer('Customer_id');
-            $table->Integer('Shipping_id');
+            $table->Integer('idKhachHang');
             $table->Integer('payment_id');
             $table->float('order_total');
             $table->Integer('order_status');

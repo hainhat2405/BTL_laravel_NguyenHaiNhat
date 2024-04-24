@@ -37,7 +37,7 @@
         <div class="donhang">
             <h3 class="h3">
                 <i class="fa-solid fa-camera-retro" style="color: white;background: rgb(96, 177, 38);padding: 10px;"></i>
-                <span>Đơn hàng của bạn</span>
+                <span style="color:black">Đơn hàng của bạn</span>
             </h3>
             <form action="" method="POST" class="form-group">
                 <table class="tbl-main">
@@ -51,9 +51,7 @@
 
                         <?php
                             $content = Cart::content();
-                            // echo '<pre>';
-                            // print_r($content);
-                            // echo '</pre>';
+                            // echo $content;
                         ?>
                         
                         @foreach($content as $v_content)
@@ -73,6 +71,8 @@
                         @endforeach
                     </table>
                 </table>
+                <h1>Tổng tiền :{{Cart::subtotal()}}
+                </h1>
              </form>
         </div>
 
