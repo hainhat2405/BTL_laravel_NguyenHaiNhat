@@ -20,7 +20,6 @@
                 <tr class="tr1">
                     <th>STT</th>
                     <th>Title</th>
-                    <th>Content</th>
                     <th>Hình ảnh</th>
                     <th>Ngày đăng</th>
                     <th>Trạng thái</th>
@@ -35,7 +34,6 @@
 				<tr>
 					<td style="height:50px">{{ $i++ }}</td>
 					<td>{{ $blog_info->title }}</td>
-					<td>{{ $blog_info->content }}</td>
                     <td><img src="img/{{ $blog_info->image }}" alt="" style="width:90px;"></td>
                     <td>{{ $blog_info->publish_date }}</td>
 					<td><input type="checkbox" {{ $blog_info->Status ? 'checked' : '' }}></td>

@@ -35,7 +35,7 @@
         <div class="feature">
             <h3>Admin</h3>
             
-            <a href="Login.html">
+            <a href="{{route('login')}}">
                 <i class="fa fa-power-off" style="font-size:20px;color:rgb(48, 130, 198)"></i>Đăng xuất
             </a>
         </div>

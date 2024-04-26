@@ -129,21 +129,26 @@ class AdminController extends Controller
     public function show_dashboard(Request $request ){
         $admin_email = $request->admin_email;
         $admin_password = $request->admin_password;
+        $admin_chucvu = $request->admin_chucvu;
+        
 
-        $result = DB::table('tbl_admin')->where('email',$admin_email)->where('password',$admin_password)->first();
+        $result = DB::table('tbl_admin')
+        ->where('email',$admin_email)
+        ->where('password',$admin_password)
+        ->where('chucVu',$admin_chucvu)->first();
         if($result==true){
             Session::put('name',$result->name);
             Session::put('id',$result->id);
-            return Redirect::to('/index');
+            return Redirect::to('/admin');
         }
         else{
-            Session::put('message','Email hoặc password sai');
+            Session::put('message','Email hoặc password hoặc chức vụ sai');
             return Redirect::to('/login');
 
         }
     }
 
     // public function log_out(){
-    //     return view("User.Login_User");
+    //     return view("admin.Login_Admin");
     // }
 }

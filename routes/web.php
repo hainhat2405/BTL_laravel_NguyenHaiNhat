@@ -20,8 +20,8 @@ Route::get('/admin1111', function () {
 })->name('admin');
 
 Route::get('/login', function(){
-    return view('Admin.Login_Admin');
-});
+    return view('admin.Login_Admin');
+})->name('login');
 
 
 Route::get('/admin', function () {
@@ -38,7 +38,7 @@ Route::controller(App\Http\Controllers\Admin\AdminController::class)->group(func
     Route::get('/show/{idLoaiSP}', 'show')->name('detail');
     Route::put('/update/{idLoaiSP}', 'update')->name('update');
     Route::post('/admin-dashboard', 'show_dashboard')->name('admin-dashboard');
-    // Route::get('/logout', 'log_out')->name('logout');
+    Route::get('/logout', 'log_out')->name('logout');
 
 });
 
@@ -109,6 +109,15 @@ Route::controller(App\Http\Controllers\Admin\BlogController::class)->group(funct
     Route::put('/update-blog/{id}', 'update')->name('update-blog');
     Route::get('/destroy-blog/{id}', 'destroy')->name('destroy-blog');
 });
+Route::controller(App\Http\Controllers\Admin\TKhoanController::class)->group(function(){
+    Route::get('/Acc','index')->name('Acc');
+    Route::get('/addAcc','create')->name('addAcc');
+    Route::post('/storeAcc','store')->name('storeAcc');
+    Route::get('/showAcc/{id}','show')->name('detailAcc');
+    Route::get('/editAcc/{id}','edit')->name('editAcc');
+    Route::put('/updateAcc/{id}', 'update')->name('updateAcc');
+    Route::get('/destroyAcc/{id}', 'destroy')->name('destroyAcc');
+});
 
 //USER
 Route::controller(App\Http\Controllers\User\HomeController::class)->group(function(){
@@ -116,6 +125,7 @@ Route::controller(App\Http\Controllers\User\HomeController::class)->group(functi
     Route::get('/home',  'index')->name('home');
     Route::get('/GioiThieu',  'gioiThieu')->name('gioiThieu');
     Route::get('/TinTuc',  'tinTuc')->name('tinTuc');
+    Route::get('/blog_detail/{id}',  'blog_detail')->name('blog_detail');
     Route::get('/DanhMuc',  'danhMuc')->name('danhMuc');
     Route::get('/SanPham',  'sanPham')->name('sanPham');
     Route::get('/SanPhamSauGion',  'sanPhamSauGion')->name('sanPhamSauGion');

@@ -34,7 +34,7 @@
                 @php $i = 1; @endphp
 				@foreach($kh as $kh_info)
 				<tr>
-					<td style="height:50px">{{ $i++ }}</td>
+					<td>{{ $i++ }}</td>
 					<td>{{ $kh_info->tenKhachHang }}</td>
                     <td>{{ $kh_info->diaChi }}</td>
                     <td>{{ $kh_info->ngaySinh }}</td>

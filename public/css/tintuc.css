@@ -333,20 +333,20 @@ h3.h3:before {
 /* ----------- */
 .content{
     width: 100%;
-    height: 1400px;
+    height: auto;
 }
 
 .noidung{
-    width: 90%;
+    width: 80%;
     height: 100%;
-    margin: 10px 0 0 150px;
+    margin-left: 10%;
 }
 .content1{
     display: inline-block;
     width: 28%;
     height: 380px;
     background-color: rgb(245, 245, 245);
-    margin-left: 2%;
+    margin-left: 4%;
     margin-top: 50px;
     
 }
@@ -364,6 +364,7 @@ h3.h3:before {
 
 .content1 h3, i{
     padding: 10px 0 0 10px;
+    color: black;
 }
 .content1 a{
     text-decoration: none;
@@ -374,7 +375,7 @@ h3.h3:before {
 #footer{
     width: 100%;
     height: 450px;
-    background-color: white;
+    margin-top: 20px;
 }
 
 .footer-1{
@@ -563,4 +564,54 @@ h3.h3:before {
     text-align: right;
     color: white;
     padding: 25px 0px 0px 0px;
+}
+.detail{
+    width: 80%;
+    height: auto;
+    margin-left: 10%;
+}
+
+
+.image{
+    position: fixed;
+    width: 5%;
+    height: 10%;
+    background: #28AB70;
+    border-radius: 100%;
+    top: 88%;
+    left: 10px;
+    transform: translate(15%);
+}
+
+.image img{
+    width: 65%;
+    height: 65%;
+    margin-left: 13px;
+    margin-top: 13px;
+    font-size: 30px ;
+    background: white;
+    border-radius:100%; 
+
+}
+
+.image{
+    position: fixed;
+    width: 5%;
+    height: 10%;
+    background: #28AB70;
+    border-radius: 100%;
+    top: 88%;
+    left: 10px;
+    transform: translate(15%);
+}
+
+.image img{
+    width: 65%;
+    height: 65%;
+    margin-left: 13px;
+    margin-top: 13px;
+    font-size: 30px ;
+    background: white;
+    border-radius:100%; 
+
 }

@@ -52,6 +52,15 @@ class HomeController extends Controller
         $lsp = LoaiSanPhamModel::all();
         return view('User.tinTuc',compact('sp', 'lsp','blog'));
     }
+    public function blog_detail($id){
+        $blog_detail = DB::table('blog')
+        ->where('id',$id)
+        ->select('blog.*')
+        ->get();
+        $sp = SanPhamModel::all();
+        $lsp = LoaiSanPhamModel::all();
+        return view('User.blog_detail',compact('sp', 'lsp','blog_detail'));
+    }
     public function danhMuc(){
         $sp = SanPhamModel::all();
         $lsp = LoaiSanPhamModel::all();

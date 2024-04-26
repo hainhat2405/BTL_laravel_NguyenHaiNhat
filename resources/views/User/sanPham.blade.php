@@ -156,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="content-ctsp">  <!--Chi tiết sản phẩm-->
+            <div class="content-ctsp">  
                 <div class="ctsp">
                     <h3 class="h3">
                         <span>Chi tiết sản phẩm</span>
@@ -175,12 +175,13 @@
                 </div>
                 
             </div>
-            <div class="splq">
-                    <h3 class="h3">
-                        <span>Sản Phẩm Liên Quan</span>
-                    </h3>
-            </div>
-                <div class="sP-splq">
+            
+        </div>
+        <div class="splq">
+            <h3 class="h3">
+                <span>Sản Phẩm Liên Quan</span>
+            </h3>
+            <div class="sP-splq">
                     @foreach($relate_product as $rlt_product)
                     <div class="sP1">
                         <div class="sP-img">
@@ -202,7 +203,8 @@
                         </div>
                     </div>
                     @endforeach
-                </div>
+            </div>
+                
         </div>
     </div>
     <!-- End content -->

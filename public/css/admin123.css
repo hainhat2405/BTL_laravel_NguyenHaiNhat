@@ -179,7 +179,7 @@ label{
 }
 .tbl-main td{
     width: auto;
-    height: auto;
+    height: 50px;
     border: 1px solid black;
 }
 

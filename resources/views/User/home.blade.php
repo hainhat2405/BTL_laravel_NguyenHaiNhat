@@ -113,13 +113,7 @@
 
     <!-- Begin footer -->
     @include('User.partials.footer')
-    <script src="js/TrangChu.js"></script>
-    <!-- End footer -->
-    <div class="image">
 
-        <img id="img" onclick="changeImage()" src="img/icon-phone2.png" alt="">
-
-    </div>
 
 
 
