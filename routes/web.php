@@ -24,12 +24,12 @@ Route::get('/login', function(){
 })->name('login');
 
 
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->name('admin');
+// Route::get('/admin', function () {
+//     return view('admin.dashboard');
+// })->name('admin');
 
 
-Route::controller(App\Http\Controllers\Admin\AdminController::class)->group(function(){
+Route::controller(App\Http\Controllers\Admin\LSPController::class)->group(function(){
     Route::get('/indexLSP',  'index')->name('indexLSP');
     Route::get('/add', 'create')->name('add');
     Route::post('/store','store')->name('store');
@@ -40,6 +40,23 @@ Route::controller(App\Http\Controllers\Admin\AdminController::class)->group(func
     Route::post('/admin-dashboard', 'show_dashboard')->name('admin-dashboard');
     Route::get('/logout', 'log_out')->name('logout');
 
+});
+Route::controller(App\Http\Controllers\Admin\AuthController::class)->group(function(){
+    Route::get('/index',  'index')->name('index');
+    Route::get('/register_auth',  'register_auth')->name('register_auth');
+    Route::get('/login_auth',  'login_auth')->name('login_auth');
+    Route::get('/logout_auth',  'logout_auth')->name('logout_auth');
+    Route::post('/register',  'register')->name('register');
+    Route::post('/loginAuth',  'loginAuth')->name('loginAuth');
+});
+Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function(){
+    Route::get('/indexUsers',  'index')->name('indexUsers');
+    Route::post('/assign_roles',  'assign_roles')->name('assign_roles');
+    // Route::get('/register_auth',  'register_auth')->name('register_auth');
+    // Route::get('/login_auth',  'login_auth')->name('login_auth');
+    // Route::get('/logout_auth',  'logout_auth')->name('logout_auth');
+    // Route::post('/register',  'register')->name('register');
+    // Route::post('/loginAuth',  'loginAuth')->name('loginAuth');
 });
 
 

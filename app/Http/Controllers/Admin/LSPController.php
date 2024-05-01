@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 // session_start();
 // use link;
 
-class AdminController extends Controller
+class LSPController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -147,6 +147,7 @@ class AdminController extends Controller
 
         }
     }
+    
 
     // public function log_out(){
     //     return view("admin.Login_Admin");

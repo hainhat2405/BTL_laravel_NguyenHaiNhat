@@ -7,17 +7,20 @@ use Illuminate\Database\Seeder;
 use App\Models\Admin\RolesModel;
 use App\Models\Admin\AdminModel;
 
-class DatabaseSeeder extends Seeder
+class RolesTableSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call(RolesTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        // \App\Models\User::factory(10)->create();
+        RolesModel::truncate();
+
+        RolesModel::create(['name'=>'admin']);
+        RolesModel::create(['name'=>'author']);
+        RolesModel::create(['name'=>'user']);
+        
     }
 }

@@ -66,26 +66,26 @@ if(count($content) > 0){
             </tr>
             <?php foreach($content as $v_content){ ?>
             <tbody id="mycart" style="    border-bottom: 2px solid rgb(96, 177, 38);">
-                <th class="tbl1"><img src="/img/<?php echo $v_content->options->image; ?>" alt=""></th>
-                <th class="tbl2"><?php echo $v_content->name; ?></th>
-                <th class="tbl3">
+                <td class="tbl1"><img src="/img/<?php echo $v_content->options->image; ?>" alt=""></td>
+                <td class="tbl2"><?php echo $v_content->name; ?></td>
+                <td class="tbl3">
                     <form action="{{URL::to('/update-cart-quantity')}}" method="POST">
                         {{csrf_field()}}
                         <input type="text" style="width:50px;text-align: center;" name="cart_quantity" value="<?php echo $v_content->qty; ?>">
                         <input type="hidden" value="<?php echo $v_content->rowId; ?>" name="rowId_cart">
                         <input type="submit" value="Cập nhật" name="update_qty">
                     </form>
-                </th>
-                <th class="tbl4"><?php echo number_format($v_content->price).' ' .'VNĐ'; ?></th>
-                <th class="tbl5">
+                </td>
+                <td class="tbl4"><?php echo number_format($v_content->price).' ' .'VNĐ'; ?></td>
+                <td class="tbl5">
                     <?php
                         $subtotal = $v_content->price * $v_content->qty;
                         echo number_format($subtotal) . " " . "VNĐ";
                     ?>
-                </th>
-                <th class="tbl6">
-                    <a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}" style="color:black"><i class="fa-solid fa-trash"></i></a>
-                </th>
+                </td>
+                <td class="tbl6">
+                    <a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}" style="color:rgb(96, 177, 38)"><i class="fa-solid fa-trash"></i></a>
+                </td>
             </tbody>
             <?php } ?>
         </table>

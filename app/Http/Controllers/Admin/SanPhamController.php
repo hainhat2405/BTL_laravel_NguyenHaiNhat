@@ -39,20 +39,41 @@ class SanPhamController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $data = [
-            'idSanPham' => $request->input('idSanPham'),
-            'tenSanPham' => $request->input('tenSanPham'),
-            'moTa' => $request->input('moTa'),
-            'giaBan' => $request->input('giaBan'),
-            'soLuong' => $request->input('soLuong'),
-            'hinhAnh' => $request->input('hinhAnh'),
-            'idLoaiSP' => $request->input('idLoaiSP'),
-            'Status' => $request->input('Status') ? 1 : 0,
-        ];
-        SanPhamModel::create($data);
-        return redirect()->route('indexSP')->with('success','Thêm thành công loại sản phẩm');
+{
+    $request->validate([
+        'MoreImage.*' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:5120',
+    ]);
+
+    // Handle file uploads for additional images
+    $imageModels = [];
+    if ($request->hasFile('MoreImage')) {
+        foreach ($request->file('MoreImage') as $image) {
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $imageName);
+            $imageModels[] = ImageModel::create(['filename' => $imageName]);
+        }
     }
+
+    // Store data in the database
+    $data = [
+        'idSanPham' => $request->input('idSanPham'),
+        'tenSanPham' => $request->input('tenSanPham'),
+        'moTa' => $request->input('moTa'),
+        'giaBan' => $request->input('giaBan'),
+        'soLuong' => $request->input('soLuong'),
+        'hinhAnh' => $request->input('hinhAnh'), // Assuming 'hinhAnh' is for the main image
+        'idLoaiSP' => $request->input('idLoaiSP'),
+        'Status' => $request->input('Status') ? 1 : 0,
+    ];
+
+    // Optionally, associate images with the product if applicable
+    // For example, assuming SanPhamModel has a relationship method called 'images'
+    $sanPham = SanPhamModel::create($data);
+    $sanPham->images()->saveMany($imageModels);
+
+    return redirect()->route('indexSP')->with('success', 'Thêm thành công loại sản phẩm');
+}
+
 
     /**
      * Display the specified resource.

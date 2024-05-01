@@ -17,23 +17,35 @@
     <div class="signup">
       <div class="signup__container">
         <h1>Đăng Ký Auth</h1>
-        <form action="{{URL::to('/add-customer')}}" method="POST">
+        <?php
+          $message = Session::get('message');
+          if($message){
+            echo $message;
+            Session::put('message',null);
+          }
+        ?>
+        <form action="{{URL::to('/register')}}" method="POST">
           {{csrf_field()}}
+          @foreach($errors->all() as $val)
+            <ul>
+                <li>{{$val}}</li>
+            </ul>
+          @endforeach
           <h5>Họ và tên</h5>
-          <input type="text" name="customer_name" class="input-signup-username" onblur="chkemail()"/>
+          <input type="text" name="name" class="input-signup-username" value="{{old('name')}}" onblur="chkemail()"/>
           <span class="chkEmail" style="color: red;display: none;">*</span><br><br>
           <h5>Địa chỉ email</h5>
-          <input type="text" name="customer_email" class="input-signup-password"onblur="chkpass()" />
+          <input type="text" name="email" class="input-signup-password"onblur="chkpass()" />
           <span class="chkPass" style="color: red;display: none;">*</span><br><br>
           <h5>Password</h5>
-          <input type="password" name="customer_password" class="input-signup-password"onblur="chkpass()" />
+          <input type="password" name="password" class="input-signup-password"onblur="chkpass()" />
           <span class="chkPass" style="color: red;display: none;">*</span><br><br>
           <h5>Phone</h5>
-          <input type="text" name="customer_phone" class="input-signup-password"onblur="chkpass()" />
+          <input type="text" name="phone" class="input-signup-password"onblur="chkpass()" />
           <span class="chkPass" style="color: red;display: none;">*</span><br><br>
           <button type="submit" class="signup__signInButton">Đăng Ký</button>
         </form>
-        <a href="{{URL::to('/login-Customers')}}" class="signup__registerButton"
+        <a href="{{URL::to('/login_auth')}}" class="signup__registerButton"
           >Đã có tài khoản</a
         >
       </div>

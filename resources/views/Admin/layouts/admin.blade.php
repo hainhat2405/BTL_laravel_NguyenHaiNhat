@@ -33,9 +33,16 @@
 <body>
     <div id="title1">
         <div class="feature">
-            <h3>Admin</h3>
+            <h3>
+                <?php
+                    $name = Auth::user()->name;
+                    if($name){
+                        echo $name;
+                    }
+                ?>
+            </h3>
             
-            <a href="{{route('login')}}">
+            <a href="{{route('logout_auth')}}">
                 <i class="fa fa-power-off" style="font-size:20px;color:rgb(48, 130, 198)"></i>Đăng xuất
             </a>
         </div>

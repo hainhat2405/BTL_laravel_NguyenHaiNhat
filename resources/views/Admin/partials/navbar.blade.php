@@ -8,6 +8,6 @@
             <a href="{{route('indexNCC')}}"><label for="toggle_sidebar0">Nhà cung cấp</label></a>   
             <a href="{{route('blog')}}"><label for="toggle_sidebar0">Bài viết</label></a>   
             <a href="{{route('manage_order')}}"><label for="toggle_sidebar0">Đơn hàng</label></a>   
-            <a href="{{route('Acc')}}"><label for="toggle_sidebar0">Tài khoản</label></a>   
+            <a href="{{route('indexUsers')}}"><label for="toggle_sidebar0">Tài khoản</label></a>   
         </div>
     </div>

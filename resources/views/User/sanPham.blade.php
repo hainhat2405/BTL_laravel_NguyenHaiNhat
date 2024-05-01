@@ -45,17 +45,20 @@
             <div class="thongTin-1" >
                 <div class="main">
                     <img src="/img/{{$detailSP->hinhAnh}}" alt="" class="img-feature">
-                        <div class="control prev"><i class="fa-solid fa-chevron-left" style=" color: white;"></i></i></div>
-                        <div class="control next"><i class="fa-solid fa-chevron-right" style=" color: white;"></i></div>
+                        <div class="control prev"><i class="fa-solid fa-chevron-left" style=" color: black;margin-top:100px"></i></i></div>
+                        <div class="control next"><i class="fa-solid fa-chevron-right" style=" color: black;margin-top:100px"></i></div>
 
                 </div>
-                <!-- <div class="list-image">
-                    <div> <img src="{{asset('img/banhcombaominh.jpg')}}" alt=""></div>
+                <div class="list-image">
+                    @foreach(explode(',', $detailSP->MoreImage) as $img)
+                        <div> <img src="{{asset('img/'.$img)}}" alt=""></div>
+                    @endforeach
+                    <!-- <div> <img src="{{asset('img/banhcombaominh.jpg')}}" alt=""></div>
                     <div><img src="{{asset('img/banh-com-bao-minh-7-1.jpg')}}" alt=""></div>
                     <div><img src="{{asset('img/banh-com-4-2-e1666235165251.jpg')}}" alt=""></div>
                     <div>  <img src="img/banh-com-bao-minh-1-1 (1).jpg" alt=""></div>
-                    <div><img src="img/banh-com-bao-minh-7-2.jpg" alt=""></div>
-                </div> -->
+                    <div><img src="img/banh-com-bao-minh-7-2.jpg" alt=""></div> -->
+                </div>
 
             </div>
             <div class="thongTin-2">
@@ -214,7 +217,7 @@
 
     <!-- Begin footer -->
     @include('User.partials.footer')
-    <script src="js/SanPham.js"></script>
+    <script src="{{asset('js/SanPham.js')}}"></script>
     <!-- End footer -->
         <!--  -->
         <div class="image">

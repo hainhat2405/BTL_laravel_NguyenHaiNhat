@@ -19,8 +19,11 @@ class SanPhamModel extends Model
         'soLuong',
         'hinhAnh',
         'idLoaiSP',
-        'Status'
+        'Status',
+        'MoreImage'
     ];
 
-    // Các trường dữ liệu khác có thể được khai báo tại đây
+    public function getImg(){
+        return explode(',',$this->attributes['MoreImage']);
+    }
 }

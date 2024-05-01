@@ -4,7 +4,6 @@
 @endsection
 
 @section('content')
-<a href="{{route('indexSP')}}">Cancel</a>
 <div id="showcart">
 
                 <form action="{{ route('storeSP')}}" method="post">
@@ -17,7 +16,7 @@
                         <input type="text" name="tenSanPham" id="tenSanPham">
                     </div>
                     <div class="add_info">
-                        <h4>Tên loại sản phẩm 123</h4>
+                        <h4>Tên loại sản phẩm </h4>
                         <select name="idLoaiSP" id="idLoaiSP">
                             @foreach($lsp as $lsp)
                             <option value="{{$lsp->idLoaiSP}}" name="idLoaiSP" id="idLoaiSP">{{$lsp->tenLoaiSP}}</option>
@@ -34,7 +33,11 @@
                     </div>
                     <div class="add_info">
                         <h4>Hình ảnh</h4>
-                        <input type="file" name="hinhAnh" id="hinhAnh">
+                        <input type="file" name="hinhAnh" id="hinhAnh" >
+                    </div>
+                    <div class="add_info">
+                        <h4>Danh sách hình ảnh liên quan</h4>
+                        <input type="file" name="MoreImage[]" id="MoreImage" accept="image/*" multiple>
                     </div>
                     <div class="add_info">
                         <h4>Số lượng</h4>
