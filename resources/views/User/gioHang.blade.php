@@ -118,7 +118,7 @@ if(count($content) > 0){
                     $shipping_id = Session::get('Shipping_id');
                     if($customer_id !=NULL && $shipping_id !=NULL){
                         ?>
-                            <a href="{{URL::to('/checkout')}}">Thanh toán</a>
+                            <a href="{{URL::to('/payment')}}">Thanh toán</a>
                         <?php
                     }
                     elseif($customer_id !=NULL && $shipping_id ==NULL){

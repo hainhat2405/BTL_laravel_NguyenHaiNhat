@@ -27,7 +27,6 @@
                     <th>Admin</th>
                     <th>User</th>
                     <th>Xem</th>
-                    <th>Sửa</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +43,6 @@
                         </td>
                         <td>{{ $admin_info->password }}</td>
                         <td>{{ $admin_info->phone }}</td>
-                        <td>{{ $admin_info->email }}</td>
                         <td><input type="checkbox" name="author_role" {{ $admin_info->hasRole('author') ? 'checked' : '' }}></td>
                         <td><input type="checkbox" name="admin_role" {{ $admin_info->hasRole('admin') ? 'checked' : '' }}></td>
                         <td><input type="checkbox" name="user_role" {{ $admin_info->hasRole('user') ? 'checked' : '' }}></td>

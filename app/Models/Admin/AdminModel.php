@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use database\seeders\DatabaseSeeder;
+// use database\seeders\DatabaseSeeder;
 class AdminModel extends Authenticatable
 {
     use HasFactory,Notifiable;
