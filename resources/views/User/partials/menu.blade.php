@@ -29,6 +29,6 @@
             
         </div> -->
         <div id="giohang">
-            <a href="{{route('gioHang')}}"><i class="fa fa-shopping-cart" style="font-size:14px;"></i>Giỏ hàng</a>
+            <a href="{{route('show_cart')}}"><i class="fa fa-shopping-cart" style="font-size:14px;"></i>Giỏ hàng</a>
         </div>
     </div>

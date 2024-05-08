@@ -104,35 +104,49 @@ if(count($content) > 0){
                 
                 <div class="info_prodcut">
                     <h2 style="">Giảm giá:</h2>
-                    <h3 style=""></h3>
+                    <h3 style="">0 VNĐ</h3>
                 </div>
                 <div class="info_prodcut">
                     <h2 style="">Thành tiền:</h2>
                     <h3 style="">{{Cart::subtotal() . ' ' . 'VNĐ'}}</h3>
                 </div>
             </div>
-            <div class="thanhToan">
-                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 12px;"></i>
-                <?php
+
+
+    <?php
                     $customer_id = Session::get('Customer_id');
-                    $shipping_id = Session::get('Shipping_id');
-                    if($customer_id !=NULL && $shipping_id !=NULL){
+                    $idKhachHang = $kh1;
+                    // $idKhachHang = $idKhachHang;
+                    if($customer_id !=NULL && $idKhachHang !=NULL){
                         ?>
-                            <a href="{{URL::to('/payment')}}">Thanh toán</a>
+                        <div class="inp-tt">
+                            <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 12px;float:left;width:6%;height:40px"></i>
+                            <form action="{{ route('save-payment-customer') }}" method="post">
+                                @csrf
+                                <input type="submit" value="Thanh toán"></input>
+                            </form>
+                        </div>
                         <?php
                     }
-                    elseif($customer_id !=NULL && $shipping_id ==NULL){
+                    elseif($customer_id !=NULL&& $idKhachHang ==NULL){
                         ?>
-                            <a href="{{URL::to('/checkout')}}">Thanh toán</a>
+                            <div class="thanhToan">
+                                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 12px;"></i>
+                                <a href="{{URL::to('/checkout')}}">Thanh toán</a>
+                            </div>
                         <?php
                     }
                     else{
                         ?>
-                            <a href="{{URL::to('/login-Customers')}}">Thanh toán</a>
+                        <div class="thanhToan">
+                                <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 12px;"></i>
+                                <a href="{{URL::to('/login-Customers')}}">Thanh toán</a>
+                            </div>
+                            
                         <?php
                     }
                 ?>
-            </div>
+</div>
         </div>
 
         
@@ -149,7 +163,7 @@ else{
 }
 ?>
 
-<!-- elseif($customer_id !=NULL && $shipping_id !=NULL){
+<!-- elseif($customer_id !=NULL && $khachhang_id !=NULL){
                         ?><a href="{{URL::to('/payment')}}">Thanh toán</a>} -->
     <!-- Begin footer -->
     @include('User.partials.footer')

@@ -36,7 +36,7 @@
                             <input type="submit" value="Thêm">
                         </div>
                         <div class="btn_exit">
-                            <a href="{{Route('indexKH')}}">Cancel</a>
+                            <a href="{{Route('blog')}}">Cancel</a>
                         </div>
                     </div>
                     

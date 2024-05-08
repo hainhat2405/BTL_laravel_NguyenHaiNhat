@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User\SanPhamModel;
+use App\Models\Admin\KhachHangModel;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -21,9 +22,34 @@ class CheckoutController extends Controller
         $Customer_password = md5($request->customer_password);
 
         $result = DB::table('tbl_customers')->where('Customer_email',$Customer_email)->where('Customer_password',$Customer_password)->first();
+        
+    // dd($kh1);
         if($result){
             Session::put('Customer_id',$result->Customer_id);
-            return Redirect::to('/home');
+            Session::put('Customer_name',$result->Customer_name);
+            $kh = DB::table('khachhang')
+        ->where('Customer_id', Session::get('Customer_id'))
+        ->get();
+    
+    // Khởi tạo biến $kh1 trước vòng lặp để tránh lỗi khi không có bản ghi nào
+    $kh1 = null;
+    
+    // Lặp qua collection để truy cập vào mỗi bản ghi và lấy giá trị của trường 'tenKhachHang'
+    foreach ($kh as $customer) {
+        $kh1 = $customer->idKhachHang;
+        // Xử lý dữ liệu tại đây nếu cần
+    }
+    
+    // Hoặc chỉ định một bản ghi cụ thể từ collection sử dụng first() nếu bạn chỉ muốn lấy một bản ghi đầu tiên
+    $first_customer = $kh->first();
+    if ($first_customer) {
+        $kh1 = $first_customer->idKhachHang;
+    }
+    Session::put('idKhachHang',$kh1);
+        //    dd(Session::get('idKhachHang'));
+        
+            return Redirect::to('/home')->with('kh',$kh);
+
         }
         else{
             Session::put('message','Email hoặc password sai');
@@ -59,18 +85,17 @@ class CheckoutController extends Controller
         return view("User.thanhToan",compact('lsp'));
     }
     public function save_checkout_customer(Request $request){
-        // $content = Cart::content();
-        // echo $content;
-        // $data = array();
-        // $data['Shipping_name'] = $request->Shipping_name;
-        // $data['Shipping_email'] = $request->Shipping_email;
-        // $data['Shipping_phone'] = $request->Shipping_phone;
-        // $data['Shipping_notes'] = $request->Shipping_notes;
-        // $data['Shipping_address'] = $request->Shipping_address;
-        // $Shipping_id = DB::table('tbl_shipping')->insertGetId($data);
-        // Session::put('Shipping_id',$Shipping_id);
+
+        $data_payment = array();
+        $data_payment['payment_method'] = $request->payment_option;
+        $data_payment['payment_status'] = "Dang cho xu ly";
+        $payment_id = DB::table('tbl_payment')->insertGetId($data_payment);
+        Session::put('payment_id',$payment_id);
+
         $data = array();
         $data['tenKhachHang'] = $request->tenKhachHang;
+        $data['Customer_id'] = Session::get('Customer_id');
+        $data['payment_id'] = $payment_id;
         $data['soDienThoai'] = $request->soDienThoai;
         $data['diaChi'] = $request->diaChi;
         $data['email'] = $request->email;
@@ -79,10 +104,7 @@ class CheckoutController extends Controller
         Session::put('idKhachHang',$khachhang_id);
 
         //get payment_method
-        $data_payment = array();
-        $data_payment['payment_method'] = $request->payment_option;
-        $data_payment['payment_status'] = "Dang cho xu ly";
-        $payment_id = DB::table('tbl_payment')->insertGetId($data_payment);
+
 
         //insert order
         $data_order = array();
@@ -92,6 +114,7 @@ class CheckoutController extends Controller
         $data_order['order_total'] = Cart::subtotal();
         $data_order['order_status'] = "Dang cho xu ly";
         $order_id = DB::table('tbl_order')->insertGetId($data_order);
+        Session::put('order_id',$order_id);
 
         $content = Cart::content();
         //insert order_detail
@@ -113,11 +136,60 @@ class CheckoutController extends Controller
         
         //return Redirect::to('/payment');
     }
-    public function payment(){
-        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
-        return view('User.payment',compact('lsp'));
+    public function save_payment_customer(Request $request){
+        $n=0;
+        //insert order
+        $kh = KhachHangModel::all();
+        $data_order = array();
+        $data_order['Customer_id'] = Session::get('Customer_id');
+        $data_order['idKhachHang'] = $kh[$n]->idKhachHang;
+        $data_order['payment_id'] =  $kh[$n]->payment_id;
+        $data_order['order_total'] = Cart::subtotal();
+        $data_order['order_status'] = "Dang cho xu ly";
+        $order_id = DB::table('tbl_order')->insertGetId($data_order);
+
+        $content = Cart::content();
+        //insert order_detail
+        foreach($content as $v_content){
+            $data_order_detail = array();
+            $data_order_detail['order_id'] = $order_id;
+            $data_order_detail['idSanPham'] = $v_content->id;
+            $data_order_detail['tenSanPham'] = $v_content->name;
+            $data_order_detail['giaBan'] = $v_content->price;
+            $data_order_detail['product_sales_quantity'] = $v_content->qty;
+            $order_detail_id = DB::table('tbl_order_detail')->insert($data_order_detail);
+        }
+        if(Session::get('payment_id')==1){
+            return Redirect::to('/payment');
+        }
+        else{
+            return Redirect::to('/payment');
+        }
+        
+        //return Redirect::to('/payment');
     }
-    // public function
+    public function payment(){
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        return view('User.payment',compact('lsp','info_kh'));
+    }
+    
+    // public function show($idKhachHang)
+    // {
+    //     $nv = KhachHangModel::where('idKhachHang',$idKhachHang)->first();
+    //     if(!$nv){
+    //         return abort(404);
+    //     }
+    //     $idKhachHang = $nv->idKhachHang;
+    //     $tenKhachHang = $nv->tenKhachHang;
+    //     $hinhAnh = $nv->hinhAnh;
+    //     $diaChi = $nv->diaChi;
+    //     $ngaySinh = $nv->ngaySinh;
+    //     $email = $nv->email;
+    //     $Status = $nv->Status;
+    //     $soDienThoai = $nv->soDienThoai;
+    //     return view('admin.nhanvien.detail_nv',compact('idKhachHang','tenKhachHang','soDienThoai','Status','email','ngaySinh','diaChi','hinhAnh','chucVu'));
+    // }
 
 
 }

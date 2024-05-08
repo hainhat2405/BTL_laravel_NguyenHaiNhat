@@ -14,15 +14,6 @@
     />
   </head>
   <body>
-    <!-- from login -->
-    <!-- Begin header -->
-    @include('User.partials.header')
-    <!-- End header -->
-
-     <!-- Begin menu -->
-     @include('User.partials.menu')
-    <!-- End menu -->
-
     <div class="login">
       <div class="login__container">
         
@@ -51,16 +42,6 @@
         
       </div>
     </div>
-
-    <!-- Begin footer -->
-    @include('User.partials.footer')
-    <!-- <script src="js/SanPham.js"></script>
-    <script>
-
-        showgiohang1();
-        showgiohang();
-    </script> -->
-    <!-- End footer -->
   </body>
   <!-- <script src="resources/js/login.js"></script> -->
 </html>

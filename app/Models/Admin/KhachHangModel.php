@@ -18,6 +18,8 @@ class KhachHangModel extends Model
         'diaChi',
         'email',
         'ngaySinh',
-        'Status'
+        'Status',
+        'Customer_id',
+        'payment_id',
     ];
 }

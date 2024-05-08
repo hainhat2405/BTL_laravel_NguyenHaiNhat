@@ -11,7 +11,7 @@
     <title> Đại Lý Bánh Kẹo</title>
 </head>
 <body>
-    
+
     <!-- Begin header -->
     @include('User.partials.header')
     <!-- End header -->

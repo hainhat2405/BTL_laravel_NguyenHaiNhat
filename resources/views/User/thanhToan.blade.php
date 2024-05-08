@@ -90,7 +90,7 @@
                         <span>
                             <i class="fa fa-comments"></i>
                         </span>
-                        <input type="date" style="height:46px" name="ngaySinh" id="txtsonha" placeholder="ngay sinh" onblur="chksonha()">
+                        <input type="date" style="height:46px" name="ngaySinh" id="ngaySinh" placeholder="ngay sinh" onblur="chksonha()">
                     </div>
                 </div>
                 <div class="ttkh6">

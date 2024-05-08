@@ -52,6 +52,11 @@ Route::controller(App\Http\Controllers\Admin\AuthController::class)->group(funct
 Route::controller(App\Http\Controllers\Admin\UserController::class)->group(function(){
     Route::get('/indexUsers',  'index')->name('indexUsers');
     Route::post('/assign_roles',  'assign_roles')->name('assign_roles');
+    Route::get('/delete-user-roles/{id}',  'delete_user_roles')->name('delete-user-roles');
+    Route::get('/impersonate/{id}',  'impersonate')->name('impersonate');
+    Route::get('/impersonate-destroy',  'impersonate_destroy')->name('impersonate-destroy');
+    Route::post('/storeAcc','store')->name('storeAcc');
+    Route::get('/addAcc', 'create')->name('addAcc');
 });
 
 // Route::group(['middleware' => 'auth.roles'], function(){
@@ -127,15 +132,7 @@ Route::controller(App\Http\Controllers\Admin\BlogController::class)->group(funct
     Route::put('/update-blog/{id}', 'update')->name('update-blog');
     Route::get('/destroy-blog/{id}', 'destroy')->name('destroy-blog');
 });
-Route::controller(App\Http\Controllers\Admin\TKhoanController::class)->group(function(){
-    Route::get('/Acc','index')->name('Acc');
-    Route::get('/addAcc','create')->name('addAcc');
-    Route::post('/storeAcc','store')->name('storeAcc');
-    Route::get('/showAcc/{id}','show')->name('detailAcc');
-    Route::get('/editAcc/{id}','edit')->name('editAcc');
-    Route::put('/updateAcc/{id}', 'update')->name('updateAcc');
-    Route::get('/destroyAcc/{id}', 'destroy')->name('destroyAcc');
-});
+
 
 //USER
 Route::controller(App\Http\Controllers\User\HomeController::class)->group(function(){
@@ -144,13 +141,16 @@ Route::controller(App\Http\Controllers\User\HomeController::class)->group(functi
     Route::get('/GioiThieu',  'gioiThieu')->name('gioiThieu');
     Route::get('/TinTuc',  'tinTuc')->name('tinTuc');
     Route::get('/blog_detail/{id}',  'blog_detail')->name('blog_detail');
+    // Route::get('/info_customer/{id}',  'info_customer')->name('info_customer');
     Route::get('/DanhMuc',  'danhMuc')->name('danhMuc');
     Route::get('/SanPham',  'sanPham')->name('sanPham');
     Route::get('/SanPhamSauGion',  'sanPhamSauGion')->name('sanPhamSauGion');
     Route::get('/GioHang',  'gioHang')->name('gioHang');
     Route::get('/ThanhToan',  'thanhToan')->name('thanhToan');
-    // Route::get('/TTKH',  'ttkh')->name('ttkh');
+    Route::get('/ttkh/{idKhachHang}',  'ttkh')->name('ttkh');
+    Route::put('/updateKH/{idKhachHang}', 'updateKH')->name('updateKH');
     Route::post('/search-product',  'search_product')->name('search-product');
+
 
 });
 
@@ -184,6 +184,7 @@ Route::controller(App\Http\Controllers\User\CheckoutController::class)->group(fu
     Route::get('/checkout',  'checkout')->name('checkout');
     Route::get('/payment',  'payment')->name('payment');
     Route::post('/save-checkout-customer',  'save_checkout_customer')->name('save-checkout-customer');
+    Route::post('/save-payment-customer',  'save_payment_customer')->name('save-payment-customer');
     Route::post('/show-home',  'show_home')->name('show-home');
     Route::post('/payment',  'payment')->name('payment');
 });

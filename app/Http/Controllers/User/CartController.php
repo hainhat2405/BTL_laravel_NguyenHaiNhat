@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User\SanPhamModel;
+use App\Models\Admin\KhachHangModel;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -61,9 +62,34 @@ class CartController extends Controller
         return Redirect::to('/show_cart');
         
     }
-    public function show_cart(){
+    public function show_cart(Request $request){
+
+        // Lấy tất cả thông tin của bảng 'khachhang' dựa trên 'Customer_id'
+        $kh = DB::table('khachhang')
+            ->where('Customer_id', Session::get('Customer_id'))
+            ->get();
+        
+        // Khởi tạo biến $kh1 trước vòng lặp để tránh lỗi khi không có bản ghi nào
+        $kh1 = null;
+        
+        // Lặp qua collection để truy cập vào mỗi bản ghi và lấy giá trị của trường 'tenKhachHang'
+        foreach ($kh as $customer) {
+            $kh1 = $customer->idKhachHang;
+            // Xử lý dữ liệu tại đây nếu cần
+        }
+        
+        // Hoặc chỉ định một bản ghi cụ thể từ collection sử dụng first() nếu bạn chỉ muốn lấy một bản ghi đầu tiên
+        $first_customer = $kh->first();
+        if ($first_customer) {
+            $kh1 = $first_customer->idKhachHang;
+        }
+        
+        // dd($kh1);
+        
+    
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
         $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
-        return view('User.gioHang',compact('lsp'));
+        return view('User.gioHang',compact('lsp','info_kh','kh','kh1'));
     }
 
     /**

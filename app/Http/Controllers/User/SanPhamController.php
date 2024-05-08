@@ -51,7 +51,7 @@ class SanPhamController extends Controller
      */
     public function show($idSanPham)
     {
-        
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
         // $sp = DB::table('sanpham')->where('Status', '1')->orderby('idSanPham','desc')->get();
         $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
         $detailSP = DB::table('sanpham')
@@ -69,7 +69,7 @@ class SanPhamController extends Controller
         ->where('Status','1')
         ->orderby('id')
         ->get();
-        return view('User.sanPham',compact('lsp','detailSP','relate_product','blog'));
+        return view('User.sanPham',compact('lsp','detailSP','relate_product','blog','info_kh'));
     }
 
     /**

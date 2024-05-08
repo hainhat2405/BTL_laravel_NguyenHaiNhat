@@ -13,6 +13,7 @@ use Illuminate\Support\Facade\Redirect;
 class LSPhamController extends Controller
 {
     public function show_category_home($idLoaiSP){
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
         $sp = DB::table('sanpham')->where('Status', '1')->orderby('idSanPham')->get();
         $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
         $id_LSP = DB::table('sanpham')
@@ -20,9 +21,6 @@ class LSPhamController extends Controller
             ->where('sanpham.idLoaiSP', $idLoaiSP)
             ->select('loaisanpham.*', 'sanpham.*', 'loaisanpham.tenLoaiSP') // Thêm 'loaisanpham.tenLoaiSP' vào select
             ->get();
-
-        
-
-        return view('User.danhMuc',compact('sp','lsp','id_LSP'));
+        return view('User.danhMuc',compact('sp','lsp','id_LSP','info_kh'));
     }
 }
