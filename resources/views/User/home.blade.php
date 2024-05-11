@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/Trangchu.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="img/icon-td.jpg">
@@ -76,35 +77,7 @@
             </div>
             @endforeach
             
-            <!-- @foreach($lsp as $category)
-                <div class="ten-sp">
-                    <div class="ten-sp1">
-                        <h2>{{$category->tenLoaiSP}}</h2>
-                    </div>
-                    <div class="content_sp">
-                        @foreach($all_products_by_category as $product)
-                            @if($product->idLoaiSP == $category->idLoaiSP)
-                                <div class="sanPham">
-                                    <a href="{{ URL::to('/chi-tiet-san-pham/'.$product->idSanPham) }}" style="text-decoration: none;color: black;">
-                                        <img class="img_SP" src="img/{{$product->hinhAnh}}" alt="Sấu giòn Tiến Thịnh" >
-                                        <h4>{{$product->tenSanPham}}</h4>
-                                        <i>Đánh giá:
-                                            <span>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                                <i class="fa-solid fa-star"></i>
-                                            </span>
-                                        </i>
-                                        <h3>{{number_format($product->giaBan).' '.'VNĐ'}}</h3> 
-                                    </a>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            @endforeach  -->
+            <
         </div>
 
 

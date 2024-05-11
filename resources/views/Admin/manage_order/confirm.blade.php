@@ -7,15 +7,16 @@
 <div id="quanlysp" class="tab-content-item"> 
              <h3>
                 <i class="fa-solid fa-arrow-right"></i>
-                Quản lý đơn hàng: Chờ xử lý
+                Quản lý đơn hàng: Đã xác nhận
             </h3>
-            <button style="padding:10px;color: red" onclick="showcart()"><a href="{{route('viewConfirm')}}" style="text-decoration: none;">Đã xác nhận</a></button>
+            <button style="padding:10px;color: red" onclick="showcart()"><a href="{{route('manage_order')}}" style="text-decoration: none;">Chờ xử lý</a></button>
             <button style="padding:10px;color: red" onclick="showcart()"><a href="{{route('viewUnConfirm')}}" style="text-decoration: none;">Đã hủy</a></button>
-            <!-- @if(session('success'))
+            @if(session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}
 				</div>
-			@endif -->
+			@endif
+            
             <table class="tbl-main">
                 <thead>
                 <tr class="tr1">
@@ -23,7 +24,6 @@
                     <th>Tên người đặt</th>
                     <th>Tổng giá tiền</th>
                     <th>Trạng thái</th>
-                    <th>Chức năng</th>
                     <th>Xem</th>
                 </tr>
                 </thead>
@@ -31,7 +31,7 @@
                 @php $i = 1; @endphp
 				@foreach($all_order as $order_info)
                     <?php
-                        if($order_info->order_status == 0){
+                        if($order_info->order_status == 1){
                             ?>
                             <tr>
                     <td>{{$i++}}</td>
@@ -39,24 +39,18 @@
                     <td>{{ $order_info->order_total }}</td>
 					<td>
                         <?php
-                            if($order_info -> order_status == 0){
+                            if($order_info -> order_status == 1){
                                 ?>
-                               
-                                    Chờ xử lý   
+                                <button class="btn btn-success">
+                                    Đã xác nhận  
+                                 </button>
 
                                 <?php
                             }
                         ?>
                     
                     </td>
-					<td>
-                    <form action="{{ route('confirm-order') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="order_id" value="{{ $order_info->order_id }}">
-                        <button type="submit" class="btn btn-primary">Xác nhận đơn hàng</button>
-                    </form>
-                    </td>
-                    <td><a href="{{route('view-order',$order_info->order_id)}}" class="btn btn-warning" >Chi tiết</a></td>
+                    <td><a href="{{route('view-order',$order_info->order_id)}}" class="btn btn-primary" >Chi tiết</a></td>
 					
 				</tr>
 

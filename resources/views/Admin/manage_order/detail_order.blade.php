@@ -50,25 +50,24 @@
                        
                     </table>
                     
-                    <!-- <div class="add_info">
-                        <h3>Tên sản phẩm</h3>
-                        <input type="text" value="{{$order_byID->tenSanPham}}">
-                    </div>
-                    <div class="add_info">
-                        <h3>Số lượng</h3>
-                        <input type="text" value="{{$order_byID->product_sales_quantity}}">
-                    </div>
-                    <div class="add_info">
-                        <h3>Giá </h3>
-                        <input type="text" value="{{$order_byID->giaBan}}">
-                    </div>
-                    <div class="add_info">
-                        <h3>Tổng tiền </h3>
-                        <input type="text" value="{{$order_byID->product_sales_quantity * $order_byID->giaBan}}">
-                    </div> -->
-                    
                     <div class="cancel">
-                        <a href="{{route('manage_order')}}">Cancel</a>
+                        <?php
+                        if($status == 1){
+                            ?>
+                            <a href="{{route('viewConfirm')}}">Cancel</a>
+                            <?php
+                        }
+                        elseif($status == 0){
+                            ?>
+                            <a href="{{route('manage_order')}}">Cancel</a>
+                            <?php
+                        }
+                        elseif($status == 2){
+                            ?>
+                            <a href="{{route('viewUnConfirm')}}">Cancel</a>
+                            <?php
+                        }
+                        ?>
                     </div>
             </div>
 

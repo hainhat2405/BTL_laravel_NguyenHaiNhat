@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\manageOrderModel;
 use DB;
+use Session;
 class Manage_orderController extends Controller
 {
     /**
@@ -15,12 +16,22 @@ class Manage_orderController extends Controller
      */
     public function index()
     {
-        $order = manageOrderModel::paginate(10);
+        $order = manageOrderModel::paginate(5);
         $all_order = DB::table('tbl_order')
         ->join('tbl_customers','tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
-        ->select('tbl_order.*', 'tbl_customers.Customer_name')
+        ->select('tbl_order.*', 'tbl_customers.*')
         ->orderby('tbl_order.order_id')->get();
+
         return view('admin.manage_order.manageOrder',compact('all_order','order'));
+    }
+    public function viewConfirm(){
+        $order = manageOrderModel::paginate(5);
+        $all_order = DB::table('tbl_order')
+        ->join('tbl_customers','tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
+        ->select('tbl_order.*', 'tbl_customers.*')
+        ->orderby('tbl_order.order_id')->get();
+
+        return view('admin.manage_order.confirm',compact('all_order','order'));
     }
 
     /**
@@ -28,9 +39,36 @@ class Manage_orderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function confirm(Request $request)
     {
-        //
+        $orderId = $request->input('order_id'); // Assuming you're passing order_id from the form
+        
+        // Update the order status to 1 where order_id matches
+        DB::table('tbl_order')
+            ->where('order_id', $orderId)
+            ->update(['order_status' => 1]);
+
+        // Fetch all orders including updated one
+        $all_order = DB::table('tbl_order')
+            ->join('tbl_customers', 'tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
+            ->select('tbl_order.*', 'tbl_customers.*')
+            ->orderBy('tbl_order.order_id')
+            ->get();
+
+        // Paginate the orders
+        $order = manageOrderModel::paginate(5);
+        session()->flash('success', 'Xác nhận đơn hàng thành công');
+        return view('admin.manage_order.confirm', compact('order', 'all_order'));
+    }
+
+    public function viewUnConfirm(){
+        $order = manageOrderModel::paginate(5);
+        $all_order = DB::table('tbl_order')
+        ->join('tbl_customers','tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
+        ->select('tbl_order.*', 'tbl_customers.*')
+        ->orderby('tbl_order.order_id')->get();
+
+        return view('admin.manage_order.unConfirm',compact('all_order','order'));
     }
 
     /**
@@ -63,9 +101,8 @@ class Manage_orderController extends Controller
         ->join('tbl_order', 'tbl_order.order_id' , '=' , 'tbl_order_detail.order_id' )
         ->where('tbl_order_detail.order_id', $order_id)
         ->get();
-
-
-        return view('admin.manage_order.detail_order', compact('order_byID','order'));
+        $status =  $order_byID->order_status;
+        return view('admin.manage_order.detail_order', compact('order_byID','order','status'));
     }
 
 

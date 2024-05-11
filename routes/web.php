@@ -116,7 +116,9 @@ Route::controller(App\Http\Controllers\Admin\HoaDonBanController::class)->group(
 Route::controller(App\Http\Controllers\Admin\Manage_orderController::class)->group(function(){
     Route::get('/manage_order','index')->name('manage_order');
     Route::get('/view-order/{order_id}','show')->name('view-order');
-    // Route::get('/addNCC','create')->name('addNCC');
+    Route::post('/confirm-order','confirm')->name('confirm-order');
+    Route::get('/viewConfirm','viewConfirm')->name('viewConfirm');
+    Route::get('/viewUnConfirm','viewUnConfirm')->name('viewUnConfirm');
     // Route::post('/storeNCC','store')->name('storeNCC');
     // Route::get('/showNCC/{idNhaCungCap}','show')->name('detailNCC');
     // Route::get('/editNCC/{idNhaCungCap}','edit')->name('editNCC');

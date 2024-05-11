@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/GioHang.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="img/icon-td.jpg">
@@ -99,7 +100,7 @@ if(count($content) > 0){
                 </div>
                 <div class="info_prodcut">
                     <h2 style="">Tổng tiền:</h2>
-                    <h3 style="">{{Cart::subtotal() . ' ' . 'VNĐ'}}</h3>
+                    <h3 style="">{{Cart::priceTotal(0,',','.')}}</h3>
                 </div>
                 
                 <div class="info_prodcut">
@@ -108,7 +109,7 @@ if(count($content) > 0){
                 </div>
                 <div class="info_prodcut">
                     <h2 style="">Thành tiền:</h2>
-                    <h3 style="">{{Cart::subtotal() . ' ' . 'VNĐ'}}</h3>
+                    <h3 style="">{{Cart::priceTotal(0,',','.')}}</h3>
                 </div>
             </div>
 
