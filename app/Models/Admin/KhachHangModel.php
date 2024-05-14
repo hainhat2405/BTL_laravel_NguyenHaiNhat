@@ -22,4 +22,13 @@ class KhachHangModel extends Model
         'Customer_id',
         'payment_id',
     ];
+
+    public function saleinvoice()
+    {
+        return $this->hasOne(SalesInvoice::class, 'idKhachHang', 'idKhachHang');
+    }
+    public function order()
+    {
+        return $this->hasOne(OrderModel::class, 'idKhachHang', 'idKhachHang');
+    }
 }

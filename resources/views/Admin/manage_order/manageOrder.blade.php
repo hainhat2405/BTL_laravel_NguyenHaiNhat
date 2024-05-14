@@ -50,7 +50,7 @@
                     
                     </td>
 					<td>
-                    <form action="{{ route('confirm-order') }}" method="POST">
+                    <form action="{{ route('confirm-order',$order_info->order_id) }}" method="POST">
                         @csrf
                         <input type="hidden" name="order_id" value="{{ $order_info->order_id }}">
                         <button type="submit" class="btn btn-primary">Xác nhận đơn hàng</button>
@@ -66,7 +66,7 @@
 				@endforeach
                 </tbody>
             </table>
-            {{ $order->links('pagination::bootstrap-4') }}
+            <!-- {{ $order->links('pagination::bootstrap-4') }} -->
            
         </div>
 @endsection

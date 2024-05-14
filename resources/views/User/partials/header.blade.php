@@ -25,11 +25,29 @@
                                     
                                     ?>
                                         <li><h2>{{ $customer_name}}</h2>
-                                        <ul class="info-menu">
-                                            <li><a href="{{route('ttkh',$idKhachHang)}}">Thông tin cá nhân</a></li>
-                                            <li>
-                                                <a href="{{URL::to('/logout-Customers')}}">Đăng xuất</a>
-                                            </li>
+                                        <?php
+                                            if($idKhachHang == NULL){
+                                                ?>
+                                                <ul class="info-menu">
+                                                    <li>
+                                                        <a href="{{URL::to('/logout-Customers')}}">Đăng xuất</a>
+                                                    </li>
+                                                </ul>
+                                                <?php
+                                            }
+                                            else{
+                                                ?>
+                                                <ul class="info-menu">
+                                                    <li><a href="{{route('ttkh',$idKhachHang)}}">Thông tin cá nhân</a></li>
+                                                    <li>
+                                                        <a href="{{URL::to('/logout-Customers')}}">Đăng xuất</a>
+                                                    </li>
+                                                </ul>
+                                                <?php
+                                            }
+                                        ?>
+                                        
+
                                     <?php
                                 
                                 }else{

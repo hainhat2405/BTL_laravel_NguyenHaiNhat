@@ -87,8 +87,15 @@ class CheckoutController extends Controller
     public function save_checkout_customer(Request $request){
 
         $data_payment = array();
-        $data_payment['payment_method'] = $request->payment_option;
-        $data_payment['payment_status'] = "Dang cho xu ly";
+        $data_payment['payment_method'] = $request->payment_cash;
+        if( $data_payment['payment_method']){
+            $data_payment['payment_status']="chờ xử lý";
+        }
+        $data_payment['payment_method'] = $request->payment_banking;
+        if( $data_payment['payment_method']){
+            $data_payment['payment_status']="chờ xử lý";
+        }
+        
         $payment_id = DB::table('tbl_payment')->insertGetId($data_payment);
         Session::put('payment_id',$payment_id);
 
@@ -112,7 +119,7 @@ class CheckoutController extends Controller
         $data_order['idKhachHang'] = Session::get('idKhachHang');
         $data_order['payment_id'] = $payment_id;
         $data_order['order_total'] = Cart::subtotal();
-        $data_order['order_status'] = "Dang cho xu ly";
+        $data_order['order_status'] = 0;
         $order_id = DB::table('tbl_order')->insertGetId($data_order);
         Session::put('order_id',$order_id);
 
@@ -145,7 +152,7 @@ class CheckoutController extends Controller
         $data_order['idKhachHang'] = $kh[$n]->idKhachHang;
         $data_order['payment_id'] =  $kh[$n]->payment_id;
         $data_order['order_total'] = Cart::subtotal();
-        $data_order['order_status'] = "Dang cho xu ly";
+        $data_order['order_status'] = 0;
         $order_id = DB::table('tbl_order')->insertGetId($data_order);
 
         $content = Cart::content();

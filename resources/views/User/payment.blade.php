@@ -34,7 +34,9 @@
     </div>
 
     <div id="container">
-        <h1>Bạn đã đặt hàng thàng công</h1>
+        <?php
+        ?>
+        <!-- <h1>Bạn đã đặt hàng thàng công</h1>
         <div class="donhang">
             <h3 class="h3">
                 <i class="fa-solid fa-camera-retro" style="color: white;background: rgb(96, 177, 38);padding: 10px;"></i>
@@ -75,8 +77,9 @@
                 <h1>Tổng tiền :{{Cart::subtotal()}}
                 </h1>
              </form>
-        </div>
-
+        </div> -->
+        <?php
+        ?>
     </div>
     <!-- Begin footer -->
     @include('User.partials.footer')

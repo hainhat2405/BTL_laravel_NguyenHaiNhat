@@ -6,7 +6,7 @@
 @section('content')
 <div id="showcart">
 
-                    <h1>Thêm loại sản phẩm</h1>
+                    <h1>Thêm loại sản phẩm {{$idLoaiSP}}</h1>
                     <div class="add_info">
                         <h3>Tên loại sản phẩm</h3>
                         <input type="text" value="{{$tenLoaiSP}}">

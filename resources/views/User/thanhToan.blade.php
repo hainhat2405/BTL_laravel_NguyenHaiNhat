@@ -100,13 +100,13 @@
                             <div class="check">
                                 <input type="radio" id="chk-sknh" name="chk1" checked>
                             </div>
-                            <input type="text" name="payment_option" id="txtTt" value="1">
+                            <input type="text" name="payment_cash" id="txtTt" value="Thanh toán bằng tiền mặt">
                         </div>
                         <div class="chkTt" style="margin-top: 10px;">
                             <div class="check">
                                 <input type="radio" id="chk-sknh" name="chk1">
                             </div>
-                            <input type="text" name="payment_option" id="txtsonha" value="2">
+                            <input type="text" name="payment_banking" id="txtsonha" value="Thanh toán bằng chuyển khoản">
                         </div>
                 </div>
 

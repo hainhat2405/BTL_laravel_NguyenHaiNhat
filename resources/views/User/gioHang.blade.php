@@ -43,14 +43,14 @@
 if(count($content) > 0){
 ?>
 <div id="container1">
-    <h1>Giỏ hàng</h1>
+    
 
     <div id="info-gioHang">
         <div class="ttmuahang">
             <i class="fa-brands fa-bitcoin" style="color: white;background: rgb(252, 155, 51);padding: 15px;"></i>
             <a href="{{URL::to('/home')}}" style="color: white;">Tiếp tục mua hàng</a>
         </div>
-
+        <h1>Giỏ hàng</h1>
         <table class="tbl-main">
         @if(session('error'))
             <div class="alert alert-danger" style="margin-top:20px">

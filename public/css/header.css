@@ -59,7 +59,7 @@
 }
 .info-menu{
     width: 50%;
-    height: 100px;
+    height: auto;
     position: relative;
     display: none;
     /* right: 30px; */
