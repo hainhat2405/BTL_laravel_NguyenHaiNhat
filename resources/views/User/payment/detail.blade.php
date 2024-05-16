@@ -1,23 +1,13 @@
-@extends('admin.layouts.admin')
+@extends('User.payment.payment')
 @section('title')
-<title>Trang chủ</title>
+<title>Quản lý đơn hàng</title>
 @endsection
 
 @section('content')
 <div id="showcart">
     
-
                     <h1>Chi tiết thông tin đơn hàng : {{$order_byID->order_code}}</h1>
-                    <h2 style="padding-left:30%;padding-top:10px">Thông tin khách hàng</h2>
-                    <div class="add_info">
-                        <h3>Tên khách hàng</h3>
-                        <input type="text" value="{{$order_byID->Customer_name}}">
-                    </div>
-                    <div class="add_info">
-                        <h3>Số điện thoại</h3>
-                        <input type="text" value="{{$order_byID->Customer_phone}}">
-                    </div>
-                    <h2 style="padding-left:30%;padding-top:10px">Thông tin đơn hàng</h2>
+                    <h2 style="padding-left:40%;padding-top:10px">Thông tin đơn hàng</h2>
                     
                     <table class="tbl-main">
                         <thead>
@@ -50,25 +40,6 @@
                        
                     </table>
                     
-                    <div class="cancel">
-                        <?php
-                        if($status == 1){
-                            ?>
-                            <a href="{{route('viewConfirm')}}">Cancel</a>
-                            <?php
-                        }
-                        elseif($status == 0){
-                            ?>
-                            <a href="{{route('manage_order')}}">Cancel</a>
-                            <?php
-                        }
-                        elseif($status == 2){
-                            ?>
-                            <a href="{{route('viewUnConfirm')}}">Cancel</a>
-                            <?php
-                        }
-                        ?>
-                    </div>
+                
             </div>
-
 @endsection

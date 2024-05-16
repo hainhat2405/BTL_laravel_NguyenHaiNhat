@@ -5,7 +5,7 @@
 
 @section('content')
 <div id="showcart">
-                    <h1>Chi tiết hóa đơn bán: {{$idHoaDonBan}}</h1>
+                    <h1>Chi tiết hóa đơn bán: {{$MaDonHang}}</h1>
                     <div class="add_info">
                         <h3>Tên khách hàng</h3>
                         <input type="text" value="{{$tenKhachHang}}">

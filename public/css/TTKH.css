@@ -328,7 +328,12 @@
     background: rgb(0,0,0);
     margin-top: 10px;
 }
-
+.info_order{
+    width: 60%;
+    height: auto;
+    margin-left: 20%;
+    margin-top: 20px;
+}
 .breadcrumbs{
     width: 30%;
     height: 100%;
@@ -372,7 +377,57 @@
    
 }
 
+.tbl-main{
+    width: 60%;
+    height: auto;
+    margin-top: 20px;
+    margin-left: 20%;
+    margin-bottom: 50px;
+}
+.tbl-main td{
+    width: auto;
+    height: 50px;
+    border: 1px solid black;
+}
 
+.tbl_main th{
+    border: 1px solid black;
+}
+
+.tr1 th{
+    background: rgb(96, 177, 38);
+    border: 1px solid black;
+    text-align: center;
+    color: black;
+}
+.tr2 td{
+    width: 10%;
+    height: 50px;
+    text-align: center;
+    color: black;
+}
+
+tr{
+    text-align: center;
+    border: 1px solid rgb(0, 110, 203)   ;
+}
+
+#btn_a{
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(0, 130, 245);
+    color: black;
+    text-decoration: none;
+}
+#btn_b{
+    font-size: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(255, 202, 44);
+    color: black;
+    text-decoration: none;
+}
 /* #ttkh{
     width: 40%;
     height: 90%;
@@ -695,15 +750,7 @@ h3.h3 {
 
 }
 
-.tbl-main{
-    width: 60%;
-    height: 30px;
-    margin-top: 10px;
-    margin-left: 20%;
-    border-collapse:collapse;
-    margin-bottom: 20px;
-    background: rgb(246, 247, 249);
-}
+
 
 .tr1{
     width: 10%;

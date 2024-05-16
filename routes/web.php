@@ -181,6 +181,13 @@ Route::controller(App\Http\Controllers\User\CheckoutController::class)->group(fu
     Route::post('/save-payment-customer',  'save_payment_customer')->name('save-payment-customer');
     Route::post('/show-home',  'show_home')->name('show-home');
     Route::post('/payment',  'payment')->name('payment');
+    Route::get('/history','history')->name('history');
+    Route::get('/history_confirm','history_confirm')->name('history_confirm');
+    Route::get('/history_unConfirm','history_unConfirm')->name('history_unConfirm');
+    Route::get('/UnConfirm/{order_id}','UnConfirm')->name('UnConfirm');
+    Route::get('/show-order/{order_id}','show')->name('show-order');
+    Route::get('/note','note')->name('note');
+    Route::post('/note_his','note_his')->name('note_his');
 });
 
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User\SanPhamModel;
 use App\Models\Admin\KhachHangModel;
+use App\Models\Admin\OrderModel;
 use Illuminate\Http\Request;
 use DB;
+use Str;
 use Session;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
@@ -67,7 +69,9 @@ class CheckoutController extends Controller
         return Redirect::to("/login-Customers");
     }
     public function register_customer(){
-        return view('User.Register_Customers');
+        $sp = DB::table('sanpham')->where('Status', '1')->orderby('idSanPham')->get();
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        return view('User.Register_Customers', compact('lsp','sp'));
     }
     public function add_customer(Request $request){
         $data = array();
@@ -111,6 +115,8 @@ class CheckoutController extends Controller
         Session::put('idKhachHang',$khachhang_id);
 
         //get payment_method
+        $randomString = Str::random(6); // Tạo chuỗi ngẫu nhiên gồm 6 ký tự
+        $orderCode = $randomString . '_' . date("YmdHis"); // Kết hợp với ngày tháng đặt hàng
 
 
         //insert order
@@ -119,6 +125,8 @@ class CheckoutController extends Controller
         $data_order['idKhachHang'] = Session::get('idKhachHang');
         $data_order['payment_id'] = $payment_id;
         $data_order['order_total'] = Cart::subtotal();
+        $data_order['order_note'] = $request->order_note;
+        $data_order['order_code'] = $orderCode;
         $data_order['order_status'] = 0;
         $order_id = DB::table('tbl_order')->insertGetId($data_order);
         Session::put('order_id',$order_id);
@@ -135,25 +143,28 @@ class CheckoutController extends Controller
             $order_detail_id = DB::table('tbl_order_detail')->insert($data_order_detail);
         }
         if($data_payment['payment_method']==1){
-            return Redirect::to('/payment');
+            return Redirect::to('/history');
         }
         else{
-            return Redirect::to('/payment');
+            return Redirect::to('/history');
         }
         
         //return Redirect::to('/payment');
     }
     public function save_payment_customer(Request $request){
         $n=0;
-        //insert order
+        $randomString = Str::random(6); // Tạo chuỗi ngẫu nhiên gồm 6 ký tự
+        $orderCode = $randomString . '_' . date("YmdHis"); // Kết hợp với ngày tháng đặt hàng
         $kh = KhachHangModel::all();
         $data_order = array();
         $data_order['Customer_id'] = Session::get('Customer_id');
         $data_order['idKhachHang'] = $kh[$n]->idKhachHang;
         $data_order['payment_id'] =  $kh[$n]->payment_id;
+        $data_order['order_code'] = $orderCode;
         $data_order['order_total'] = Cart::subtotal();
         $data_order['order_status'] = 0;
         $order_id = DB::table('tbl_order')->insertGetId($data_order);
+        Session::put('order_id',$order_id);
 
         $content = Cart::content();
         //insert order_detail
@@ -167,36 +178,122 @@ class CheckoutController extends Controller
             $order_detail_id = DB::table('tbl_order_detail')->insert($data_order_detail);
         }
         if(Session::get('payment_id')==1){
-            return Redirect::to('/payment');
+            return Redirect::to('/note');
         }
         else{
-            return Redirect::to('/payment');
+            return Redirect::to('/note');
         }
         
         //return Redirect::to('/payment');
     }
-    public function payment(){
+    public function note(){
+        $sp = DB::table('sanpham')->orderby('idSanPham')->get();
         $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
         $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
-        return view('User.payment',compact('lsp','info_kh'));
+        return view('User.note_order',compact('lsp','info_kh','sp'));
     }
+    public function note_his(Request $request) {
+        // Tìm đơn hàng
+        $orderNote = $request->input('order_note');
+
+    // Tìm đơn hàng
+    $order = OrderModel::find(Session::get('order_id'));
+
+    if ($order) {
+        // Cập nhật ghi chú của đơn hàng
+        $order->order_note = $orderNote;
+        $order->save();
+        }
+        // Chuyển hướng người dùng đến trang lịch sử
+        return redirect('/history');
+    }
+    public function UnConfirm($order_id)
+    {
+        $order_status = $order = OrderModel::find($order_id);
+        $order->order_status = 2;
+        $order->save();
+        // Find the order by ID
+        return redirect('history_unConfirm');
+    }
+    public function history(){
+        $all_order = DB::table('tbl_order')
+        ->join('tbl_customers','tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
+        ->select('tbl_order.*', 'tbl_customers.*')
+        ->orderby('tbl_order.order_id')->get();
+        // dd($images);
+        $sp = DB::table('sanpham')->orderby('idSanPham')->get();
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        return view('User.payment.handle',compact('lsp','info_kh','all_order','sp'));
+    }
+    public function show($order_id)
+    {
+        $sp = DB::table('sanpham')->orderby('idSanPham')->get();
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        $order_byID = DB::table('tbl_order')
+        ->join('tbl_customers', 'tbl_order.Customer_id', '=', 'tbl_customers.Customer_id')
+        ->join('khachHang', 'tbl_order.idKhachHang', '=', 'khachHang.idKhachHang')
+        ->join('tbl_order_detail', 'tbl_order.order_id', '=', 'tbl_order_detail.order_id')
+        ->select('tbl_order.*', 'tbl_customers.*', 'khachHang.*', 'tbl_order_detail.*')
+        ->where('tbl_order.order_id', $order_id)
+        ->first();
+        $order = DB::table('tbl_order_detail')
+        ->join('tbl_order', 'tbl_order.order_id' , '=' , 'tbl_order_detail.order_id' )
+        ->where('tbl_order_detail.order_id', $order_id)
+        ->get();
+        $status =  $order_byID->order_status;
+        return view('User.payment.detail', compact('order_byID','order','status','lsp','sp'));
+    }
+    public function history_confirm(){
+        $all_order = DB::table('tbl_order')
+        ->join('tbl_order_detail', 'tbl_order.order_id', '=', 'tbl_order_detail.order_id')
+        ->join('sanpham', 'tbl_order_detail.idSanPham', '=', 'sanpham.idSanPham')
+        ->select('tbl_order.*', 'tbl_order_detail.*', 'sanpham.hinhAnh')
+        ->orderBy('tbl_order.order_id')
+        ->get();
     
-    // public function show($idKhachHang)
-    // {
-    //     $nv = KhachHangModel::where('idKhachHang',$idKhachHang)->first();
-    //     if(!$nv){
-    //         return abort(404);
-    //     }
-    //     $idKhachHang = $nv->idKhachHang;
-    //     $tenKhachHang = $nv->tenKhachHang;
-    //     $hinhAnh = $nv->hinhAnh;
-    //     $diaChi = $nv->diaChi;
-    //     $ngaySinh = $nv->ngaySinh;
-    //     $email = $nv->email;
-    //     $Status = $nv->Status;
-    //     $soDienThoai = $nv->soDienThoai;
-    //     return view('admin.nhanvien.detail_nv',compact('idKhachHang','tenKhachHang','soDienThoai','Status','email','ngaySinh','diaChi','hinhAnh','chucVu'));
+        $idSP = [];
+        $images = [];
+        
+        foreach ($all_order as $orderDetail) {
+            $idSP[] = $orderDetail->idSanPham;
+            $images[] = $orderDetail->hinhAnh;
+        }
+        // dd($images);
+        $sp = DB::table('sanpham')->orderby('idSanPham')->get();
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        return view('User.payment.confirm',compact('lsp','info_kh','all_order','sp'));
+    }
+    public function history_unConfirm(){
+        $all_order = DB::table('tbl_order')
+        ->join('tbl_order_detail', 'tbl_order.order_id', '=', 'tbl_order_detail.order_id')
+        ->join('sanpham', 'tbl_order_detail.idSanPham', '=', 'sanpham.idSanPham')
+        ->select('tbl_order.*', 'tbl_order_detail.*', 'sanpham.hinhAnh')
+        ->orderBy('tbl_order.order_id')
+        ->get();
+    
+        $idSP = [];
+        $images = [];
+        
+        foreach ($all_order as $orderDetail) {
+            $idSP[] = $orderDetail->idSanPham;
+            $images[] = $orderDetail->hinhAnh;
+        }
+        // dd($images);
+        $sp = DB::table('sanpham')->orderby('idSanPham')->get();
+        $info_kh = DB::table('tbl_customers')->orderBy('Customer_id')->get();
+        $lsp = DB::table('loaisanpham')->where('Status', '1')->orderby('idLoaiSP')->get();
+        return view('User.payment.unConfirm',compact('lsp','info_kh','all_order','sp'));
+    }
+
+    
+    // public function history(){
+    //     $getorder = OrderModel::where('Customer_id', Session::get('Customer_id'))->orderby('order_id')->get();
+    //     return view('User.payment',compact('getorder'));
     // }
+
 
 
 }

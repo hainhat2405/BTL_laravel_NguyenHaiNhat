@@ -39,6 +39,7 @@
                                                 ?>
                                                 <ul class="info-menu">
                                                     <li><a href="{{route('ttkh',$idKhachHang)}}">Thông tin cá nhân</a></li>
+                                                    <li><a href="{{URL('history')}}">Lịch sử</a></li>
                                                     <li>
                                                         <a href="{{URL::to('/logout-Customers')}}">Đăng xuất</a>
                                                     </li>

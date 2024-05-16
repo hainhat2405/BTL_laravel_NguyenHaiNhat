@@ -95,6 +95,14 @@
                     </div>
                 </div>
                 <div class="ttkh6">
+                    <div class="note">
+                        <span>
+                        <i class="fa-solid fa-note-sticky"></i>
+                        </span>
+                        <textarea name="order_note" id="order_note" cols="78" rows="10" placeholder="Ghi chú"></textarea>
+                    </div>
+                </div>
+                <div class="ttkh7">
                         
                         <div class="chkTt">
                             <div class="check">

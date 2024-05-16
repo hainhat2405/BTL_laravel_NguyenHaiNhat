@@ -35,10 +35,7 @@
                         <h4>Hình ảnh</h4>
                         <input type="file" name="hinhAnh" id="hinhAnh" >
                     </div>
-                    <div class="add_info">
-                        <h4>Danh sách hình ảnh liên quan</h4>
-                        <input type="file" name="MoreImage[]" id="MoreImage" accept="image/*" multiple>
-                    </div>
+                   
                     <div class="add_info">
                         <h4>Số lượng</h4>
                         <input type="text" name="soLuong" id="soLuong">

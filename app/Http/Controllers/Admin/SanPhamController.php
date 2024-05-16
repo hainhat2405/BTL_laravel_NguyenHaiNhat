@@ -122,7 +122,7 @@ class SanPhamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,string $idSanPham)
+    public function update(Request $request, $idSanPham)
     {
         $sp = SanPhamModel::find($idSanPham);
         if(!$sp){

@@ -76,6 +76,8 @@ class Manage_orderController extends Controller
         $salesInvoice->soDienThoai = $info_kh->soDienThoai;
         $salesInvoice->ngayBan = now(); // Đặt ngày bán là ngày hiện tại
         $salesInvoice->tongTien = $order->order_total;
+        $salesInvoice->ghiChu = $order->order_note;
+        $salesInvoice->MaDonHang = $order->order_code;
         // $salesInvoice->ghiChu = $order->ghiChu;
         $salesInvoice->save(); // Lưu hóa đơn vào cơ sở dữ liệu
         // Cập nhật trạng thái của đơn hàng thành "đã xác nhận"
@@ -151,37 +153,5 @@ class Manage_orderController extends Controller
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+  
 }

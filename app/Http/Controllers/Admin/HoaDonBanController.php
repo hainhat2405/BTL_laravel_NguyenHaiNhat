@@ -62,6 +62,7 @@ class HoaDonBanController extends Controller
         $soDienThoai = $hdb->soDienThoai;
         $ngayBan = $hdb->ngayBan;
         $ghiChu = $hdb->ghiChu;
+        $MaDonHang = $hdb->MaDonHang;
         $tongTien = $hdb->tongTien;
         $Status = $hdb->Status;
 
@@ -74,7 +75,7 @@ class HoaDonBanController extends Controller
         // ->join('hoadonban','cthoadonban.idHoaDonBan', '=', 'hoadonban.idHoaDonBan')
         // ->select('cthoadonban.*', 'hoadonban.*')
         // ->orderby('cthoadonban.idHoaDonBan')->get();
-        return view('admin.hoadonban.detail_hdb', compact('idHoaDonBan','tenKhachHang', 'diaChi','soDienThoai','ngayBan','tongTien','ghiChu', 'Status','all_cthdb'));
+        return view('admin.hoadonban.detail_hdb', compact('idHoaDonBan','tenKhachHang', 'diaChi','soDienThoai','ngayBan','MaDonHang','tongTien','ghiChu', 'Status','all_cthdb'));
     }
 
     /**
@@ -182,6 +183,10 @@ class HoaDonBanController extends Controller
             <tr>
                 <td>Khách hàng: '.$hdb->tenKhachHang.'</td>
                 <td>Số điện thoại: '.$hdb->soDienThoai.'</td>
+            </tr>
+            <tr>
+                <td>Ghi chú: '.$hdb->ghiChu.'</td>
+                
             </tr>
         </table>
     
