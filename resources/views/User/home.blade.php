@@ -65,17 +65,18 @@
                         ?>
                         @if($product->idLoaiSP == $category->idLoaiSP)
                     
-                    <div class="product_info">
-                        
-                        <a href="{{ URL::to('/chi-tiet-san-pham/'.$product->idSanPham) }}" style="text-decoration: none;color: black;">
-                            <div class="product_img">
-                                <img src="img/{{$product->hinhAnh}}" alt="Sấu giòn Tiến Thịnh" >
-                            </div>
-                            <h4 style="text-align:center;padding-top:25px;">{{$product->tenSanPham}}</h4>
-                            <h4 style="text-align:center;padding-top:30px;color:rgb(219, 66, 112)">{{number_format($product->giaBan).' '.'VNĐ'}}</h4>
-                        </a>
-                    </div>
-                @endif
+                        <div class="product_info">
+                            
+                            <a href="{{ URL::to('/chi-tiet-san-pham/'.$product->idSanPham) }}" style="text-decoration: none;color: black;">
+                                <div class="product_img">
+                                    <img src="img/{{$product->hinhAnh}}" alt="Sấu giòn Tiến Thịnh" >
+                                </div>
+                                <h4 style="text-align:center;padding-top:25px;">{{$product->tenSanPham}}</h4>
+                                <h4 style="text-align:center;padding-top:20px;color:rgb(219, 66, 112)">{{number_format($product->giaBan).' '.'VNĐ'}}</h4>
+                                <h4 style="text-align:center;padding-top:20px;color:rgb(219, 66, 112)">Đã bán:{{number_format($product->SoLuongBan)}}</h4>
+                            </a>
+                        </div>
+                        @endif
                         <?php
                     }
                     ?>

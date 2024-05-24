@@ -28,7 +28,12 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin');
 
+Route::controller(App\Http\Controllers\Admin\AdminController::class)->group(function(){
+    Route::post('/filter-by-date',  'filter_by_date')->name('filter-by-date');
+    Route::post('/dashboard-filter',  'dashboard_filter')->name('dashboard-filter');
+    Route::post('/days_order',  'days_order')->name('days_order');
 
+});
 Route::controller(App\Http\Controllers\Admin\LSPController::class)->group(function(){
     Route::get('/indexLSP',  'index')->name('indexLSP');
     Route::get('/add', 'create')->name('add');
@@ -126,6 +131,13 @@ Route::controller(App\Http\Controllers\Admin\BlogController::class)->group(funct
     Route::put('/update-blog/{id}', 'update')->name('update-blog');
     Route::get('/destroy-blog/{id}', 'destroy')->name('destroy-blog');
 });
+Route::controller(App\Http\Controllers\Admin\ImportGoodsController::class)->group(function(){
+    Route::get('/Import','index')->name('Import');
+    Route::post('/storeWH','store')->name('storeWH');
+});
+Route::controller(App\Http\Controllers\Admin\WareHouseController::class)->group(function(){
+    Route::get('/WareHouse','index')->name('WareHouse');
+});
 
 
 //USER
@@ -142,7 +154,7 @@ Route::controller(App\Http\Controllers\User\HomeController::class)->group(functi
     Route::get('/GioHang',  'gioHang')->name('gioHang');
     Route::get('/ThanhToan',  'thanhToan')->name('thanhToan');
     Route::get('/ttkh/{idKhachHang}',  'ttkh')->name('ttkh');
-    Route::put('/updateKH/{idKhachHang}', 'updateKH')->name('updateKH');
+    Route::put('/infoKH/{idKhachHang}', 'infoKH')->name('infoKH');
     Route::post('/search-product',  'search_product')->name('search-product');
 
 

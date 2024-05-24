@@ -226,6 +226,7 @@ body{
     margin-top: 20px;
     border-collapse:collapse;
     margin-bottom: 20px;
+    border: 2px solid rgb(96, 177, 38);
 
 }
 
@@ -248,6 +249,7 @@ body{
 
 .tbl2{
     width: 20%;
+    text-align: center;
     
 }
 
@@ -262,6 +264,7 @@ body{
 
 .tbl3{
     width: 20%;
+    text-align: center;
     
 }
 
@@ -288,6 +291,7 @@ body{
 }
 .tbl5{
     width: 20%;
+    text-align: center;
     
 }
 .tbl6{

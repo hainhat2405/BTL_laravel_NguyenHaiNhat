@@ -11,6 +11,7 @@ use App\Models\Admin\OrderDetailModel;
 use App\Models\Admin\KhachHangModel;
 use App\Models\Admin\SalesInvoice;
 use App\Models\Admin\SalesInvoiceDetail;
+use App\Models\Admin\StatisticalModel;
 use DB;
 use Session;
 class Manage_orderController extends Controller
@@ -80,9 +81,11 @@ class Manage_orderController extends Controller
         $salesInvoice->MaDonHang = $order->order_code;
         // $salesInvoice->ghiChu = $order->ghiChu;
         $salesInvoice->save(); // Lưu hóa đơn vào cơ sở dữ liệu
+        Session::put('salesInvoice',$salesInvoice);
         // Cập nhật trạng thái của đơn hàng thành "đã xác nhận"
         $order->order_status = 1;
         $order->save();
+
     
         // Lấy các mục chi tiết đơn hàng tương ứng với đơn hàng
         $orderDetails = OrderDetailModel::where('order_id', $order_id)->get();
@@ -101,9 +104,56 @@ class Manage_orderController extends Controller
             $salesInvoiceDetailData['tenSanPham']=$detail->tenSanPham;
             $salesInvoiceDetailData['soLuong']=$detail->product_sales_quantity;
             $salesInvoiceDetailData['giaBan']=$detail->giaBan;
+            $salesInvoiceDetailData['ngayBan']= $salesInvoice->ngayBan;
             $salesInvoiceDetailData['thanhTien']= $order->order_total;
-            DB::table('cthoadonban')->insert($salesInvoiceDetailData);
+            $ctHDB = DB::table('cthoadonban')->insertGetId($salesInvoiceDetailData);
+            Session::put('ctHDB', $ctHDB);
+
         }
+        
+$infoHDB = db::table('cthoadonban')->where('idCTHoaDonBan',Session::get('ctHDB'))->get();
+$infoHoa = SalesInvoice::all();
+// dd($infoHoa);
+$ngayBan = null;
+$ngayBan1 = [];
+$soLuong = null;
+$tongTien = null;
+foreach($infoHDB as $key){
+    $ngayBan = $key->ngayBan;
+    $soLuong = $key->soLuong;
+}
+foreach($infoHoa as $key){
+    $ngayBan1 = $key->ngayBan;
+}
+$a = db::table('hoadonban')
+->select(DB::raw('IFNULL(SUM(hoadonban.tongTien), 0) as tongTienBan'))
+->where('ngayBan',$ngayBan)
+->get();
+
+foreach($a as $key){
+    $tongTien = $key->tongTienBan;
+}
+// dd($ngayBan);
+// Assuming $salesInvoice is the instance of SalesInvoiceDetail
+
+
+// Check if there is statistical data for the order date
+$existingStatistical = StatisticalModel::where('order_date', $ngayBan)->first();
+// dd($existingStatistical);
+if ($existingStatistical) {
+    // Update existing statistical data
+    $existingStatistical->quantity += $soLuong;
+    $existingStatistical->sales = $tongTien;
+    $existingStatistical->save();
+}
+else {
+    // Insert new statistical data
+    $statistical = new StatisticalModel();
+    $statistical->order_date = $ngayBan;
+    $statistical->quantity = $soLuong;
+    $statistical->save();
+}
+
         session()->flash('success', 'Xác nhận đơn hàng thành công');
         return view('admin.manage_order.confirm', compact('order', 'all_order'));
     }

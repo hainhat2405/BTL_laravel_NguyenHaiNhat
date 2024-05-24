@@ -38,7 +38,7 @@
         <h1>Thông tin cá nhân</h1>
         <!-- <p style="padding-left:150px">Vui lòng đăng nhập hoặc đăng ký để thanh toán giỏ hàng và xem lại lịch sử mua hàng</p> -->
         <div id="ttkh">
-            <form action="{{ route('updateKH',['idKhachHang' => $kh->idKhachHang])}}" method="post">
+            <form action="{{ route('infoKH',['idKhachHang' => $kh->idKhachHang])}}" method="post">
                 @csrf
                 @method('PUT')
                 @if(session('success'))

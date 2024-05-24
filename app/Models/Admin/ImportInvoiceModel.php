@@ -5,20 +5,17 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SalesInvoiceDetail extends Model
+class ImportInvoiceModel extends Model
 {
     use HasFactory;
-    protected $table = 'cthoadonban';
-    protected $primaryKey = 'idCTHoaDonBan';
+    protected $table = 'hoadonnhap';
+    protected $primaryKey = 'idHoaDonNhap';
     public $timestamps = true; // Nếu bảng chứa cột created_at và updated_at(TRUE) và không (FALSE)
     protected $fillable = [
-        'idCTHoaDonBan',
-        'idHoaDonBan',
-        'ngayBan',
-        'idSanPham',
-        'tenSanPham',
-        'soLuong',
-        'giaBan',
-        'thanhTien',
+        'idHoaDonNhap',
+        'idNhaCungCap',
+        'ngayNhap',
+        'tongTien',
+        'Status'
     ];
 }

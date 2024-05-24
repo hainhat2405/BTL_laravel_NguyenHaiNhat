@@ -179,7 +179,7 @@ label{
 }
 .tbl-main td{
     width: auto;
-    height: 50px;
+    height: 100px;
     border: 1px solid black;
 }
 
@@ -269,10 +269,9 @@ tr{
     height: 300px;
 }
 #showcart{
-    width: 80%;
+    width: 97%;
     height: auto;
     background: white;
-    margin-left: 10%;
     border: 1px solid black;
     /* display: none; */
 }
@@ -286,10 +285,10 @@ tr{
 
 }
 .add_info{
-    width: 31%;
+    width: 25%;
     height: auto;
     display: inline-block;  
-    margin-left: 12%;
+    margin-left: 6%;
     margin-top: 10px;
 }
 
@@ -301,9 +300,8 @@ tr{
 }
 
 .add_info_mota{
-    width: 78%;
     height: auto;
-    margin-left: 12%;
+    margin-left: 6%;
     margin-top: 10px;
 }
 .add_info img{
@@ -314,7 +312,7 @@ tr{
     width: 40%;
     height: 30%;
     display: flex;
-    margin-left: 30%;
+    margin-left: 36%;
     margin-top: 50px;
 }
 
@@ -366,3 +364,20 @@ tr{
     height: auto;
 }
 
+p.title_thongke {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.col-md-2{
+    display: inline-block;
+    float: left;
+    margin-left: 30px;
+}
+.showcart {
+    display: block;
+}
+
+.showcart.hidden {
+    display: none;
+}

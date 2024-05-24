@@ -74,7 +74,7 @@
                         <div class="soLuong">
                             <span>Số Lượng</span>
                         </div>
-                        <input  type="number" name="soLuong" min="1" max="{{$detailSP->soLuong}}" value="1"  style="width: 72%;height: 100%;padding: 0.375rem 0.75rem;">
+                        <input  type="number" name="soLuong" min="1" max="{{$detailSP->soLuong}}" value="1"  style="width: 15%;height: 100%;padding: 0.375rem 0.75rem;">
                         <input  type="hidden" name="idSP_hidden" value="{{$detailSP->idSanPham}}"  style="width: 72%;height: 100%;padding: 0.375rem 0.75rem;">
                     </div>
 

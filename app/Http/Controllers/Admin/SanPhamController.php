@@ -40,19 +40,7 @@ class SanPhamController extends Controller
      */
     public function store(Request $request)
 {
-    $request->validate([
-        'MoreImage.*' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:5120',
-    ]);
 
-    // Handle file uploads for additional images
-    $imageModels = [];
-    if ($request->hasFile('MoreImage')) {
-        foreach ($request->file('MoreImage') as $image) {
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('images'), $imageName);
-            $imageModels[] = ImageModel::create(['filename' => $imageName]);
-        }
-    }
 
     // Store data in the database
     $data = [
@@ -69,7 +57,7 @@ class SanPhamController extends Controller
     // Optionally, associate images with the product if applicable
     // For example, assuming SanPhamModel has a relationship method called 'images'
     $sanPham = SanPhamModel::create($data);
-    $sanPham->images()->saveMany($imageModels);
+  
 
     return redirect()->route('indexSP')->with('success', 'Thêm thành công loại sản phẩm');
 }

@@ -6,7 +6,7 @@
 @section('content')
 <div id="quanlysp" class="tab-content-item"> 
              <h3>
-                <i class="fa-solid fa-arrow-right"></i>
+             <i class="fa-solid fa-arrow-right"></i>
                 Quản lý sản phẩm
             </h3>
             <button style="padding:10px;color: red" onclick="showcart()"><a href="{{route('addSP')}}" style="text-decoration: none;">Thêm</a></button>

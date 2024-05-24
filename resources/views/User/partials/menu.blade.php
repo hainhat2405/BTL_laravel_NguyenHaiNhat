@@ -7,7 +7,6 @@
                             <ul class="sub-menu">
                                 @foreach($lsp as $key =>$lsp)
                                     <li><a href="{{ URL::to('/danh-muc/'.$lsp->idLoaiSP) }}">{{$lsp->tenLoaiSP}}</a></li>
-                                   
                                     @endforeach
                             </ul>
                         

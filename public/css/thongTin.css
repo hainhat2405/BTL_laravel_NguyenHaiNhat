@@ -345,7 +345,7 @@
 /* ----------------container-----------------*/
 #container{
     width: 100%;
-    height: 420px;
+    height: 450px;
 }
 
 #container h1{
@@ -416,7 +416,6 @@ h3.h3 {
     width: 45%;
     height: 50px;
     background: #FBFBFC;
-
     float: left;
 }
 
@@ -436,6 +435,7 @@ h3.h3 {
     float: right;
     border: none;
     background: #FBFBFC;
+    border: 1px solid black;
 }
 
 .sdtkh{
@@ -460,6 +460,7 @@ h3.h3 {
     float: right;
     border: none;
     background: #FBFBFC;
+    border: 1px solid black;
 }
 /* ---tt2 */
 .ttkh2{
@@ -490,6 +491,7 @@ h3.h3 {
     float: right;
     border: none;
     background: #FBFBFC;
+    border: 1px solid black;
 }
 /* --tt3--- */
 .ttkh3{
@@ -532,6 +534,7 @@ h3.h3 {
     float: right;
     border: none;
     background: #FBFBFC;
+    border: 1px solid black;
 }
 
 /* ----ttkh4 */
@@ -565,6 +568,7 @@ h3.h3 {
     float: right;
     border: none;
     background: #FBFBFC;
+    border: 1px solid black;
 }
 
 /* ----ttkh5 */
@@ -603,6 +607,11 @@ h3.h3 {
     margin-top: 40px;
 }
 
+.ttkh6 select{
+    width: 80%;
+    height: 48px;
+}
+
 .chkTt{
     width: 100%;
     height: 100%;
@@ -629,6 +638,7 @@ h3.h3 {
     float: right;
     border: none;
     background: #FBFBFC;
+    border: 1px solid black;
 }
 
 .ttmh{

@@ -17,27 +17,35 @@ class HomeController extends Controller
 {
     public function index(){
         $sp = DB::table('sanpham')->where('Status', '1')->orderBy('idSanPham')->get();
-
+        $idSP = [];
+        foreach($sp as $key){
+            $idSP[] = $key->idSanPham;
+        }
+        // dd($idSP);
+        $cthdb = DB::table('cthoadonban')->where('idSanPham',$idSP)->select('cthoadonban.soLuong')->get();
+        // dd($cthdb);
         // Lấy tất cả loại sản phẩm
         $lsp = DB::table('loaisanpham')->where('Status', '1')->orderBy('idLoaiSP')->get();
         
 
         // Lấy tất cả sản phẩm và tên loại sản phẩm
         $all_products_by_category = DB::table('loaisanpham')
-        ->select('loaisanpham.idLoaiSP', 'loaisanpham.tenLoaiSP', 'sanpham.*')
+        ->select('loaisanpham.idLoaiSP', 'loaisanpham.tenLoaiSP', 'sanpham.*', DB::raw('IFNULL(SUM(cthoadonban.soLuong), 0) as SoLuongBan'))
         ->join('sanpham', 'loaisanpham.idLoaiSP', '=', 'sanpham.idLoaiSP')
         ->leftJoin('sanpham as sp2', function ($join) {
             $join->on('sanpham.idLoaiSP', '=', 'sp2.idLoaiSP')
                 ->whereRaw('sanpham.idSanPham > sp2.idSanPham');
         })
+        ->leftJoin('cthoadonban', 'sanpham.idSanPham', '=', 'cthoadonban.idSanPham')
         ->where('sanpham.Status', '1')
         ->groupBy('loaisanpham.idLoaiSP', 'sanpham.idSanPham')
         ->havingRaw('COUNT(sp2.idSanPham) < 10')
         ->orderBy('loaisanpham.idLoaiSP')
         ->orderBy('sanpham.idSanPham')
         ->get();
+    // dd($all_products_by_category);
         
-        return view('User.home', compact('all_products_by_category','lsp','sp'));
+        return view('User.home', compact('all_products_by_category','lsp','sp','cthdb'));
     }
     
     public function gioiThieu(){
@@ -93,7 +101,7 @@ class HomeController extends Controller
         return view('User.info_kh',compact('kh','sp','lsp'));
 
     }
-    public function updateKH(Request $request, $idKhachHang)
+    public function infoKH(Request $request, $idKhachHang)
     {
         $kh = KhachHangModel::find($idKhachHang);
         if(!$kh){

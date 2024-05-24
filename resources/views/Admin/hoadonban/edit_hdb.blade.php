@@ -4,7 +4,7 @@
 @endsection
 
 @section('content')
-<a href="{{route('indexLSP')}}">Cancel</a>
+
 <div id="showcart">
 
                 <form action="{{ route('update',['idLoaiSP' => $lsp->idLoaiSP])}}" method="post">
