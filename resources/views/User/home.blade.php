@@ -86,9 +86,6 @@
             
             <
         </div>
-
-
-    </div>
     <!-- End content -->
 
     <!-- Begin footer -->

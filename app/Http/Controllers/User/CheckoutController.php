@@ -142,6 +142,7 @@ class CheckoutController extends Controller
             $data_order_detail['product_sales_quantity'] = $v_content->qty;
             $order_detail_id = DB::table('tbl_order_detail')->insert($data_order_detail);
         }
+        Cart::destroy();
         if($data_payment['payment_method']==1){
             return Redirect::to('/history');
         }
@@ -161,7 +162,7 @@ class CheckoutController extends Controller
         $data_order['idKhachHang'] = $kh[$n]->idKhachHang;
         $data_order['payment_id'] =  $kh[$n]->payment_id;
         $data_order['order_code'] = $orderCode;
-        $data_order['order_total'] = Cart::subtotal();
+        $data_order['order_total'] = number_format(Cart::priceTotal(0,'.',''), 0, '.', ',');
         $data_order['order_status'] = 0;
         $order_id = DB::table('tbl_order')->insertGetId($data_order);
         Session::put('order_id',$order_id);
@@ -177,6 +178,7 @@ class CheckoutController extends Controller
             $data_order_detail['product_sales_quantity'] = $v_content->qty;
             $order_detail_id = DB::table('tbl_order_detail')->insert($data_order_detail);
         }
+        // Cart::destroy();
         if(Session::get('payment_id')==1){
             return Redirect::to('/note');
         }
@@ -205,6 +207,7 @@ class CheckoutController extends Controller
         $order->save();
         }
         // Chuyển hướng người dùng đến trang lịch sử
+        Cart::destroy();
         return redirect('/history');
     }
     public function UnConfirm($order_id)

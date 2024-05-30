@@ -178,7 +178,7 @@ class HoaDonBanController extends Controller
         <table class="invoice-details">
             <tr>
                 <td>Hóa đơn số: '.$hdb->idHoaDonBan.'</td>
-                <td>Ngày:'.date("d/m/Y").'</td>
+                <td>Ngày:'.date("d/m/Y h:m:s").'</td>
             </tr>
             <tr>
                 <td>Khách hàng: '.$hdb->tenKhachHang.'</td>

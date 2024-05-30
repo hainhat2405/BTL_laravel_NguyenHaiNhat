@@ -105,54 +105,108 @@ class Manage_orderController extends Controller
             $salesInvoiceDetailData['soLuong']=$detail->product_sales_quantity;
             $salesInvoiceDetailData['giaBan']=$detail->giaBan;
             $salesInvoiceDetailData['ngayBan']= $salesInvoice->ngayBan;
-            $salesInvoiceDetailData['thanhTien']= $order->order_total;
+            $salesInvoiceDetailData['thanhTien']= $detail->product_sales_quantity* $detail->giaBan;
             $ctHDB = DB::table('cthoadonban')->insertGetId($salesInvoiceDetailData);
             Session::put('ctHDB', $ctHDB);
 
         }
         
-$infoHDB = db::table('cthoadonban')->where('idCTHoaDonBan',Session::get('ctHDB'))->get();
-$infoHoa = SalesInvoice::all();
-// dd($infoHoa);
-$ngayBan = null;
-$ngayBan1 = [];
-$soLuong = null;
-$tongTien = null;
-foreach($infoHDB as $key){
-    $ngayBan = $key->ngayBan;
-    $soLuong = $key->soLuong;
-}
-foreach($infoHoa as $key){
-    $ngayBan1 = $key->ngayBan;
-}
-$a = db::table('hoadonban')
-->select(DB::raw('IFNULL(SUM(hoadonban.tongTien), 0) as tongTienBan'))
-->where('ngayBan',$ngayBan)
-->get();
+        $infoHDB = db::table('cthoadonban')->where('idCTHoaDonBan',Session::get('ctHDB'))->get();
 
-foreach($a as $key){
-    $tongTien = $key->tongTienBan;
-}
-// dd($ngayBan);
-// Assuming $salesInvoice is the instance of SalesInvoiceDetail
+        // dd($infoHoa);
+        $ngayBan = null;
+        $soLuong = null;
+        $tongTien = null;
+        $idSPham = null;
+        foreach($infoHDB as $key){
+            $idSPham = $key->idSanPham;
+            $ngayBan = $key->ngayBan;
+            $soLuong = $key->soLuong;
+        }
+        $infoHoa = SalesInvoice::all();
+        $ngayBan1 = null;
+        foreach($infoHoa as $key){
+            $ngayBan1 = $key->ngayBan;
+        }
+        $giaNhapHang = db::table('cthoadonnhap')->where('idSanPham',$idSPham)->get();
+        $gia = null;
+        foreach($giaNhapHang as $key){
+            $gia = $key->giaNhap;
+        }
+        $tongGiaNhap = DB::table('cthoadonban')
+            ->join('cthoadonnhap', 'cthoadonban.idSanPham', '=', 'cthoadonnhap.idSanPham')
+            ->where('cthoadonban.idSanPham', $idSPham)
+            ->select('cthoadonban.soLuong', 'cthoadonnhap.giaNhap')
+            ->get();
+        $soLuongBan = null;
+        $giaNhapHangHoa = null;
+        $tongTienHang = null;
+        $profit = 0;
+        $tot= 0;
+
+    foreach($tongGiaNhap as $key){
+        $soLuongBan = $key->soLuong;
+        $giaNhapHangHoa = $key->giaNhap;
+        $tongTienHang = $soLuongBan * $giaNhapHangHoa;
+        $tot += $tongTienHang;
+        }
 
 
-// Check if there is statistical data for the order date
-$existingStatistical = StatisticalModel::where('order_date', $ngayBan)->first();
-// dd($existingStatistical);
-if ($existingStatistical) {
-    // Update existing statistical data
-    $existingStatistical->quantity += $soLuong;
-    $existingStatistical->sales = $tongTien;
-    $existingStatistical->save();
-}
-else {
-    // Insert new statistical data
-    $statistical = new StatisticalModel();
-    $statistical->order_date = $ngayBan;
-    $statistical->quantity = $soLuong;
-    $statistical->save();
-}
+        // dd($tot);
+        $tongSL = null;
+        $tongSoLuong = db::table('cthoadonban')
+        ->select(DB::raw('IFNULL(SUM(cthoadonban.soLuong), 0) as tongSoLuong'))
+        ->where('ngayBan', $ngayBan)
+        ->get();
+
+        foreach($tongSoLuong as $key){
+        $tongSL = $key->tongSoLuong;
+        }
+    // dd($tot);
+    $tongTienBanHang = db::table('hoadonban')
+        ->select(DB::raw('IFNULL(SUM(hoadonban.tongTien) * 1000, 0) as tongTienBan'))
+        ->where('ngayBan', $ngayBan)
+        ->get();
+
+
+
+    // $tongDonHang = db::table('hoadonban')->where('ngayBan',$ngayBan)->get();
+    $tongDonHang = db::table('hoadonban')
+                    ->where('ngayBan', $ngayBan)
+                    ->count();
+
+
+    foreach($tongTienBanHang as $key){
+        $tongTien = $key->tongTienBan;
+    }
+
+    $profit = $tongTien - $tot;
+    // dd($tongTien,$tot,$profit);
+    // dd($ngayBan);
+    // Assuming $salesInvoice is the instance of SalesInvoiceDetail
+
+
+    // Check if there is statistical data for the order date
+    $existingStatistical = StatisticalModel::where('order_date', $ngayBan)->first();
+    // dd($existingStatistical);
+    if ($existingStatistical) {
+        // Update existing statistical data
+        $existingStatistical->quantity = $tongSL;
+        $existingStatistical->sales = $tongTien;
+        $existingStatistical->profit = $profit;
+        $existingStatistical->total_order =$tongDonHang ;
+        $existingStatistical->save();
+    }
+    else {
+        // Insert new statistical data
+        $statistical = new StatisticalModel();
+        $statistical->order_date = $ngayBan;
+        $statistical->quantity = $tongSL;
+        $statistical->sales = $tongTien;
+        $statistical->profit = $profit;
+        $statistical->total_order = $tongDonHang;
+        $statistical->save();
+    }
 
         session()->flash('success', 'Xác nhận đơn hàng thành công');
         return view('admin.manage_order.confirm', compact('order', 'all_order'));

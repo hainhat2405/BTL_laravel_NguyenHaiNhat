@@ -57,10 +57,11 @@ class ImportGoodsController extends Controller
     $ngayNhap = $request->input('ngayNhap');
     $Status = $request->input('Status');
 
-    // // Initialize total amount
-    // $tongTien = 0;
-    // $total= 0;
-    // $a = 0;
+    // Initialize total amount
+    $tongTien = 0;
+    $total= 0;
+    $tongNhap = 0;
+    $a = 0;
 
     // $tenSanPham = $request->input('tenSanPham');
     // $sl1= 0;
@@ -75,78 +76,84 @@ class ImportGoodsController extends Controller
     
     
     
-    // // Loop through each product entry and save it
-    // for ($i = 0; $i < count($tenSanPham); $i++) {
-    //     // Get supplier name
-    //     $ncc = DB::table('nhacungcap')->where('idNhaCungCap', $idNhaCungCap[$i])->first();
-    //     $tenNCC = $ncc ? $ncc->tenNhaCungCap : null;
+    // Loop through each product entry and save it
+    for ($i = 0; $i < count($tenSanPham); $i++) {
+        // Get supplier name
+        $ncc = DB::table('nhacungcap')->where('idNhaCungCap', $idNhaCungCap[$i])->first();
+        $tenNCC = $ncc ? $ncc->tenNhaCungCap : null;
 
-    //     // Get product type name
-    //     $lsp = DB::table('loaisanpham')->where('idLoaiSP', $idLoaiSP[$i])->first();
-    //     $tenLSP = $lsp ? $lsp->tenLoaiSP : null;
+        // Get product type name
+        $lsp = DB::table('loaisanpham')->where('idLoaiSP', $idLoaiSP[$i])->first();
+        $tenLSP = $lsp ? $lsp->tenLoaiSP : null;
 
-    //     if($tenSanPham == )
-    //     $data = [
-    //         'tenSanPham' => $tenSanPham[$i],
-    //         'moTa' => $moTa[$i],
-    //         'giaBan' => $giaBan[$i],
-    //         'soLuong' => $soLuong[$i],
-    //         'idLoaiSP' => $idLoaiSP[$i],
-    //         'Status' => $Status[$i] ? 1 : 0,
-    //     ];
+        // if($tenSanPham == )
+        $data = [
+            'tenSanPham' => $tenSanPham[$i],
+            'moTa' => $moTa[$i],
+            'giaBan' => $giaBan[$i],
+            'soLuong' => $soLuong[$i],
+            'idLoaiSP' => $idLoaiSP[$i],
+            'Status' => $Status[$i] ? 1 : 0,
+        ];
 
-    //     // Handle file upload if provided
-    //     if (isset($hinhAnh[$i])) {
-    //         $file = $hinhAnh[$i];
-    //         $fileName = $file->getClientOriginalName(); 
-    //         $data['hinhAnh'] = $fileName; // Store only the filename
-    //     }
+        // Handle file upload if provided
+        if (isset($hinhAnh[$i])) {
+            $file = $hinhAnh[$i];
+            $fileName = $file->getClientOriginalName(); 
+            $data['hinhAnh'] = $fileName; // Store only the filename
+        }
 
-    //     $idSP = DB::table('sanpham')->insertGetId($data);
+        $idSP[] = DB::table('sanpham')->insertGetId($data);
 
-    //     $data_WH = [
-    //         'idSanPham' => $idSP,
-    //         'tenSanPham' => $tenSanPham[$i],
-    //         'moTa' => $moTa[$i],
-    //         'tenLoaiSP' => $tenLSP,
-    //         'giaNhap' => $giaNhap[$i],
-    //         'giaBan' => $giaBan[$i],
-    //         'dvTinh' => $donViTinh[$i],
-    //         'soLuongNhap' => $soLuong[$i],
-    //         'tenNhaCungCap' => $tenNCC,
-    //         'ngayNhap' => $ngayNhap[$i],
-    //     ];
+        $data_WH = [
+            'idSanPham' => $idSP[$i],
+            'tenSanPham' => $tenSanPham[$i],
+            'moTa' => $moTa[$i],
+            'tenLoaiSP' => $tenLSP,
+            'giaNhap' => $giaNhap[$i],
+            'giaBan' => $giaBan[$i],
+            'dvTinh' => $donViTinh[$i],
+            'soLuongNhap' => $soLuong[$i],
+            'tenNhaCungCap' => $tenNCC,
+            'ngayNhap' => $ngayNhap[$i],
+        ];
 
-    //     if (isset($hinhAnh[$i])) {
-    //         $data_WH['hinhAnh'] = $fileName; // Use the same file name
-    //     }
+        if (isset($hinhAnh[$i])) {
+            $data_WH['hinhAnh'] = $fileName; // Use the same file name
+        }
 
-    //     DB::table('tbl_warehouse')->insertGetId($data_WH);
+        DB::table('tbl_warehouse')->insertGetId($data_WH);
 
-    //     // Calculate total amount
-    //     $tongTien += $giaNhap[$i] * $soLuong[$i];
-    //     $data_CTHDN = [
-    //         'idHoaDonNhap' => Session::get('idHDN'),
-    //         'idSanPham' => $idSP,
-    //         'tenSanPham' =>$tenSanPham[$i],
-    //         'soLuong' => $soLuong[$i],
-    //         'giaNhap' => $giaNhap[$i],
-    //         'thanhTien' => $giaNhap[$i] * $soLuong[$i],
-    //     ];
-    //     DB::table('cthoadonnhap')->insertGetId($data_CTHDN);
-
-    // }
+        // $tongNhap += ();
+        $data_HDN = [
+            'idNhaCungCap' => $idNhaCungCap[0], // assuming all products have the same supplier
+            'ngayNhap' => $ngayNhap[0], // assuming all products are entered on the same date
+            'tongTien' => $soLuong[$i] * $giaNhap[$i],
+        ];
+       
+    
+        $idHDN = DB::table('hoadonnhap')->insertGetId($data_HDN);
+        Session::put('idHDN',$idHDN);
+        
+    
+      
+              // Calculate total amount
+              $tongTien += $giaNhap[$i] * $soLuong[$i];
+              $data_CTHDN = [
+                  'idHoaDonNhap' => Session::get('idHDN'),
+                  'idSanPham' => $idSP[$i],
+                  'tenSanPham' =>$tenSanPham[$i],
+                  'soLuong' => $soLuong[$i],
+                  'giaNhap' => $giaNhap[$i],
+                  'thanhTien' => $giaNhap[$i] * $soLuong[$i],
+              ];
+              DB::table('cthoadonnhap')->insertGetId($data_CTHDN);
+        
+    }
+    // dd($tongNhap);
     // $total += $tongTien;
 
-    // $data_HDN = [
-    //     'idNhaCungCap' => $idNhaCungCap[0], // assuming all products have the same supplier
-    //     'ngayNhap' => $ngayNhap[0], // assuming all products are entered on the same date
-    //     'tongTien' => $total,
-    // ];
-
-    // $idHDN = DB::table('hoadonnhap')->insertGetId($data_HDN);
-    // Session::put('idHDN',$idHDN);
-    
+   
 
     return redirect()->route('WareHouse')->with('success', 'Thêm thành công');
 }

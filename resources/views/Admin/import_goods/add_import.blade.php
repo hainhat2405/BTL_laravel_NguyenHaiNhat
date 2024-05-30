@@ -73,6 +73,7 @@
                 <select name="donViTinh[]" id="donViTinh">
                     <option  name="donViTinh" id="donViTinh">Hộp</option>
                     <option  name="donViTinh" id="donViTinh">Thùng</option>
+                    <option  name="donViTinh" id="donViTinh">Gói</option>
                 </select>
             </div>
             <div class="add_info">
@@ -159,6 +160,7 @@
                 <select name="donViTinh[]" id="donViTinh">
                     <option  name="donViTinh" id="donViTinh">Hộp</option>
                     <option  name="donViTinh" id="donViTinh">Thùng</option>
+                    <option  name="donViTinh" id="donViTinh">Gói</option>
                 </select>
             </div>
             <div class="add_info">

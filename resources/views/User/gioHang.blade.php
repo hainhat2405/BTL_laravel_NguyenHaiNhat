@@ -100,7 +100,7 @@ if(count($content) > 0){
                 </div>
                 <div class="info_prodcut">
                     <h2 style="">Tổng tiền:</h2>
-                    <h3 style="">{{Cart::priceTotal(0,',','.')}}</h3>
+                    <h3 style="">{{number_format(Cart::priceTotal(0,'.',''), 0, '.', ',');}}</h3>
                 </div>
                 
                 <div class="info_prodcut">
@@ -109,7 +109,7 @@ if(count($content) > 0){
                 </div>
                 <div class="info_prodcut">
                     <h2 style="">Thành tiền:</h2>
-                    <h3 style="">{{Cart::priceTotal(0,',','.')}}</h3>
+                    <h3 style="">{{number_format(Cart::priceTotal(0,'.',''), 0, '.', ',');}}</h3>
                 </div>
             </div>
 
